@@ -1,0 +1,205 @@
+{
+  "engine_version": "ARF-v2.0-OMNI",
+  "hypotheses": {
+    "HYP-BAD6F552": {
+      "id": "HYP-BAD6F552",
+      "title": "Automated Healthcare Compliance Audit Efficacy",
+      "statement": "Automated compliance auditing with ARF-v2 reduces response triage latency by >40% while maintaining accuracy >= 90%.",
+      "status": "VALIDATED",
+      "confidence_score": 0.85,
+      "parent_id": null,
+      "tags": [
+        "autonomous_triage",
+        "compliance",
+        "optimization"
+      ],
+      "evidence": [
+        {
+          "run_id": "RUN-20260912-115620-673C",
+          "task_id": "TSK-09017D17",
+          "verdict": "VALIDATED",
+          "notes": "Observed reduction: 45.0% vs target: 40.0% (p=0.0021)",
+          "p_value": 0.0021,
+          "timestamp": "2026-09-12T11:56:20.650393+00:00"
+        }
+      ],
+      "metrics_summary": {},
+      "created_at": "2026-09-12T11:56:20.291231+00:00",
+      "updated_at": "2026-09-12T11:56:20.650378+00:00",
+      "metadata": {
+        "domain": "Healthcare Compliance",
+        "target_threshold": 40.0
+      }
+    }
+  },
+  "tasks": {
+    "TSK-476B5563": {
+      "id": "TSK-476B5563",
+      "title": "Collect baseline telemetry for Healthcare Compliance",
+      "assigned_role": "DATA_COLLECTOR",
+      "payload": {
+        "target_domain": "Healthcare Compliance",
+        "sample_size": 250
+      },
+      "priority": 2,
+      "status": "COMPLETED",
+      "hypothesis_id": "HYP-BAD6F552",
+      "depends_on": [],
+      "assigned_agent_id": "AGT-DATA-01",
+      "result": {
+        "status": "SUCCESS",
+        "message": "Successfully retrieved 250 records from Healthcare Compliance",
+        "metrics": {
+          "sample_size": 250,
+          "target_domain": "Healthcare Compliance",
+          "latency_baseline_ms": 420.5,
+          "triage_accuracy_baseline": 0.74,
+          "error_rate": 0.04,
+          "data_records_extracted": 250
+        }
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3,
+      "created_at": "2026-09-12T11:56:20.291466+00:00",
+      "started_at": "2026-09-12T11:56:20.295884+00:00",
+      "completed_at": "2026-09-12T11:56:20.346791+00:00"
+    },
+    "TSK-7F07E7FE": {
+      "id": "TSK-7F07E7FE",
+      "title": "Execute latency reduction experiment with ARF-v2 Pipeline",
+      "assigned_role": "EXPERIMENTER",
+      "payload": {
+        "treatment": "ARF_AUTOMATED_AUDIT_V2",
+        "baseline_latency_ms": 420.5
+      },
+      "priority": 2,
+      "status": "COMPLETED",
+      "hypothesis_id": "HYP-BAD6F552",
+      "depends_on": [
+        "TSK-476B5563"
+      ],
+      "assigned_agent_id": "AGT-EXP-01",
+      "result": {
+        "status": "SUCCESS",
+        "treatment": "ARF_AUTOMATED_AUDIT_V2",
+        "metrics": {
+          "treatment_latency_ms": 231.275,
+          "latency_reduction_pct": 45.0,
+          "accuracy_post_treatment": 0.935,
+          "throughput_per_sec": 128.4
+        }
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3,
+      "created_at": "2026-09-12T11:56:20.291587+00:00",
+      "started_at": "2026-09-12T11:56:20.394051+00:00",
+      "completed_at": "2026-09-12T11:56:20.475659+00:00"
+    },
+    "TSK-09017D17": {
+      "id": "TSK-09017D17",
+      "title": "Evaluate empirical significance and threshold validation",
+      "assigned_role": "CRITIC_EVALUATOR",
+      "payload": {
+        "target_reduction_threshold": 40.0,
+        "experiment_metrics": {
+          "latency_reduction_pct": 45.0
+        }
+      },
+      "priority": 1,
+      "status": "COMPLETED",
+      "hypothesis_id": "HYP-BAD6F552",
+      "depends_on": [
+        "TSK-7F07E7FE"
+      ],
+      "assigned_agent_id": "AGT-CRITIC-01",
+      "result": {
+        "status": "SUCCESS",
+        "validated": true,
+        "p_value": 0.0021,
+        "confidence_gain": 0.35,
+        "verdict": "VALIDATED",
+        "notes": "Observed reduction: 45.0% vs target: 40.0% (p=0.0021)"
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3,
+      "created_at": "2026-09-12T11:56:20.291693+00:00",
+      "started_at": "2026-09-12T11:56:20.496481+00:00",
+      "completed_at": "2026-09-12T11:56:20.547415+00:00"
+    },
+    "TSK-68D08B09": {
+      "id": "TSK-68D08B09",
+      "title": "Synthesize cross-agent findings into executive brief",
+      "assigned_role": "SYNTHESIZER",
+      "payload": {
+        "hypothesis_title": "Automated Healthcare Compliance Audit Efficacy",
+        "findings": {
+          "verdict": "VALIDATED",
+          "latency_reduction_pct": 45.0
+        }
+      },
+      "priority": 3,
+      "status": "COMPLETED",
+      "hypothesis_id": "HYP-BAD6F552",
+      "depends_on": [
+        "TSK-09017D17"
+      ],
+      "assigned_agent_id": "AGT-SYNTH-01",
+      "result": {
+        "status": "SUCCESS",
+        "executive_summary": "Research on 'Automated Healthcare Compliance Audit Efficacy' concluded with verdict: VALIDATED. Performance improvement: 45.0%. Confidence updated to high-assurance tier.",
+        "action_items": [
+          "Incorporate optimized triage model into production dispatch",
+          "Update master_ledger.md strategy log"
+        ]
+      },
+      "error": null,
+      "retry_count": 0,
+      "max_retries": 3,
+      "created_at": "2026-09-12T11:56:20.291787+00:00",
+      "started_at": "2026-09-12T11:56:20.598638+00:00",
+      "completed_at": "2026-09-12T11:56:20.639716+00:00"
+    }
+  },
+  "runs_history": [
+    {
+      "run_id": "RUN-20260912-115620-673C",
+      "hypothesis_id": "HYP-BAD6F552",
+      "completed_at": "2026-09-12T11:56:20.650819+00:00",
+      "pipeline_summary": {
+        "run_id": "RUN-20260912-115620-673C",
+        "elapsed_seconds": 0.358,
+        "total_tasks": 4,
+        "completed": 4,
+        "failed": 0
+      },
+      "verdict": "VALIDATED",
+      "confidence_score": 0.85
+    }
+  ],
+  "agents": [
+    {
+      "id": "AGT-DATA-01",
+      "name": "OmniCollector-Alpha",
+      "role": "DATA_COLLECTOR"
+    },
+    {
+      "id": "AGT-EXP-01",
+      "name": "OmniExperimenter-Beta",
+      "role": "EXPERIMENTER"
+    },
+    {
+      "id": "AGT-CRITIC-01",
+      "name": "OmniCritic-Gamma",
+      "role": "CRITIC_EVALUATOR"
+    },
+    {
+      "id": "AGT-SYNTH-01",
+      "name": "OmniSynthesizer-Delta",
+      "role": "SYNTHESIZER"
+    }
+  ],
+  "last_saved_at": "2026-09-12T11:56:20.650954+00:00"
+}

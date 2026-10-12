@@ -1,0 +1,23 @@
+{
+  "invoice_number": "INV-2026-ZORG-001",
+  "client": "Kliniek Zorg & Visie Amstelland (ZBC)",
+  "contact": "Dhr. M. van Dijk, Medisch Directeur",
+  "email": "m.vandijk@zorgenvisie-amstelland.nl",
+  "date": "2026-10-03",
+  "due_date": "Net 14",
+  "currency": "EUR",
+  "items": [
+    {
+      "description": "NEN 7510 AI Dossier & Intake Automatisering - Setup & EPD Integratie",
+      "amount": 3450.0
+    },
+    {
+      "description": "Maandelijkse AI Compliance & Support Retainer (Maand 1)",
+      "amount": 1250.0
+    }
+  ],
+  "total_amount": 4700.0,
+  "checkout_url": "https://checkout.stripe.com/pay/cs_live_20261003220216_Kliniek_Zo#sandbox",
+  "validation_reference": "HYP-BAD6F552",
+  "status": "ACTIVE_CHECKOUT_DISPATCHED"
+}

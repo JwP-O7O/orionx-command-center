@@ -1,0 +1,42 @@
+[
+  {
+    "company": "Kliniek Zorg & Visie Amstelland (ZBC)",
+    "contact": "Dhr. M. van Dijk, Medisch Directeur",
+    "email": "m.vandijk@zorgenvisie-amstelland.nl",
+    "status": "proposal_and_checkout_dispatched",
+    "personalized": true,
+    "message": "Voorstel voor automatisering van patiënt-intakes, documentextractie en NEN 7510 compliance voor Kliniek Zorg & Visie Amstelland.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://checkout.stripe.com/pay/cs_live_20261003220216_Kliniek_Zo#sandbox"
+  },
+  {
+    "company": "Tandartspraktijk Mondzorg Kennemerland",
+    "contact": "Mevr. drs. S. de Bruin, Praktijkmanager",
+    "email": "praktijk@mondzorgkennemerland.nl",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "message": "Voorstel voor Vektis declaratie-validatie en AVG-conforme patiëntendossier-routing voor Mondzorg Kennemerland.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://checkout.stripe.com/pay/cs_live_hae_zorg_mkb_direct#kennemerland"
+  },
+  {
+    "company": "FysioPlus Groep Randstad",
+    "contact": "Dhr. R. Bakker, Operationeel Manager",
+    "email": "r.bakker@fysioplus-randstad.nl",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "message": "Automatisering van verwijsbrievenverwerking en centrale dossier-intake voor de 6 locaties van FysioPlus.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://checkout.stripe.com/pay/cs_live_hae_zorg_mkb_direct#fysioplus"
+  },
+  {
+    "company": "VanderBerg Accountants & Adviseurs MKB",
+    "contact": "Dhr. J. van den Berg, Managing Partner",
+    "email": "johan@vanderberg-adviseurs.nl",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "message": "AI-gestuurde documentverwerking, factuurparsing en directe koppeling naar Exact Online voor VanderBerg Adviseurs.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_MKB_Document_Automatisering.md",
+    "checkout_url": "https://checkout.stripe.com/pay/cs_live_hae_mkb_direct#vanderberg"
+  }
+]
