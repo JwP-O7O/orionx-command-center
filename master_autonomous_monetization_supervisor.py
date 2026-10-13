@@ -244,6 +244,9 @@ async def serve_agency_homepage(request: Request):
     if any(sub in host for sub in ["trade.orionx.nl", "solana.orionx.nl", "claw.orionx.nl", "pump.orionx.nl"]):
         if TRADING_DASHBOARD_PAGE.exists():
             return HTMLResponse(content=inject_tracking(TRADING_DASHBOARD_PAGE.read_text(encoding="utf-8")))
+    if "scan.orionx.nl" in host:
+        if SCAN_PAGE.exists():
+            return HTMLResponse(content=inject_tracking(SCAN_PAGE.read_text(encoding="utf-8")))
     SYSTEM_METRICS["store_visits"] += 1
     if AGENCY_HOME_PAGE.exists():
         content = inject_tracking(AGENCY_HOME_PAGE.read_text(encoding="utf-8"))
