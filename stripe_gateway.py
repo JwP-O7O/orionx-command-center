@@ -26,26 +26,32 @@ class StripeGateway:
         client_name: str,
         amount_eur: float,
         description: str,
-        success_url: str = "https://hae-compliance.ai/success",
-        cancel_url: str = "https://hae-compliance.ai/cancel",
+        success_url: str = "https://orionx.nl/success",
+        cancel_url: str = "https://orionx.nl/cancel",
+        is_subscription: bool = False,
     ) -> Dict[str, Any]:
-        """Creates a Stripe Checkout Session or sandbox equivalent."""
+        """Creates a Stripe Checkout Session for one-time payment or recurring subscription."""
         amount_cents = int(amount_eur * 100)
-        session_id = f"cs_live_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}_{client_name.replace(' ', '_')[:10]}"
+        prefix = "sub" if is_subscription else "live"
+        session_id = f"cs_{prefix}_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}_{client_name.replace(' ', '_')[:10]}"
 
         if self.is_live:
             try:
-                data = urllib.parse.urlencode({
+                params = {
                     "payment_method_types[0]": "card",
-                    "mode": "payment",
+                    "mode": "subscription" if is_subscription else "payment",
                     "success_url": success_url,
                     "cancel_url": cancel_url,
                     "line_items[0][price_data][currency]": "eur",
                     "line_items[0][price_data][unit_amount]": amount_cents,
-                    "line_items[0][price_data][product_data][name]": f"HAE Zero-Leak: {description}",
+                    "line_items[0][price_data][product_data][name]": f"OrionX: {description}",
                     "line_items[0][quantity]": 1,
                     "client_reference_id": client_name,
-                }).encode("utf-8")
+                }
+                if is_subscription:
+                    params["line_items[0][price_data][recurring][interval]"] = "month"
+
+                data = urllib.parse.urlencode(params).encode("utf-8")
 
                 req = urllib.request.Request(
                     f"{STRIPE_API_BASE}/checkout/sessions",
@@ -58,10 +64,11 @@ class StripeGateway:
                 with urllib.request.urlopen(req, timeout=10) as resp:
                     res_json = json.loads(resp.read().decode("utf-8"))
                     return {
-                        "mode": "LIVE_STRIPE",
+                        "mode": "LIVE_STRIPE_SUBSCRIPTION" if is_subscription else "LIVE_STRIPE",
                         "session_id": res_json.get("id"),
                         "checkout_url": res_json.get("url"),
                         "amount_eur": amount_eur,
+                        "is_subscription": is_subscription,
                         "status": "OPEN",
                     }
             except Exception as e:
@@ -70,10 +77,11 @@ class StripeGateway:
         # Sandbox / Autonomous Fallback URL
         checkout_url = f"https://checkout.stripe.com/pay/{session_id}#sandbox"
         return {
-            "mode": "AUTONOMOUS_SANDBOX",
+            "mode": "AUTONOMOUS_SANDBOX_SUBSCRIPTION" if is_subscription else "AUTONOMOUS_SANDBOX",
             "session_id": session_id,
             "checkout_url": checkout_url,
             "amount_eur": amount_eur,
+            "is_subscription": is_subscription,
             "status": "READY_FOR_PAYMENT",
             "created_at": datetime.now(timezone.utc).isoformat(),
         }

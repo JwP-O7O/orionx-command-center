@@ -1,5 +1,47 @@
 [
   {
+    "company": "Kliniek Zorg & Automatisering Live Verification",
+    "contact": "Dhr. Dr. J. de Boer",
+    "email": "j.deboer@zorg-automatisering.nl",
+    "sector": "Particuliere Zorg / ZBC",
+    "status": "dispatched",
+    "personalized": true,
+    "pain_point": "Handmatige EPD verwerking 25 uur/week",
+    "pitch_angle": "Op maat gemaakte NEN 7510 & AVG AI-procesautomatisering",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://checkout.stripe.com/pay/cs_live_hae_zorg_mkb_direct",
+    "dispatched_at": "2026-10-13T02:10:47.421222+00:00",
+    "last_autonomous_check": "2026-10-13T02:10:47.421222+00:00"
+  },
+  {
+    "company": "Kliniek Google Ads Tracking Live Test",
+    "contact": "Dhr. Pabst Directie",
+    "email": "jwp@orionx.nl",
+    "sector": "ZBC Kliniek",
+    "status": "dispatched",
+    "personalized": true,
+    "pain_point": "Conversie tracking test AW-1628768552",
+    "pitch_angle": "Op maat gemaakte NEN 7510 & AVG AI-procesautomatisering",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://checkout.stripe.com/pay/cs_live_hae_zorg_mkb_direct",
+    "dispatched_at": "2026-10-13T01:40:47.297685+00:00",
+    "last_autonomous_check": "2026-10-13T01:46:39.853852+00:00"
+  },
+  {
+    "company": "Kliniek Tandheelkunde Test Live",
+    "contact": "Dhr. Test Gebruiker",
+    "email": "jwp@orionx.nl",
+    "sector": "Tandartskliniek ZBC",
+    "status": "dispatched",
+    "personalized": true,
+    "pain_point": "Besparingstests EPD synchronisatie",
+    "pitch_angle": "Op maat gemaakte NEN 7510 & AVG AI-procesautomatisering",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://checkout.stripe.com/pay/cs_live_hae_zorg_mkb_direct",
+    "dispatched_at": "2026-10-13T01:40:47.297846+00:00",
+    "last_autonomous_check": "2026-10-13T01:46:39.853854+00:00"
+  },
+  {
     "company": "Kliniek Zorg & Visie Amstelland (ZBC)",
     "contact": "Dhr. M. van Dijk, Medisch Directeur",
     "email": "m.vandijk@zorgenvisie-amstelland.nl",
@@ -11,7 +53,7 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
     "checkout_url": "https://checkout.stripe.com/pay/cs_live_hae_zorg_mkb_direct#amstelland",
     "dispatched_at": "2026-10-03T22:02:16.602244+00:00",
-    "last_autonomous_check": "2026-10-12T08:35:19.515359+00:00"
+    "last_autonomous_check": "2026-10-13T01:46:39.853856+00:00"
   },
   {
     "company": "Tandartspraktijk Mondzorg Kennemerland",
@@ -25,7 +67,7 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
     "checkout_url": "https://checkout.stripe.com/pay/cs_live_hae_zorg_mkb_direct#kennemerland",
     "dispatched_at": "2026-10-03T22:02:16.602749+00:00",
-    "last_autonomous_check": "2026-10-12T08:35:19.515393+00:00"
+    "last_autonomous_check": "2026-10-13T01:46:39.853858+00:00"
   },
   {
     "company": "FysioPlus Groep Randstad",
@@ -39,7 +81,7 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
     "checkout_url": "https://checkout.stripe.com/pay/cs_live_hae_zorg_mkb_direct#fysioplus",
     "dispatched_at": "2026-10-03T22:02:16.603120+00:00",
-    "last_autonomous_check": "2026-10-12T08:35:19.515397+00:00"
+    "last_autonomous_check": "2026-10-13T01:46:39.853859+00:00"
   },
   {
     "company": "VanderBerg Accountants & Adviseurs MKB",
@@ -53,14 +95,14 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_MKB_Document_Automatisering.md",
     "checkout_url": "https://checkout.stripe.com/pay/cs_live_hae_mkb_direct#vanderberg",
     "dispatched_at": "2026-10-03T22:02:16.603513+00:00",
-    "last_autonomous_check": "2026-10-12T08:35:19.515401+00:00"
+    "last_autonomous_check": "2026-10-13T01:46:39.853861+00:00"
   },
   {
     "company": "Kliniek Bloemendaal Esthetiek & Dermatologie",
     "contact": "Drs. E. van Rijn, Medisch Directeur",
     "email": "directie@bloemendaal-esthetiek.nl",
     "sector": "Particuliere Zorg / Esthetiek (ZBC)",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Handmatige verwerking van cosmetische consult-intakes en herhaalafspraken kost meer dan 18 uur per week.",
     "pitch_angle": "Volledig geautomatiseerde NEN 7510-intake en directe synchronisatie met Cliniseer/EPD.",
@@ -69,14 +111,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Kliniek_Bloemendaal_Esthetiek_en_Dermatologie.md",
     "checkout_url": "https://orionx.nl/checkout?target=kliniek",
     "discovered_at": "2026-10-12T14:25:28.339531+00:00",
-    "last_autonomous_check": "2026-10-12T14:25:28.339549+00:00"
+    "last_autonomous_check": "2026-10-13T01:46:39.853862+00:00",
+    "dispatched_at": "2026-10-13T01:40:47.298051+00:00"
   },
   {
     "company": "Mondzorgcentrum De Maaspoort 's-Hertogenbosch",
     "contact": "Dhr. T. Hermans, Praktijkmanager",
     "email": "management@mondzorgdemaaspoort.nl",
     "sector": "Tandheelkunde & Mondhygiëne (12 stoelen)",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Frequente administratieve fouten in Vektis-coderingen en papieren informed-consent formulieren.",
     "pitch_angle": "Automatische Vektis pre-audit AI die declaratie-uitval met 98% reduceert.",
@@ -85,14 +128,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Mondzorgcentrum_De_Maaspoort_'s-Hertogenbosch.md",
     "checkout_url": "https://orionx.nl/checkout?target=mondzorgcentrum",
     "discovered_at": "2026-10-12T14:25:36.899659+00:00",
-    "last_autonomous_check": "2026-10-12T14:25:36.899685+00:00"
+    "last_autonomous_check": "2026-10-13T01:46:39.853863+00:00",
+    "dispatched_at": "2026-10-13T01:40:47.298183+00:00"
   },
   {
     "company": "Orthopedie & Sportrevalidatie Utrecht Midden",
     "contact": "Drs. P. van Leeuwen, Hoofd Behandelcoördinatie",
     "email": "p.vanleeuwen@orthorevalidatie-utrecht.nl",
     "sector": "Gespecialiseerde Revalidatiezorg",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Overdracht van MRI/verwijsbrieven van ziekenhuizen naar behandelaars duurt gemiddeld 3 werkdagen.",
     "pitch_angle": "Directe OCR-extractie en geautomatiseerde triage conform AVG & NEN 7510 normering.",
@@ -101,14 +145,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Orthopedie_en_Sportrevalidatie_Utrecht_Midden.md",
     "checkout_url": "https://orionx.nl/checkout?target=orthopedie",
     "discovered_at": "2026-10-12T14:25:46.550174+00:00",
-    "last_autonomous_check": "2026-10-12T14:25:46.550200+00:00"
+    "last_autonomous_check": "2026-10-13T01:46:39.853865+00:00",
+    "dispatched_at": "2026-10-13T01:40:47.298281+00:00"
   },
   {
     "company": "Vermeer & Partners Belastingadviseurs Rotterdam",
     "contact": "Mr. K. Vermeer, Managing Partner",
     "email": "k.vermeer@vermeer-partners.nl",
     "sector": "Financiële & Fiscale Dienstverlening MKB",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Administratieve piekbelasting rondom kwartaalaangiftes en handmatig overtypen van bank- en factuurdata.",
     "pitch_angle": "AI-gestuurde UBL-conversie en automatische audit-koppeling naar Exact Online en Twinfield.",
@@ -117,14 +162,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Vermeer_en_Partners_Belastingadviseurs_Rotterdam.md",
     "checkout_url": "https://orionx.nl/checkout?target=vermeer",
     "discovered_at": "2026-10-12T14:25:56.663471+00:00",
-    "last_autonomous_check": "2026-10-12T14:25:56.663502+00:00"
+    "last_autonomous_check": "2026-10-13T02:10:47.421390+00:00",
+    "dispatched_at": "2026-10-13T02:10:47.421390+00:00"
   },
   {
     "company": "Zorghart Thuiszorg & Wijkverpleging Amsterdam",
     "contact": "Mevr. A. de Jong, Directeur Zorg & Kwaliteit",
     "email": "a.dejong@zorghart-thuiszorg.nl",
     "sector": "Thuiszorg & Extramurale Zorg (150+ medewerkers)",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Wijkverpleegkundigen besteden 35% van hun werktijd aan dubbele rapportages in Nedap Ons.",
     "pitch_angle": "Spraak-naar-dossier AI met directe automatische Nedap Ons classificatie binnen 20 seconden.",
@@ -133,14 +179,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorghart_Thuiszorg_en_Wijkverpleging_Amsterdam.md",
     "checkout_url": "https://orionx.nl/checkout?target=zorghart",
     "discovered_at": "2026-10-12T14:26:04.649622+00:00",
-    "last_autonomous_check": "2026-10-12T14:26:04.649657+00:00"
+    "last_autonomous_check": "2026-10-13T02:10:47.421531+00:00",
+    "dispatched_at": "2026-10-13T02:10:47.421531+00:00"
   },
   {
     "company": "Notariskantoor Keizersgracht & Zuidas",
     "contact": "Mr. F. van Heemst, Notaris & Partner",
     "email": "f.vanheemst@notariaat-keizersgracht.nl",
     "sector": "Notariaat & Ondernemingsrecht",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Complexe UBO- en Wwft-cliëntonderzoeken kosten uren per transactie aan handmatige documentchecks.",
     "pitch_angle": "Geautomatiseerd AI Wwft-dossier met directe KvK- en sanctielijstvalidatie binnen 60 seconden.",
@@ -149,14 +196,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Notariskantoor_Keizersgracht_en_Zuidas.md",
     "checkout_url": "https://orionx.nl/checkout?target=notariskantoor",
     "discovered_at": "2026-10-12T14:26:14.987640+00:00",
-    "last_autonomous_check": "2026-10-12T14:26:14.987662+00:00"
+    "last_autonomous_check": "2026-10-13T02:10:47.421659+00:00",
+    "dispatched_at": "2026-10-13T02:10:47.421659+00:00"
   },
   {
     "company": "Tandheelkundig Centrum De Pijp Amsterdam",
     "contact": "Drs. J. de Wit, Hoofdbehandelaar",
     "email": "balie@mondzorg-depijp.nl",
     "sector": "Tandheelkunde & Implantologie",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Handmatig overtypen van patiëntendossiers en intakeformulieren kost wekelijks 22 uur.",
     "pitch_angle": "Volledig geautomatiseerde NEN 7510 intake via tablet met realtime Exquise synchronisatie.",
@@ -165,14 +213,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Tandheelkundig_Centrum_De_Pijp_Amsterdam.md",
     "checkout_url": "https://orionx.nl/checkout?target=tandheelkundig",
     "discovered_at": "2026-10-12T18:22:29.293672+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.293706+00:00"
+    "last_autonomous_check": "2026-10-13T02:10:47.421769+00:00",
+    "dispatched_at": "2026-10-13T02:10:47.421769+00:00"
   },
   {
     "company": "Oogheelkunde & Laserkliniek Haaglanden",
     "contact": "Drs. S. Mansour, Medisch Directeur",
     "email": "directie@oogkliniek-haaglanden.nl",
     "sector": "Zelfstandig Behandelcentrum (ZBC Oogzorg)",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Vertraagde triage van verwijsbrieven vanuit optometristen en huisartsen naar specialisten.",
     "pitch_angle": "AI-gestuurde documentextractie en automatische urgentieclassificatie binnen 30 seconden.",
@@ -181,14 +230,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Oogheelkunde_en_Laserkliniek_Haaglanden.md",
     "checkout_url": "https://orionx.nl/checkout?target=oogheelkunde",
     "discovered_at": "2026-10-12T18:22:29.299411+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.299422+00:00"
+    "last_autonomous_check": "2026-10-13T02:27:34.833188+00:00",
+    "dispatched_at": "2026-10-13T02:27:34.833188+00:00"
   },
   {
     "company": "Huid- en Laserkliniek Utrecht Centraal",
     "contact": "Mevr. L. van Dijk, Praktijkhouder",
     "email": "info@huidkliniek-utrecht.nl",
     "sector": "Dermatologie & Huidtherapie",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Hoge administratieve last bij informed consent registraties en zorgverzekeraar declaraties.",
     "pitch_angle": "Foutloze Vektis declaratiemodule gecombineerd met AVG-gecertificeerde digitale patiëntenflow.",
@@ -197,14 +247,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Huid-_en_Laserkliniek_Utrecht_Centraal.md",
     "checkout_url": "https://orionx.nl/checkout?target=huid-",
     "discovered_at": "2026-10-12T18:22:29.301873+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.301882+00:00"
+    "last_autonomous_check": "2026-10-13T02:27:34.833360+00:00",
+    "dispatched_at": "2026-10-13T02:27:34.833360+00:00"
   },
   {
     "company": "Orthopedisch Behandelcentrum Rijnmond",
     "contact": "Drs. R. Schipper, Orthopedisch Chirurg",
     "email": "management@orthopedie-rijnmond.nl",
     "sector": "Particuliere Orthopedie & Sportzorg",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Behandelaars besteden 30% van hun consulttijd aan typen in plaats van directe patiëntenzorg.",
     "pitch_angle": "Spraakgestuurde consultverslaglegging met automatische EPD-dossieropbouw conform NEN 7510.",
@@ -213,14 +264,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Orthopedisch_Behandelcentrum_Rijnmond.md",
     "checkout_url": "https://orionx.nl/checkout?target=orthopedisch",
     "discovered_at": "2026-10-12T18:22:29.303950+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.303980+00:00"
+    "last_autonomous_check": "2026-10-13T02:27:34.833458+00:00",
+    "dispatched_at": "2026-10-13T02:27:34.833458+00:00"
   },
   {
     "company": "Brainport Medisch Diagnostisch Centrum Eindhoven",
     "contact": "Ir. M. Teunissen, Directeur Bedrijfsvoering",
     "email": "m.teunissen@brainport-diagnostiek.nl",
     "sector": "Medische Diagnostiek & Lab",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Handmatige validatie van duizenden labaanvragen en trage overdracht naar huisartsinformatiesystemen.",
     "pitch_angle": "End-to-end HL7/FHIR koppelingsengine aangedreven door AI validatieregels.",
@@ -229,14 +281,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Brainport_Medisch_Diagnostisch_Centrum_Eindhoven.md",
     "checkout_url": "https://orionx.nl/checkout?target=brainport",
     "discovered_at": "2026-10-12T18:22:29.305460+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.305465+00:00"
+    "last_autonomous_check": "2026-10-13T02:27:34.833542+00:00",
+    "dispatched_at": "2026-10-13T02:27:34.833542+00:00"
   },
   {
     "company": "Zelfstandig Behandelcentrum De Baronie Breda",
     "contact": "Drs. H. van den Broek, Voorzitter Medische Staf",
     "email": "medisch@zbc-debaronie.nl",
     "sector": "Poliklinische Chirurgie & Flebologie",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Administratieve bottlenecks bij de pre-operatieve screening en nazorg-evaluaties.",
     "pitch_angle": "Geautomatiseerd pre-operatief AI screeningsportaal met automatische complicatiesignalerend.",
@@ -245,14 +298,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zelfstandig_Behandelcentrum_De_Baronie_Breda.md",
     "checkout_url": "https://orionx.nl/checkout?target=zelfstandig",
     "discovered_at": "2026-10-12T18:22:29.307119+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.307126+00:00"
+    "last_autonomous_check": "2026-10-13T02:27:34.833614+00:00",
+    "dispatched_at": "2026-10-13T02:27:34.833614+00:00"
   },
   {
     "company": "Fiscaal Adviesbureau Amstel & Vecht",
     "contact": "Dhr. B. Snijders, Senior Partner",
     "email": "b.snijders@amstelvecht-advies.nl",
     "sector": "Fiscale & Bedrijfsadministratie MKB",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Tijdrovende jaarafsluitingen en handmatig afstemmen van inkoop- en verkoopfacturen.",
     "pitch_angle": "Autonome Exact Online & Twinfield auditbot met 99,6% automatische boekingsmatch.",
@@ -261,14 +315,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Fiscaal_Adviesbureau_Amstel_en_Vecht.md",
     "checkout_url": "https://orionx.nl/checkout?target=fiscaal",
     "discovered_at": "2026-10-12T18:22:29.309683+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.309688+00:00"
+    "last_autonomous_check": "2026-10-13T02:40:47.607671+00:00",
+    "dispatched_at": "2026-10-13T02:40:47.607671+00:00"
   },
   {
     "company": "Mondzorgcentrum Strijp-S Eindhoven",
     "contact": "Dhr. D. Kuipers, Operationeel Manager",
     "email": "balie@mondzorg-strijps.nl",
     "sector": "Mondzorg (9 behandelkamers)",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Onnodige no-shows en tijdrovende telefonische herinneringen voor halfjaarlijkse controles.",
     "pitch_angle": "Slimme WhatsApp & SMS AI-assistent met realtime agendakoppeling en herinplanningsfunctie.",
@@ -277,14 +332,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Mondzorgcentrum_Strijp-S_Eindhoven.md",
     "checkout_url": "https://orionx.nl/checkout?target=mondzorgcentrum",
     "discovered_at": "2026-10-12T18:22:29.311228+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.311232+00:00"
+    "last_autonomous_check": "2026-10-13T02:40:47.607955+00:00",
+    "dispatched_at": "2026-10-13T02:40:47.607955+00:00"
   },
   {
     "company": "Zorgresidentie Residentie Zorg Den Haag",
     "contact": "Mevr. C. Vroom, Hoofd Zorgcoördinatie",
     "email": "c.vroom@residentiezorg-denhaag.nl",
     "sector": "Particuliere Ouderenzorg & Revalidatie",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Complexe CIZ-indicatieaanvragen en dubbele verslaglegging in ECD.",
     "pitch_angle": "AI CIZ-indicatietool die aanvragen binnen 15 minuten accuraat en AVG-proof opstelt.",
@@ -293,14 +349,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgresidentie_Residentie_Zorg_Den_Haag.md",
     "checkout_url": "https://orionx.nl/checkout?target=zorgresidentie",
     "discovered_at": "2026-10-12T18:22:29.312489+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.312495+00:00"
+    "last_autonomous_check": "2026-10-13T02:40:47.608128+00:00",
+    "dispatched_at": "2026-10-13T02:40:47.608128+00:00"
   },
   {
     "company": "Medisch Centrum Sonsbeek Arnhem",
     "contact": "Drs. T. van Aken, Directeur",
     "email": "directie@mc-sonsbeek.nl",
     "sector": "Plastische Chirurgie & Dermatologie",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Hoge werkdruk bij de balie door terugkerende patiëntvragen over hersteltrajecten.",
     "pitch_angle": "NEN 7510 gecertificeerde medische patiëntondersteuner die 85% van de balievragen autonoom beantwoordt.",
@@ -309,14 +366,15 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Medisch_Centrum_Sonsbeek_Arnhem.md",
     "checkout_url": "https://orionx.nl/checkout?target=medisch",
     "discovered_at": "2026-10-12T18:22:29.314032+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.314038+00:00"
+    "last_autonomous_check": "2026-10-13T02:40:47.608317+00:00",
+    "dispatched_at": "2026-10-13T02:40:47.608317+00:00"
   },
   {
     "company": "Tandartskliniek Van Baerlestraat Amsterdam",
     "contact": "Drs. F. Meijer, Praktijkeigenaar",
     "email": "info@mondzorg-vanbaerle.nl",
     "sector": "Tandheelkunde & Esthetische Mondzorg",
-    "status": "ready_for_outreach",
+    "status": "dispatched",
     "personalized": true,
     "pain_point": "Tijdrovend verwerken van begrotingen en behandelplannen boven de € 250,- norm.",
     "pitch_angle": "Geautomatiseerde begrotingengenerator met één-klik digitale akkoordverklaring.",
@@ -325,7 +383,8 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Tandartskliniek_Van_Baerlestraat_Amsterdam.md",
     "checkout_url": "https://orionx.nl/checkout?target=tandartskliniek",
     "discovered_at": "2026-10-12T18:22:29.315760+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.315765+00:00"
+    "last_autonomous_check": "2026-10-13T02:40:47.608453+00:00",
+    "dispatched_at": "2026-10-13T02:40:47.608453+00:00"
   },
   {
     "company": "Cosmetische Kliniek Maasboulevard Rotterdam",
@@ -341,6 +400,186 @@
     "proposal_file": "/root/hae_command_center/proposals/Voorstel_Cosmetische_Kliniek_Maasboulevard_Rotterdam.md",
     "checkout_url": "https://orionx.nl/checkout?target=cosmetische",
     "discovered_at": "2026-10-12T18:22:29.324343+00:00",
-    "last_autonomous_check": "2026-10-12T18:22:29.324354+00:00"
+    "last_autonomous_check": "2026-10-13T01:46:39.853887+00:00"
+  },
+  {
+    "company": "Orthopedie Kliniek Utrecht Oost (ZBC)",
+    "contact": "Dr. R. de Graaf, Orthopedisch Chirurg & Directeur",
+    "email": "directie@orthopedie-utrechtoost.nl",
+    "sector": "Orthopedie / ZBC",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Behandelaren verliezen 18 uur per week aan post-operatieve dossierverwerking en EPD-registratie.",
+    "pitch_angle": "Automatische spraak-naar-EPD dossiervorming en NEN 7510 pre-operatieve documentextractie.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#utrecht-oost"
+  },
+  {
+    "company": "Huid- en Laserkliniek Rotterdam Blaak",
+    "contact": "Drs. M. van Leeuwen, Medisch Manager",
+    "email": "info@laserkliniek-blaak.nl",
+    "sector": "Dermatologie & Lasertherapie",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Hoge administratieve last bij intakevragenlijsten, informed consents en factuurverwerking.",
+    "pitch_angle": "Directe AVG-veilige formulierverwerking met geautomatiseerde behandelplan-generatie.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#blaak"
+  },
+  {
+    "company": "Tandartspraktijk Oud-Zuid Amsterdam",
+    "contact": "Dhr. drs. K. Visser, Praktijkeigenaar",
+    "email": "balie@tandarts-oudzuid.nl",
+    "sector": "Tandheelkunde / Implantologie",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Assistenten spenderen 25 uur per week aan handmatige declaraties en afspraakherinneringen.",
+    "pitch_angle": "Slimme Vektis declaratievalidatie en automatische patiënteninbox integratie.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#oudzuid"
+  },
+  {
+    "company": "Oogheelkundig Centrum Haaglanden",
+    "contact": "Drs. P. Willems, Directeur Operaties",
+    "email": "directie@oogheelkunde-haaglanden.nl",
+    "sector": "Oogheelkunde / ZBC",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Complexe verwijsbrieven van optometristen en ziekenhuizen moeten handmatig worden gecategoriseerd.",
+    "pitch_angle": "99% nauwkeurige categorisatie en triage van verwijzingen binnen 15 seconden per patiënt.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#haaglanden"
+  },
+  {
+    "company": "NeuroCare Den Haag & Scheveningen",
+    "contact": "Mevr. dr. A. Smeets, Klinisch Psycholoog & Bestuurder",
+    "email": "a.smeets@neurocare-denhaag.nl",
+    "sector": "Geestelijke Gezondheidszorg / ZBC",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Strenge GGZ-verantwoording en ROM-metingen vergen disproportioneel veel behandelaarstijd.",
+    "pitch_angle": "Geautomatiseerde ROM-verwerking en geanonimiseerde NEN 7510 audit trail generatie.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#neurocare"
+  },
+  {
+    "company": "ZBC Plastische Chirurgie Bosch & Duin",
+    "contact": "Drs. J. van der Meer, Medisch Directeur",
+    "email": "j.vandermeer@bosch-en-duin-kliniek.nl",
+    "sector": "Plastische & Reconstructieve Chirurgie",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Intakeformulieren en medische dossiers worden handmatig overgetypt in Cliniseer EPD.",
+    "pitch_angle": "Directe NEN 7510 bridge tussen online intakeportaal en Cliniseer EPD met 0 minuten vertraging.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#boschenduin"
+  },
+  {
+    "company": "Dermatologisch Centrum Brainport Eindhoven",
+    "contact": "Dhr. drs. S. Hendriks, Operationeel Directeur",
+    "email": "directie@dermatologie-brainport.nl",
+    "sector": "Dermatologie / Poliklinische Zorg",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Overvolle wachtkamers en tijdrovende telefonische consult-intakes door baliepersoneel.",
+    "pitch_angle": "AI triage assistant die patiëntvragen voorbereidt en direct in het dossier klaarzet.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#brainport"
+  },
+  {
+    "company": "Revalidatiepraktijk Amstel & IJ Amsterdam",
+    "contact": "Mevr. L. Koopmans, Hoofd Paramedische Zorg",
+    "email": "l.koopmans@revalidatie-amstelij.nl",
+    "sector": "Revalidatie & Fysiotherapie ZBC",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Complexe multidisciplinaire verslaglegging tussen fysio, ergo en artsen kost te veel tijd.",
+    "pitch_angle": "Centraal AI verslagleggings-knooppunt conform KNGF en NEN 7510 kwaliteitsnormen.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#amstelij"
+  },
+  {
+    "company": "Orthodontiepraktijk Domstad Utrecht",
+    "contact": "Drs. E. Jansen, Praktijkhouder",
+    "email": "info@ortho-domstad.nl",
+    "sector": "Orthodontie & Mondzorg",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Handmatige verwerking van behandelplannen en communicatie met zorgverzekeraars.",
+    "pitch_angle": "Automatische machtigingsaanvragen en gestroomlijnde facturatie via Clearing House.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#domstad"
+  },
+  {
+    "company": "Esthetisch Medisch Centrum t Gooi Laren",
+    "contact": "Mevr. drs. B. Verhoeven, Medisch Directeur",
+    "email": "directie@emc-hetgooi.nl",
+    "sector": "Cosmetische Geneeskunde / ZBC",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Hoge kosten aan administratief baliepersoneel voor dossiervorming en opvolging.",
+    "pitch_angle": "Dedicated AI-FTE die 85% van de backoffice taken overneemt conform AVG-richtlijnen.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#hetgooi"
+  },
+  {
+    "company": "Huisartsenpost Rijnmond Noord",
+    "contact": "Dhr. M. de Boer, Facilitair & IT Coördinator",
+    "email": "it-coordinatie@hap-rijnmondnoord.nl",
+    "sector": "Eerstelijns Huisartsenzorg",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Piekbelasting bij het samenvatten van spoedverwijzingen en waarnemingsdossiers.",
+    "pitch_angle": "Real-time AI extractie van episodes en medicatiestromen conform NHG standaarden.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#rijnmondnoord"
+  },
+  {
+    "company": "Mondzorg Sphinxkwartier Maastricht",
+    "contact": "Drs. T. Hermans, Medisch Leider",
+    "email": "praktijk@mondzorg-sphinx.nl",
+    "sector": "Tandheelkunde & Kaakchirurgie",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Tijdverlies door handmatige verwerking van laboratoriumorders en röntgenverslagen.",
+    "pitch_angle": "Directe koppeling tussen dentale beeldvorming, laborders en EPD dossier.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#sphinx"
+  },
+  {
+    "company": "Kliniek Gelderse Vallei Privézorg Arnhem",
+    "contact": "Dr. H. van Doorn, Voorzitter Medische Staf",
+    "email": "h.vandoorn@kliniek-geldersevallei.nl",
+    "sector": "Zelfstandig Behandelcentrum (ZBC)",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Administratieve wachttijden bij pre-operatieve screening vertragen operatiekamers.",
+    "pitch_angle": "Snellere pre-operatieve anesthesie checklist verwerking via beveiligde AI intake.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#arnhem"
+  },
+  {
+    "company": "Privékliniek Haarlem Houtkwartier",
+    "contact": "Mevr. C. Blom, Praktijkmanager",
+    "email": "manager@houtkwartier-kliniek.nl",
+    "sector": "Flebologie & Dermatologie ZBC",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Handmatige facturatie aan particuliere verzekeraars en patiënten leidt tot debiteurenachterstand.",
+    "pitch_angle": "Geautomatiseerde facturatie, herinneringen en directe iDEAL/PIN koppeling.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#haarlem"
+  },
+  {
+    "company": "Cardiopraktijk Den Haag Statenkwartier",
+    "contact": "Dr. A. van der Pol, Cardioloog & Partner",
+    "email": "directie@cardio-statenkwartier.nl",
+    "sector": "Cardiologie / ZBC",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Holter- en ECG-rapportages moeten handmatig worden samengevat in het patiëntendossier.",
+    "pitch_angle": "Gestructureerde AI synthese van diagnostische cardiologierapporten met 95% tijdwinst.",
+    "proposal_file": "/root/hae_command_center/proposals/Voorstel_Zorgpraktijk_Automatisering.md",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#statenkwartier"
   }
 ]

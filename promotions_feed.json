@@ -1,15 +1,31 @@
 {
   "status": "online",
-  "last_updated": "2026-10-13T01:40:12.608416+00:00",
+  "last_updated": "2026-10-13T02:52:04.487976+00:00",
   "engine": "OrionX Autonomous Promotion Engine v2.0",
   "active_promos": [
     {
       "code": "ORIONLAUNCH",
       "label": "Officiële Lanceringsactie 2026",
-      "discount": "VIP Toegang + Telegram Alpha Alerts",
+      "discount": "Levenslange Toegang + Updates",
       "product": "OpenClaw Solana AI Trading Kit",
       "price_eur": 47.0,
-      "checkout_url": "https://orionx.nl/checkout"
+      "checkout_url": "https://trade.orionx.nl/checkout"
+    },
+    {
+      "code": "VIPSWARM",
+      "label": "VIP Quant Alpha Club",
+      "discount": "Yellowstone gRPC Sub-80ms Breakout Radar",
+      "product": "OrionX VIP Solana Signals & Terminal",
+      "price_eur": 97.0,
+      "checkout_url": "https://trade.orionx.nl/checkout/vip"
+    },
+    {
+      "code": "AIFTE",
+      "label": "Dedicated AI-FTE Retainer",
+      "discount": "96% Minder Administratie, NEN 7510 & AVG",
+      "product": "OrionX AI-FTE Staff-as-a-Service",
+      "price_eur": 1450.0,
+      "checkout_url": "https://agency.orionx.nl/checkout/retainer"
     }
   ],
   "campaigns": {
@@ -22,8 +38,8 @@
           "2/6 Handmatig snipen is kansloos tegen MEV bots. Onze AI zwerm draait op cloud VPS met Yellowstone gRPC (<80ms response).",
           "3/6 De Swarm Triad:\n• SCOUT: Filtert bonding curves & dev wallet %.\n• SNIPER: Jito MEV bundles tegen frontrunning.\n• PUMPTRADER: Trailing stop-loss & take-profit via Kelly Criterion.",
           "4/6 Emotieloze heuristieken: -30% hard stop-loss, scaling take-profit bij 1.5x en 2x via wiskundig risicomodel.",
-          "5/6 Bekijk de complete live telemetrie van de actieve agents in onze showroom:\n👉 https://orionx.nl/trade",
-          "6/6 De complete gids, productiescripts, SOUL.md templates en Telegram alerts staan nu live in de OpenClaw Kit (€47 eenmalig):\n👉 https://orionx.nl/openclaw"
+          "5/6 Bekijk de complete live telemetrie van de actieve agents in onze showroom:\n👉 https://trade.orionx.nl",
+          "6/6 De complete gids, productiescripts, SOUL.md templates en Telegram alerts staan nu live in de OpenClaw Kit (€47 eenmalig):\n👉 https://trade.orionx.nl/openclaw"
         ]
       },
       {
@@ -33,7 +49,7 @@
           "1/4 🧵 98% van memecoin traders verliezen geld door 3 redenen: MEV frontrunning, slapeloosheid en emotioneel 'diamond handing' tot $0.",
           "2/4 Algoritmische snipers concurreren met sub-100ms RPCs en private Jito validator bundles. Handmatig klikken is letterlijk liquidity doneren aan bots.",
           "3/4 Ons antwoord: Een autonome 3-agent zwerm die 24/7 draait op een VPS, risico beperkt tot 2% per trade, en winst mathematisch afroomt.",
-          "4/4 Blueprint + code snippets + productieve SOUL.md templates:\n👉 https://orionx.nl/openclaw"
+          "4/4 Blueprint + code snippets + productieve SOUL.md templates:\n👉 https://trade.orionx.nl/openclaw"
         ]
       }
     ],
@@ -46,7 +62,7 @@
           "r/SolanaMemeCoins"
         ],
         "title": "How we built an automated pump.fun sniper workflow that avoids 99% of honeypots (Architecture Breakdown)",
-        "url": "https://orionx.nl/openclaw",
+        "url": "https://trade.orionx.nl/openclaw",
         "body_preview": "Full architecture breakdown: Yellowstone gRPC Websockets, bytecode static inspection, dynamic sell-simulation before real entry, and Jito bundle tips."
       },
       {
@@ -57,7 +73,7 @@
           "r/Entrepreneur"
         ],
         "title": "Scaling an Autonomous Multi-Agent B2B & Trading Infrastructure on Hetzner Cloud (NEN 7510 & DeFi)",
-        "url": "https://orionx.nl/trade",
+        "url": "https://trade.orionx.nl",
         "body_preview": "Case study of running high-uptime autonomous agent nodes: Uptime watchdogs, Stripe instant webhook verification, and Telegram dispatcher."
       }
     ],
@@ -65,16 +81,16 @@
       {
         "id": "LI-01",
         "target": "Nederlandse Zorgklinieken, Tandartspraktijken & ZBCs",
-        "title": "Elimineer administratieve bottlenecks in zorg en MKB met autonome AI agents",
-        "cta_url": "https://orionx.nl/scan",
-        "body": "Zorgpersoneel besteedt wekelijks 20+ uur aan administratie en EPD-invoer. OrionX automatiseert dit conform NEN 7510 en AVG, waardoor de intake-verwerkingstijd daalt van 18 min naar <1 minuut."
+        "title": "Elimineer administratieve bottlenecks in zorg en MKB met autonome AI-FTE agents",
+        "cta_url": "https://scan.orionx.nl",
+        "body": "Zorgpersoneel besteedt wekelijks 20+ uur aan administratie en EPD-invoer. OrionX levert Dedicated AI-FTEs (€1.450/mnd) conform NEN 7510 en AVG, waardoor de intake-verwerkingstijd daalt van 18 min naar <1 minuut."
       }
     ],
     "telegram": [
       {
         "id": "TG-01",
         "headline": "🚀 ORIONX PROMOTION ENGINE ACTIEF",
-        "body": "De autonome promotie en acquisitie engine draait 24/7 op Hetzner!\n\n• OpenClaw Solana AI Trading Kit: https://orionx.nl/openclaw\n• Live Agent Swarm Showroom: https://orionx.nl/trade\n• Gratis AI Besparingsscan: https://orionx.nl/scan"
+        "body": "De autonome promotie en acquisitie engine draait 24/7 op Hetzner!\n\n• OpenClaw Solana AI Trading Kit: https://trade.orionx.nl/openclaw\n• Live Agent Swarm Showroom: https://trade.orionx.nl\n• VIP Quant Signals (€97/mnd): https://trade.orionx.nl/checkout/vip\n• Gratis AI Besparingsscan: https://scan.orionx.nl\n• B2B AI-FTE Retainer (€1.450/mnd): https://agency.orionx.nl/checkout/retainer"
       }
     ]
   }

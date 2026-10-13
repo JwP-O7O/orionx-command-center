@@ -468,29 +468,55 @@ async def serve_logo_image(filename: str):
         return FileResponse(str(file_path), media_type="image/jpeg")
     raise HTTPException(status_code=404, detail="Logo niet gevonden")
 
-@app.get("/checkout")
-async def create_live_checkout(request: Request):
+@app.api_route("/checkout", methods=["GET", "HEAD"])
+@app.api_route("/checkout/{tier}", methods=["GET", "HEAD"])
+async def create_live_checkout(request: Request, tier: str = "openclaw", plan: str = ""):
     """Generates a live Stripe Checkout Session and redirects customer directly to Stripe."""
+    selected_plan = (plan or tier or "openclaw").lower().strip()
     host = request.headers.get("host", "orionx.nl")
     proto = request.headers.get("x-forwarded-proto", "https")
-    success_url = f"{proto}://{host}/success?session_id={{CHECKOUT_SESSION_ID}}"
-    cancel_url = f"{proto}://{host}/openclaw"
+    
+    if selected_plan in ["vip", "signals", "alpha"]:
+        amount_eur = 97.0
+        description = "OrionX VIP Solana Alpha Signals & Swarm Terminal (Maandelijks Abonnement)"
+        is_sub = True
+        client_name = "VIP Quant Member"
+        cancel_url = f"{proto}://{host}/trade"
+    elif selected_plan in ["retainer", "b2b", "enterprise"]:
+        amount_eur = 1450.0
+        description = "OrionX AI-FTE Enterprise Retainer (NEN 7510 & AVG Automatisering)"
+        is_sub = True
+        client_name = "Enterprise B2B Client"
+        cancel_url = f"{proto}://{host}/scan"
+    else:
+        # Default OpenClaw Kit
+        amount_eur = 47.0
+        description = "OpenClaw Solana AI Memecoin Trading Kit (Levenslange Toegang)"
+        is_sub = False
+        client_name = "OpenClaw Koper"
+        cancel_url = f"{proto}://{host}/openclaw"
+
+    success_url = f"{proto}://{host}/success?session_id={{CHECKOUT_SESSION_ID}}&plan={selected_plan}"
     
     session = stripe_gw.create_checkout_session(
-        client_name="OpenClaw Koper",
-        amount_eur=47.0,
-        description="OpenClaw Solana AI Memecoin Trading Kit (Levenslange Toegang)",
+        client_name=client_name,
+        amount_eur=amount_eur,
+        description=description,
         success_url=success_url,
-        cancel_url=cancel_url
+        cancel_url=cancel_url,
+        is_subscription=is_sub
     )
     
     checkout_url = session.get("checkout_url")
     if checkout_url:
-        logger.info(f"💳 [STRIPE] Redirecting customer to live Stripe checkout: {session.get('session_id')}")
+        logger.info(f"💳 [STRIPE] Redirecting customer to live Stripe checkout [{selected_plan.upper()}]: {session.get('session_id')}")
+        tier_label = f"VIP Swarm Abonnement (€97/mnd)" if is_sub and amount_eur == 97.0 else (f"Enterprise Retainer (€1.450/mnd)" if amount_eur == 1450.0 else f"OpenClaw Trading Kit (€47)")
         send_telegram_notification(
             f"🛒 <b>[STRIPE CHECKOUT GESTART]</b>\n\n"
-            f"Een bezoeker is gestart met de Stripe checkout voor de <b>OpenClaw Solana AI Trading Kit (€47,-)</b>!\n"
+            f"Een bezoeker is gestart met de Stripe checkout voor <b>{tier_label}</b>!\n"
+            f"• Plan: <code>{selected_plan}</code>\n"
             f"• Sessie ID: <code>{session.get('session_id', 'n/a')}</code>\n"
+            f"• Bedrag: <b>€{amount_eur:,.2f}</b>\n"
             f"• Tijdstip: {datetime.now(timezone.utc).strftime('%H:%M:%S UTC')}"
         )
         return RedirectResponse(url=checkout_url, status_code=303)
@@ -501,34 +527,45 @@ async def create_live_checkout(request: Request):
 @app.api_route("/succes", methods=["GET", "HEAD"], response_class=HTMLResponse)
 @app.api_route("/success/", methods=["GET", "HEAD"], response_class=HTMLResponse)
 @app.api_route("/succes/", methods=["GET", "HEAD"], response_class=HTMLResponse)
-async def payment_success(session_id: str = ""):
+async def payment_success(session_id: str = "", plan: str = ""):
     """Executed after Stripe checkout: strictly verifies payment with Stripe API before unlocking product."""
     is_valid_paid = False
     customer_email = ""
     order_id = ""
+    amount_paid = 47.0
 
     if session_id:
         verification = stripe_gw.verify_session(session_id)
         if verification.get("valid") is True:
             is_valid_paid = True
             customer_email = verification.get("customer_email") or ""
+            amount_paid = float(verification.get("amount_total") or 47.0)
             SYSTEM_METRICS["orders_processed"] += 1
-            SYSTEM_METRICS["total_revenue_eur"] += 47.0
+            SYSTEM_METRICS["total_revenue_eur"] += amount_paid
             order_id = f"ORD-{int(time.time())}"
-            logger.info(f"🎉 [SALE VERIFIED] Verified Stripe payment for session {session_id}. Order {order_id} (+€47.00)")
+            
+            # Determine plan tier
+            if amount_paid >= 1000.0 or "retainer" in plan.lower() or "enterprise" in session_id:
+                product_name = "OrionX AI-FTE Enterprise Retainer (€1.450/mnd)"
+            elif amount_paid >= 80.0 or "vip" in plan.lower() or "sub" in session_id:
+                product_name = "OrionX VIP Solana Alpha & Swarm Terminal (€97/mnd)"
+            else:
+                product_name = "OpenClaw Solana AI Memecoin Trading Kit (€47)"
+
+            logger.info(f"🎉 [SALE VERIFIED] Verified Stripe payment for session {session_id}. Order {order_id} (+€{amount_paid:.2f}) - {product_name}")
             try:
                 with open(LEDGER_FILE, 'a', encoding='utf-8') as f:
-                    f.write(f"\n- **{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}**: Verified Stripe Sale `{order_id}` - Session: `{session_id}` - Email: `{customer_email}` (+€47.00)")
+                    f.write(f"\n- **{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}**: Verified Stripe Sale `{order_id}` - Session: `{session_id}` - Email: `{customer_email}` - Product: `{product_name}` (+€{amount_paid:.2f})")
             except Exception as e:
                 logger.error(f"Failed to update ledger: {e}")
             send_telegram_notification(
-                f"🎉 <b>[VERIFIED SALE! +€47.00]</b>\n\n"
+                f"🎉 <b>[VERIFIED SALE! +€{amount_paid:,.2f}]</b>\n\n"
                 f"Stripe betaling geverifieerd en ontvangen!\n"
                 f"• Order: <code>{order_id}</code>\n"
                 f"• Klant: <code>{customer_email}</code>\n"
-                f"• Product: OpenClaw Solana AI Trading Kit\n"
-                f"• Omzet: <b>+€47.00</b>\n\n"
-                f"🚀 Toegangs- & download-token succesvol vrijgegeven."
+                f"• Product: <b>{product_name}</b>\n"
+                f"• Bedrag: <b>+€{amount_paid:,.2f}</b>\n\n"
+                f"🚀 Toegangsrechten en onboarding succesvol vrijgegeven."
             )
         else:
             logger.warning(f"⚠️ [UNVERIFIED ACCESS] Onbevoegde toegangspoging tot /success met sessie: '{session_id}' -> {verification.get('reason')}")
@@ -540,7 +577,7 @@ async def payment_success(session_id: str = ""):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Betaling Niet Geverifieerd // OrionX AI Kit</title>
+    <title>Betaling Niet Geverifieerd // OrionX AI</title>
     <style>
         body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0c14; color: #fff; text-align: center; padding: 60px 20px; }}
         .card {{ max-width: 520px; margin: 0 auto; background: #141826; padding: 40px; border-radius: 16px; border: 1px solid #ef4444; box-shadow: 0 10px 40px rgba(239,68,68,0.2); }}
@@ -553,17 +590,80 @@ async def payment_success(session_id: str = ""):
 <body>
     <div class="card">
         <h1>🔒 Betalingsverificatie Vereist</h1>
-        <p>Er is geen voltooide Stripe-betaling gevonden voor deze sessie. De <strong>OpenClaw Solana AI Trading Kit</strong> is beveiligd en uitsluitend toegankelijk na bevestigde aankoop.</p>
-        <a href="/openclaw" class="btn">🛒 Naar de Bestelpagina (€47,-)</a>
-        <p style="margin-top: 24px; font-size: 0.85rem; color: #64748b;">Heb je zojuist wel betaald? Neem contact op met <a href="mailto:jwp@orionx.nl" style="color: #14F195; text-decoration: none; font-weight: 600;">jwp@orionx.nl</a> met je e-mailadres voor directe verificatie.</p>
+        <p>Er is geen voltooide Stripe-betaling gevonden voor deze sessie. OrionX AI producten en signalen zijn strikt beveiligd en uitsluitend toegankelijk na bevestigde aankoop.</p>
+        <a href="/openclaw" class="btn">🛒 Naar het Aanbod</a>
+        <p style="margin-top: 24px; font-size: 0.85rem; color: #64748b;">Heb je zojuist wel betaald? Neem contact op met <a href="mailto:jwp@orionx.nl" style="color: #14F195; text-decoration: none; font-weight: 600;">jwp@orionx.nl</a> voor directe assistentie.</p>
     </div>
 </body>
 </html>"""
         return HTMLResponse(content=html_unpaid, status_code=402)
 
-    # Valid paid customer: generate single-use/signed HMAC token
-    download_token = make_paid_token(session_id)
-    html_paid = f"""<!DOCTYPE html>
+    # Valid paid customer: Render appropriate success screen based on amount
+    if amount_paid >= 1000.0 or "retainer" in plan.lower():
+        # Enterprise B2B Retainer
+        html_paid = f"""<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Retainer Geactiveerd // OrionX AI Technologies</title>
+    <style>
+        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0c14; color: #fff; text-align: center; padding: 60px 20px; }}
+        .card {{ max-width: 600px; margin: 0 auto; background: #141826; padding: 40px; border-radius: 20px; border: 1px solid #06b6d4; box-shadow: 0 10px 40px rgba(6,182,212,0.25); }}
+        h1 {{ color: #38bdf8; margin-bottom: 12px; }}
+        p {{ color: #9ba3b8; line-height: 1.6; margin-bottom: 24px; }}
+        .btn {{ display: inline-block; background: linear-gradient(135deg, #06b6d4 0%, #38bdf8 100%); color: #000; font-weight: bold; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 1.1rem; }}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🏛️ Enterprise AI-FTE Retainer Geactiveerd!</h1>
+        <p>Gefeliciteerd. Uw praktijk of onderneming heeft nu toegang tot het <strong>OrionX Dedicated AI Engineering Team</strong>.</p>
+        <div style="background: rgba(0,0,0,0.4); border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: left; font-size: 0.9rem; color: #cbd5e1;">
+            <div>✓ <strong>Dedicated AI Partner:</strong> Directe aansluiting op uw EPD/ECD workflow.</div>
+            <div>✓ <strong>NEN 7510 & AVG:</strong> 100% compliant dataverwerking op Europese servers.</div>
+            <div>✓ <strong>Directe Executive Lijn:</strong> Prioriteitssupport via <a href="mailto:jwp@orionx.nl" style="color: #38bdf8;">jwp@orionx.nl</a>.</div>
+        </div>
+        <a href="https://calendly.com" class="btn">📅 Plan Direct Uw Kick-off & Intake In</a>
+        <p style="margin-top: 24px; font-size: 0.8rem; color: #64748b;">Order: {order_id} | Klant: {customer_email}</p>
+    </div>
+</body>
+</html>"""
+    elif amount_paid >= 80.0 or "vip" in plan.lower():
+        # VIP Quant Subscription
+        html_paid = f"""<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Swarm Toegang Geactiveerd // OrionX Trading</title>
+    <style>
+        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0c14; color: #fff; text-align: center; padding: 60px 20px; }}
+        .card {{ max-width: 540px; margin: 0 auto; background: #141826; padding: 40px; border-radius: 20px; border: 1px solid #fbbf24; box-shadow: 0 10px 40px rgba(251,191,36,0.2); }}
+        h1 {{ color: #fbbf24; margin-bottom: 12px; }}
+        p {{ color: #9ba3b8; line-height: 1.6; margin-bottom: 24px; }}
+        .btn {{ display: inline-block; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: #000; font-weight: bold; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 1.1rem; }}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>💎 VIP Solana Alpha Toegang Geactiveerd!</h1>
+        <p>Welkom bij de elite kwantitatieve cirkel van OrionX. Je maandelijkse abonnement (€97/mnd) is bevestigd.</p>
+        <div style="background: rgba(0,0,0,0.4); border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: left; font-size: 0.9rem; color: #cbd5e1;">
+            <div>⚡ <strong>24/7 DEX Breakout Radar:</strong> Sub-second waarschuwingen via Telegram.</div>
+            <div>⚡ <strong>Neural Swarm Terminal:</strong> Real-time on-chain consensus tracking.</div>
+            <div>⚡ <strong>Directe VIP Bot Koppeling:</strong> @AgentO7Obot</div>
+        </div>
+        <a href="https://t.me/AgentO7Obot" class="btn">📲 Open Direct VIP Telegram Alerts</a>
+        <div style="margin-top: 16px;"><a href="https://trade.orionx.nl" style="color: #38bdf8; text-decoration: none; font-size: 0.9rem;">📈 Naar de Live Swarm Terminal &rarr;</a></div>
+        <p style="margin-top: 24px; font-size: 0.8rem; color: #64748b;">Order: {order_id} | Klant: {customer_email}</p>
+    </div>
+</body>
+</html>"""
+    else:
+        # OpenClaw Trading Kit
+        download_token = make_paid_token(session_id)
+        html_paid = f"""<!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
@@ -588,7 +688,8 @@ async def payment_success(session_id: str = ""):
     </div>
 </body>
 </html>"""
-    purchase_event = f"if(typeof gtag==='function'){{gtag('event','purchase',{{'currency':'EUR','value':47.0,'transaction_id':'{session_id}'}});}}"
+
+    purchase_event = f"if(typeof gtag==='function'){{gtag('event','purchase',{{'currency':'EUR','value':{amount_paid},'transaction_id':'{session_id}'}});}}"
     return HTMLResponse(content=inject_tracking(html_paid, purchase_event))
 
 @app.api_route("/download/openclaw-pumpfun-workflow.pdf", methods=["GET", "HEAD"])

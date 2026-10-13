@@ -40,23 +40,23 @@ class OutreachDispatcher:
         """
         first_name = contact.split(',')[0].strip() if ',' in contact else contact
         
-        subject = f"Administratieve tijdsbesparing & AVG-automatisering voor {company}"
+        subject = f"Administratieve tijdsbesparing & AI-FTE automatisering voor {company}"
         
         body = f"""Beste {first_name},
 
 Uit recente analyses binnen de particuliere zorg en het MKB blijkt dat praktijken wekelijks gemiddeld 15 tot 25 uur kwijt zijn aan handmatige administratie: {pain_point.lower()}
 
-Met het HAE AI Command Center hebben we een veilige, lokale implementatie ontwikkeld die deze bottleneck direct oplost:
+Met het OrionX AI Command Center hebben we een veilige, lokale implementatie ontwikkeld die deze bottleneck direct oplost met ons dedicated AI-FTE Staff-as-a-Service model (€1.450,- / maand):
 • {pitch_angle}
 • 96% reductie in doorlooptijd per patiënten- of cliëntendossier (van 18 minuten naar < 1 minuut).
 • Volledige naleving van NEN 7510 en AVG wetgeving met geautomatiseerde audit logs.
 • Directe integratie met gangbare EPD/ECD- en facturatiesystemen.
 
-Voor {company} hebben we een concreet implementatievoorstel uitgewerkt:
-📄 Bekijk het voorstel: {proposal_file.name} (bijgevoegd / op aanvraag direct in te zien)
+Voor {company} hebben we een interactieve praktijkcalculatie klaargezet:
+📊 Bereken uw exacte praktijkbesparing in 60s: https://scan.orionx.nl
 
-Direct operationeel starten kan via onze fast-track onboarding:
-🔗 Veilige verificatie- en activatielink: {checkout_url}
+Direct operationeel starten met een dedicated AI-medewerker kan via onze fast-track onboarding:
+🔗 Veilige activatielink: {checkout_url if 'checkout' in checkout_url else 'https://agency.orionx.nl/checkout/retainer'}
 
 Zullen we aanstaande donderdag om 10:30 of 14:00 uur 15 minuten bellen voor een korte live demonstratie van het systeem?
 
@@ -64,7 +64,7 @@ Met vriendelijke groet,
 
 JWP — Directie & AI Operations
 OrionX AI Technologies
-E-mail: jwp@orionx.nl | Web: https://orionx.nl
+E-mail: jwp@orionx.nl | Web: https://agency.orionx.nl
 """
         return {"subject": subject, "body": body}
 

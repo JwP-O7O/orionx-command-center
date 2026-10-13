@@ -233,7 +233,7 @@ CAMPAIGNS = [
                     ],
                     "path1": "solana",
                     "path2": "sniper-bot",
-                    "final_url": "https://orionx.nl/openclaw"
+                    "final_url": "https://trade.orionx.nl/openclaw"
                 }
             }
         ],
