@@ -78,6 +78,32 @@ class StripeGateway:
             "created_at": datetime.now(timezone.utc).isoformat(),
         }
 
+    def verify_session(self, session_id: str) -> Dict[str, Any]:
+        """Retrieves and verifies a Stripe Checkout Session to prevent unpaid access."""
+        if not session_id or not self.is_live:
+            return {"valid": False, "reason": "No session ID or live key configured"}
+
+        try:
+            req = urllib.request.Request(
+                f"{STRIPE_API_BASE}/checkout/sessions/{session_id}",
+                headers={
+                    "Authorization": f"Bearer {self.api_key}",
+                },
+            )
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                res_json = json.loads(resp.read().decode("utf-8"))
+                payment_status = res_json.get("payment_status")
+                is_paid = (payment_status == "paid")
+                return {
+                    "valid": is_paid,
+                    "payment_status": payment_status,
+                    "customer_email": res_json.get("customer_details", {}).get("email") if res_json.get("customer_details") else None,
+                    "amount_total": (res_json.get("amount_total") or 0) / 100.0,
+                    "session_id": session_id
+                }
+        except Exception as e:
+            return {"valid": False, "reason": str(e)}
+
 
 if __name__ == "__main__":
     gw = StripeGateway()

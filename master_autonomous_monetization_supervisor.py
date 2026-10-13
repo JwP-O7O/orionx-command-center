@@ -31,6 +31,29 @@ from fastapi.responses import HTMLResponse, FileResponse, RedirectResponse, JSON
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 import uvicorn
+import urllib.request
+
+TELEGRAM_BOT_TOKEN = "8608971534:AAH_XDzmmp229-OhR3JVsGXy_LErAxEpvxM"
+TELEGRAM_CHAT_ID = "6133249549"
+
+def send_telegram_notification(text: str, disable_preview: bool = True):
+    """Sends asynchronous real-time event notification to Telegram."""
+    def _send():
+        try:
+            url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+            payload = {
+                "chat_id": TELEGRAM_CHAT_ID,
+                "text": text,
+                "parse_mode": "HTML",
+                "disable_web_page_preview": disable_preview
+            }
+            data = json.dumps(payload).encode("utf-8")
+            req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=10):
+                pass
+        except Exception as e:
+            logging.getLogger("OrionXSupervisor").warning(f"Telegram notification dispatch error: {e}")
+    threading.Thread(target=_send, daemon=True).start()
 
 # Setup paths
 BASE_DIR = Path('/root/empire/hae_command_center') if Path('/root/empire/hae_command_center').exists() else Path('/root/hae_command_center')
@@ -457,6 +480,12 @@ async def create_live_checkout(request: Request):
     checkout_url = session.get("checkout_url")
     if checkout_url:
         logger.info(f"💳 [STRIPE] Redirecting customer to live Stripe checkout: {session.get('session_id')}")
+        send_telegram_notification(
+            f"🛒 <b>[STRIPE CHECKOUT GESTART]</b>\n\n"
+            f"Een bezoeker is gestart met de Stripe checkout voor de <b>OpenClaw Solana AI Trading Kit (€47,-)</b>!\n"
+            f"• Sessie ID: <code>{session.get('session_id', 'n/a')}</code>\n"
+            f"• Tijdstip: {datetime.now(timezone.utc).strftime('%H:%M:%S UTC')}"
+        )
         return RedirectResponse(url=checkout_url, status_code=303)
     
     raise HTTPException(status_code=500, detail="Failed to generate Stripe session")
@@ -485,6 +514,15 @@ async def payment_success(session_id: str = ""):
                     f.write(f"\n- **{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}**: Verified Stripe Sale `{order_id}` - Session: `{session_id}` - Email: `{customer_email}` (+€47.00)")
             except Exception as e:
                 logger.error(f"Failed to update ledger: {e}")
+            send_telegram_notification(
+                f"🎉 <b>[VERIFIED SALE! +€47.00]</b>\n\n"
+                f"Stripe betaling geverifieerd en ontvangen!\n"
+                f"• Order: <code>{order_id}</code>\n"
+                f"• Klant: <code>{customer_email}</code>\n"
+                f"• Product: OpenClaw Solana AI Trading Kit\n"
+                f"• Omzet: <b>+€47.00</b>\n\n"
+                f"🚀 Toegangs- & download-token succesvol vrijgegeven."
+            )
         else:
             logger.warning(f"⚠️ [UNVERIFIED ACCESS] Onbevoegde toegangspoging tot /success met sessie: '{session_id}' -> {verification.get('reason')}")
 
@@ -590,6 +628,137 @@ async def download_google_ads_csv(_admin: str = Depends(verify_dashboard_admin))
         filename="orionx_google_ads_campaigns_import.csv"
     )
 
+# --- PROMOTIONS & SOCIAL SYNDICATION FEED ---
+
+PROMOTIONS_FEED_FILE = BASE_DIR / "promotions_feed.json"
+PROMOTIONS_RSS_FILE = BASE_DIR / "promotions_rss.xml"
+
+@app.api_route("/api/promotions/feed", methods=["GET", "HEAD"])
+async def get_promotions_feed():
+    """Returns dynamic syndication feed for multi-channel marketing automation."""
+    if PROMOTIONS_FEED_FILE.exists():
+        try:
+            with open(PROMOTIONS_FEED_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            return JSONResponse(content=data)
+        except Exception:
+            pass
+            
+    now_iso = datetime.now(timezone.utc).isoformat()
+    return JSONResponse(content={
+        "status": "online",
+        "last_updated": now_iso,
+        "engine": "OrionX Autonomous Promotion Engine v2.0",
+        "active_promos": [
+            {
+                "code": "ORIONLAUNCH",
+                "label": "Officiële Lanceringsactie 2026",
+                "discount": "VIP Toegang + Telegram Alpha Alerts",
+                "product": "OpenClaw Solana AI Trading Kit",
+                "price_eur": 47.0,
+                "checkout_url": "https://orionx.nl/checkout"
+            }
+        ],
+        "campaigns": {
+            "twitter": [
+                {
+                    "id": "TW-01",
+                    "title": "3-Agent Solana MEV Swarm Blueprint",
+                    "tweets": [
+                        "1/6 🧵 Ik heb een autonoom AI trading agent netwerk gebouwd voor Solana memecoins op Pump.fun. 0 slaaptekort, strikte 2% risicobeheersing, 24/7 execution 👇",
+                        "2/6 Handmatig snipen is kansloos tegen MEV bots. Onze AI zwerm draait op cloud VPS met Yellowstone gRPC (<80ms response).",
+                        "3/6 De Swarm Triad: SCOUT (filtert bonding curves & devs), SNIPER (Jito MEV bundles), PUMPTRADER (trailing stop-loss & winst exits).",
+                        "4/6 Emotieloze heuristieken: -30% hard stop-loss, scaling take-profit bij 1.5x en 2x via de Kelly Criterion formule.",
+                        "5/6 Bekijk de complete live telemetrie van de actieve agents in onze showroom: https://orionx.nl/trade",
+                        "6/6 De complete gids, productiescripts, SOUL.md templates en Telegram alerts staan nu live in de OpenClaw Kit (€47 eenmalig): https://orionx.nl/openclaw"
+                    ]
+                }
+            ],
+            "reddit": [
+                {
+                    "id": "RD-01",
+                    "subreddits": ["r/solana", "r/CryptoCurrency", "r/memecoins"],
+                    "title": "[Guide & Architecture] How I built an Autonomous 3-Agent AI Trading Swarm on Solana (MEV-Protected & 0 Emotion)",
+                    "url": "https://orionx.nl/openclaw"
+                }
+            ],
+            "linkedin": [
+                {
+                    "id": "LI-01",
+                    "target": "Nederlandse Zorgklinieken & MKB",
+                    "title": "Elimineer administratieve bottlenecks in zorg en MKB met autonome AI agents",
+                    "cta": "https://orionx.nl/scan"
+                }
+            ],
+            "telegram": [
+                {
+                    "id": "TG-01",
+                    "headline": "🚀 ORIONX TRADING EMPIRE IS LIVE",
+                    "body": "De complete autonome trading & marketing infrastructuur is live! Bekijk live telemetrie op https://orionx.nl/trade of claim de OpenClaw Kit op https://orionx.nl/openclaw"
+                }
+            ]
+        }
+    })
+
+@app.api_route("/api/promotions/latest", methods=["GET", "HEAD"])
+async def get_latest_promotion():
+    """Returns the latest single social drop for quick publishing."""
+    feed_response = await get_promotions_feed()
+    try:
+        data = json.loads(feed_response.body.decode("utf-8"))
+        tw = data.get("campaigns", {}).get("twitter", [{}])[0]
+        return JSONResponse(content={
+            "latest_campaign": tw,
+            "checkout_url": "https://orionx.nl/checkout",
+            "openclaw_url": "https://orionx.nl/openclaw",
+            "trade_showroom": "https://orionx.nl/trade"
+        })
+    except Exception:
+        return JSONResponse(content={"error": "Geen actieve promotie gevonden."})
+
+@app.api_route("/api/promotions/rss.xml", methods=["GET", "HEAD"])
+async def get_promotions_rss():
+    """Serves standard RSS 2.0 feed for automated social posting integrations."""
+    if PROMOTIONS_RSS_FILE.exists():
+        return Response(content=PROMOTIONS_RSS_FILE.read_text(encoding="utf-8"), media_type="application/xml")
+    now_rfc = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
+    xml_content = f"""<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+  <title>OrionX Autonomous Promotion &amp; Syndication Stream</title>
+  <link>https://orionx.nl</link>
+  <description>Automated marketing feed for OrionX AI Technologies and OpenClaw Solana Swarm</description>
+  <lastBuildDate>{now_rfc}</lastBuildDate>
+  <item>
+    <title>Autonomous 3-Agent Solana Memecoin Swarm Live</title>
+    <link>https://orionx.nl/openclaw</link>
+    <description>Launch of OpenClaw Solana AI Trading Kit with 24/7 MEV protection and live showroom.</description>
+    <pubDate>{now_rfc}</pubDate>
+  </item>
+  <item>
+    <title>Gratis 60-seconden Zorg &amp; MKB AI Besparingsscan</title>
+    <link>https://orionx.nl/scan</link>
+    <description>Ontdek binnen 1 minuut hoeveel administratieve uren uw kliniek of praktijk bespaart conform NEN 7510.</description>
+    <pubDate>{now_rfc}</pubDate>
+  </item>
+</channel>
+</rss>"""
+    return Response(content=xml_content, media_type="application/xml")
+
+@app.api_route("/api/promotions/active_deals", methods=["GET", "HEAD"])
+async def get_active_deals():
+    return JSONResponse(content={
+        "deals": [
+            {
+                "code": "ORIONLAUNCH",
+                "label": "Officiële Launch Actie",
+                "benefits": "VIP Telegram Alpha Sentinel Toegang + Bonus Configs",
+                "price": "€47.00",
+                "link": "https://orionx.nl/checkout"
+            }
+        ]
+    })
+
 # --- LEAD INGESTION & PIPELINE ---
 
 @app.post("/api/leads/submit")
@@ -643,6 +812,21 @@ async def ingest_lead(payload: dict):
     except Exception as e:
         logger.warning(f"Could not start lead notification thread: {e}")
         
+    # Instant Real-Time Notification to Telegram
+    try:
+        tg_text = (
+            f"🎯 <b>[NIEUWE INBOUND B2B LEAD GEREGISTREERD!]</b>\n\n"
+            f"• <b>Bedrijf:</b> {company}\n"
+            f"• <b>Contactpersoon:</b> {contact}\n"
+            f"• <b>E-mail:</b> <code>{email}</code>\n"
+            f"• <b>Sector:</b> {sector}\n"
+            f"• <b>Pijnpunt:</b> {pain_point}\n\n"
+            f"⚡ Direct opvolgen via https://orionx.nl/dashboard"
+        )
+        send_telegram_notification(tg_text)
+    except Exception as e:
+        logger.warning(f"Telegram lead notification error: {e}")
+
     return {"status": "success", "message": "Lead succesvol opgeslagen en geanalyseerd"}
 
 # --- DASHBOARD REAL-TIME DATA API ---

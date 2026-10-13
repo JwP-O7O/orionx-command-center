@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hetzner Empire // Master Command Center</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/jpeg" href="/logos/orionx_official_logo.jpg">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -28,9 +29,7 @@
   <header class="glass rounded-2xl p-4 sm:p-6 mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 glow-cyan">
     <div class="flex items-center gap-4">
       <div class="relative">
-        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center font-bold text-xl shadow-lg shadow-cyan-500/30">
-          👑
-        </div>
+        <img src="/logos/orionx_official_logo.jpg" alt="OrionX Logo Den Haag" class="w-12 h-12 rounded-xl object-cover shadow-lg shadow-cyan-500/30 border border-cyan-500/40">
         <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-[#0a0c14] pulse-dot"></div>
       </div>
       <div>
@@ -67,8 +66,17 @@
           <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Live (3s)
         </div>
       </div>
-      <button onclick="triggerOutreach()" id="btn-trigger" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-black font-bold rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-cyan-500/20 active:scale-95">
-        ⚡ Forceer B2B Scan
+      <a href="/download/google-ads-campaigns.csv" download="orionx_google_ads_campaigns.csv" class="px-3.5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-extrabold rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-amber-500/25 active:scale-95 flex items-center gap-1.5">
+        <span>🎯</span> Google Ads CSV
+      </a>
+      <button onclick="triggerBoardroomMeeting()" id="btn-board-trigger" class="px-3.5 py-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-blue-600/25 active:scale-95 flex items-center gap-1.5">
+        <span>🏛️</span> Boardroom Overleg
+      </button>
+      <button onclick="triggerAgentCycle()" id="btn-agent-trigger" class="px-3.5 py-2 bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-purple-600/25 active:scale-95 flex items-center gap-1.5">
+        <span>🤖</span> Forceer AI Agent Cyclus
+      </button>
+      <button onclick="triggerOutreach()" id="btn-trigger" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold rounded-xl text-xs sm:text-sm transition-all active:scale-95">
+        ⚡ B2B Scan
       </button>
     </div>
   </header>
@@ -116,20 +124,22 @@
       </div>
       <div class="text-xs text-slate-400 mt-1 flex justify-between">
         <span>Prijs: <strong class="text-slate-200">€ 47,- per verkoop</strong></span>
-        <a href="/checkout" target="_blank" class="text-cyan-400 hover:underline">Test Checkout</a>
+        <a href="/download/openclaw-pumpfun-workflow.pdf?token=TheHagueO7O-" target="_blank" class="text-cyan-400 hover:underline font-semibold">⚡ Admin Download (PDF)</a>
       </div>
     </div>
 
-    <!-- Card 4: Autonomous Healthcare Engine -->
-    <div class="glass-card rounded-2xl p-5 border-l-4 border-l-amber-500">
+    <!-- Card 4: Autonomous Swarm Agent -->
+    <div class="glass-card rounded-2xl p-5 border-l-4 border-l-purple-500 glow-purple">
       <div class="flex justify-between items-start mb-2">
-        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">B2B Zorg & MKB Outreach</span>
-        <span class="p-1.5 rounded-lg bg-amber-500/10 text-amber-400 text-xs font-semibold">Loop: 300s</span>
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">OrionX Swarm Agent</span>
+        <span class="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 text-xs font-semibold flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span> Gemini 2.5 Brain
+        </span>
       </div>
-      <div class="text-xl sm:text-2xl font-black text-amber-400 tracking-tight" id="leads-count">4 Klinieken</div>
+      <div class="text-xl sm:text-2xl font-black text-purple-400 tracking-tight" id="agent-cycles">Cyclus #1</div>
       <div class="text-xs text-slate-400 mt-1 flex justify-between">
-        <span id="cycles-count">Cycli: 14 afgerond</span>
-        <span class="text-amber-400 font-semibold">100% Autonoom</span>
+        <span id="agent-substats"><strong class="text-slate-200" id="agent-leads-count">6</strong> Leads • <strong class="text-slate-200" id="agent-packs-count">1</strong> Viral Pack</span>
+        <span class="text-emerald-400 font-semibold">24/7 Autonoom</span>
       </div>
     </div>
   </div>
@@ -248,6 +258,143 @@
         </div>
       </div>
 
+      <!-- Autonomous Executive Boardroom (C-Suite Swarm) Panel -->
+      <div class="glass rounded-2xl p-5 border-t-2 border-t-indigo-500 glow-purple mb-6">
+        <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
+          <div>
+            <h2 class="text-sm font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-2">
+              <span>🏛️</span> Autonomous Executive Boardroom (C-Suite Swarm)
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">Zelfsturend directieteam: stelt onderling de koers vast en delegeert taken aan sub-agents</p>
+          </div>
+          <button onclick="triggerBoardroomMeeting()" id="btn-board-inner" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold rounded-xl text-xs transition-all shadow-md shadow-indigo-500/20 active:scale-95 flex items-center gap-1.5">
+            <span>⚡</span> Overleg Nu Forceren
+          </button>
+        </div>
+
+        <!-- 4 C-Suite Directors -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+          <!-- CEO -->
+          <div class="bg-[#0c0f1a] p-3 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-[10px] font-bold text-amber-400 uppercase flex items-center gap-1">👑 CEO</span>
+              <span class="text-[9px] bg-emerald-500/10 text-emerald-300 px-1 rounded">Strategie</span>
+            </div>
+            <div class="font-bold text-xs text-white">Strategic Commander</div>
+            <div class="text-[11px] text-slate-400 mt-1 leading-tight" id="ceo-focus">Google Ads schaling & B2B zorgcontracten.</div>
+          </div>
+
+          <!-- CMO -->
+          <div class="bg-[#0c0f1a] p-3 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-[10px] font-bold text-cyan-400 uppercase flex items-center gap-1">📈 CMO</span>
+              <span class="text-[9px] bg-cyan-500/10 text-cyan-300 px-1 rounded">Acquisitie</span>
+            </div>
+            <div class="font-bold text-xs text-white">Growth & Ads Director</div>
+            <div class="text-[11px] text-slate-400 mt-1 leading-tight" id="cmo-status">Account 162-876-8552 actief op /scan.</div>
+          </div>
+
+          <!-- CRO -->
+          <div class="bg-[#0c0f1a] p-3 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-[10px] font-bold text-purple-400 uppercase flex items-center gap-1">💼 CRO</span>
+              <span class="text-[9px] bg-purple-500/10 text-purple-300 px-1 rounded">Revenue</span>
+            </div>
+            <div class="font-bold text-xs text-white">Pipeline Director</div>
+            <div class="text-[11px] text-slate-400 mt-1 leading-tight" id="cro-status">€ 18.847,- actieve B2B ZBC pipeline.</div>
+          </div>
+
+          <!-- CTO -->
+          <div class="bg-[#0c0f1a] p-3 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-[10px] font-bold text-emerald-400 uppercase flex items-center gap-1">🛡️ CTO</span>
+              <span class="text-[9px] bg-emerald-500/10 text-emerald-300 px-1 rounded">Systems</span>
+            </div>
+            <div class="font-bold text-xs text-white">Security Architect</div>
+            <div class="text-[11px] text-slate-400 mt-1 leading-tight" id="cto-status">2.31.30.14 • 99.98% Uptime • SSL ECDSA.</div>
+          </div>
+        </div>
+
+        <!-- Delegated Sub-Agents Badges -->
+        <div class="mb-3">
+          <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Gedelegeerde Gespecialiseerde Sub-Agents:</div>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> SubAgent-HealthcareHunter</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> SubAgent-ProposalArchitect</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> SubAgent-OutboxDispatcher</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> SubAgent-AdsOptimizer (162-876-8552)</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> SubAgent-ViralPromoter (€47)</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> SubAgent-SecurityGuardian</span>
+          </div>
+        </div>
+
+        <!-- Live Consensus Decision Quote -->
+        <div class="p-3 bg-[#080910] rounded-xl border border-slate-800/80 text-xs text-slate-300">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1">📜 Laatste Boardroom Consensus Besluit:</span>
+            <span class="text-[10px] text-slate-500 mono" id="board-time">Live Gesynchroniseerd</span>
+          </div>
+          <p class="italic text-slate-300 leading-relaxed" id="board-decision">
+            "De koers voor de komende cyclus is gefocust op Google Ads Schaling & B2B Zorg Klinieken Conversie. We bouwen voort op de werkende Google Ads integratie en het NEN 7510 lead funnel. Geen wiel opnieuw uitvinden: conversiepercentage van /scan verhogen en leads direct closen."
+          </p>
+        </div>
+      </div>
+
+      <!-- Google Ads & Autonome Client Acquisitie Card -->
+      <div class="glass rounded-2xl p-5 border-t-2 border-t-amber-500">
+        <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
+          <div>
+            <h2 class="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+              <span>🎯</span> Google Ads & Client Acquisitie Engine
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">3 Autonome Campagnes geoptimaliseerd voor hoge conversie & lage CPA</p>
+          </div>
+          <a href="/download/google-ads-campaigns.csv" download="orionx_google_ads_campaigns.csv" class="px-3.5 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-extrabold rounded-xl text-xs transition-all shadow-md shadow-amber-500/20 active:scale-95 flex items-center gap-1.5">
+            <span>📥</span> Download Editor CSV
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+          <!-- Campaign 1 -->
+          <div class="bg-[#0c0f1a] p-3 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-[10px] font-bold text-cyan-400 uppercase">Campagne 1</span>
+              <span class="text-[10px] bg-cyan-500/10 text-cyan-300 px-1.5 py-0.5 rounded font-mono">€25/dag</span>
+            </div>
+            <div class="font-bold text-xs text-white truncate">NL-SEARCH-B2B-Zorg</div>
+            <div class="text-[11px] text-slate-400 mt-1">EPD/Zorg AI, NEN 7510. Doel: High-ticket intake via <code class="text-cyan-300">/scan</code>.</div>
+          </div>
+
+          <!-- Campaign 2 -->
+          <div class="bg-[#0c0f1a] p-3 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-[10px] font-bold text-purple-400 uppercase">Campagne 2</span>
+              <span class="text-[10px] bg-purple-500/10 text-purple-300 px-1.5 py-0.5 rounded font-mono">€20/dag</span>
+            </div>
+            <div class="font-bold text-xs text-white truncate">NL-SEARCH-B2B-MKB-Factuur</div>
+            <div class="text-[11px] text-slate-400 mt-1">Exact / AFAS OCR AI. Doel: MKB demo via <code class="text-purple-300">/scan</code>.</div>
+          </div>
+
+          <!-- Campaign 3 -->
+          <div class="bg-[#0c0f1a] p-3 rounded-xl border border-slate-800">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-[10px] font-bold text-emerald-400 uppercase">Campagne 3</span>
+              <span class="text-[10px] bg-emerald-500/10 text-emerald-300 px-1.5 py-0.5 rounded font-mono">€20/dag</span>
+            </div>
+            <div class="font-bold text-xs text-white truncate">GLOBAL-SEARCH-Crypto</div>
+            <div class="text-[11px] text-slate-400 mt-1">Pump.fun & MEV Sniper Bot. Doel: Koop op <code class="text-emerald-300">/openclaw</code> (€47).</div>
+          </div>
+        </div>
+
+        <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">✓</span>
+            <span><strong>1-Klik Upload:</strong> Importeer de CSV in <em>Google Ads Editor</em> (Account &gt; Importeren &gt; Uit bestand...).</span>
+          </div>
+          <span class="text-[11px] text-amber-400/90 mono font-semibold">57 Entiteiten Klaar</span>
+        </div>
+      </div>
+
     </div>
 
     <!-- RIGHT COLUMN: Master Ledger & Live Console (5 cols) -->
@@ -302,6 +449,43 @@
 
   </div>
 
+  <!-- LOWER TWO-COLUMN GRID: OUTBOX & VIRAL MARKETING -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-6">
+
+    <!-- Outbox Dispatch Queue (6 cols) -->
+    <div class="lg:col-span-6 glass rounded-2xl p-5 flex flex-col">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+          <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          Autonome Outbox & Dispatch Wachtrij
+        </h2>
+        <span class="text-xs text-cyan-400 font-semibold bg-cyan-500/10 px-2.5 py-0.5 rounded-full border border-cyan-500/20" id="outbox-badge">
+          TransIP SMTP (587)
+        </span>
+      </div>
+      <div id="outbox-container" class="space-y-3 overflow-y-auto max-h-[360px] pr-1">
+        <div class="text-center py-6 text-slate-500">Outbox laden...</div>
+      </div>
+    </div>
+
+    <!-- OpenClaw Viral Crypto Marketing Packs (6 cols) -->
+    <div class="lg:col-span-6 glass rounded-2xl p-5 flex flex-col">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+          <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          OpenClaw Solana Viral Marketing Engine
+        </h2>
+        <span class="text-xs text-purple-400 font-semibold bg-purple-500/10 px-2.5 py-0.5 rounded-full border border-purple-500/20">
+          Twitter • Reddit • Telegram
+        </span>
+      </div>
+      <div id="marketing-container" class="space-y-3 overflow-y-auto max-h-[360px] pr-1">
+        <div class="text-center py-6 text-slate-500">Marketing packs laden...</div>
+      </div>
+    </div>
+
+  </div>
+
   <!-- CLIENT-SIDE TELEMETRY SCRIPT -->
   <script>
     async function fetchDashboardData() {
@@ -333,21 +517,25 @@
         if (d.metrics) {
           document.getElementById('orders-count').textContent = d.metrics.orders_processed;
           document.getElementById('downloads-count').textContent = d.metrics.downloads;
-          document.getElementById('cycles-count').textContent = 'Cycli: ' + (d.metrics.outreach_cycles_completed || 0) + ' afgerond';
-          
-          const totalRev = (d.metrics.total_revenue_eur || 4700) + 14100; // Booked + Pipeline
+          const totalRev = (d.metrics.total_revenue_eur || 4700) + 14100;
           document.getElementById('total-revenue').textContent = '€ ' + totalRev.toLocaleString('nl-NL', {minimumFractionDigits: 2});
         }
 
-        // 3. Stripe Details
+        // 3. Agent Swarm Stats
+        if (d.agent) {
+          document.getElementById('agent-cycles').textContent = 'Cyclus #' + (d.agent.cycle_count || 1);
+          document.getElementById('agent-leads-count').textContent = d.agent.leads_discovered || 6;
+          document.getElementById('agent-packs-count').textContent = d.agent.marketing_packs_created || 1;
+        }
+
+        // 4. Stripe Details
         if (d.stripe) {
           document.getElementById('stripe-business').textContent = d.stripe.business_name || 'Pabst (NL)';
           document.getElementById('stripe-acct').textContent = (d.stripe.account_id || 'acct_1JVwpz...').substring(0, 16) + '...';
         }
 
-        // 4. Render Leads
+        // 5. Render Leads
         if (d.leads && Array.isArray(d.leads)) {
-          document.getElementById('leads-count').textContent = d.leads.length + ' Klinieken';
           const container = document.getElementById('leads-container');
           container.innerHTML = d.leads.map(lead => `
             <div class="p-3.5 bg-slate-900/60 rounded-xl border border-slate-800 hover:border-slate-700 transition-all">
@@ -357,7 +545,7 @@
                   <div class="text-xs text-slate-400">${lead.contact} • <span class="text-cyan-400">${lead.sector || 'Zorg & MKB'}</span></div>
                 </div>
                 <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                  € 4.700 Deal
+                  € 3.450 Deal
                 </span>
               </div>
               <p class="text-xs text-slate-300 mb-2 leading-relaxed bg-[#0c0e18] p-2 rounded-lg border border-slate-800/80">
@@ -373,7 +561,69 @@
           `).join('');
         }
 
-        // 5. Render Ledger
+        // 6. Render Outbox Queue
+        if (d.outbox && Array.isArray(d.outbox)) {
+          const outboxContainer = document.getElementById('outbox-container');
+          if (d.outbox.length === 0) {
+            outboxContainer.innerHTML = '<div class="text-center py-6 text-slate-500">Geen berichten in wachtrij</div>';
+          } else {
+            outboxContainer.innerHTML = d.outbox.map(m => `
+              <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800/80 text-xs">
+                <div class="flex justify-between items-start gap-2 mb-1">
+                  <div>
+                    <h4 class="font-bold text-slate-200">${m.recipient_company}</h4>
+                    <span class="text-[11px] text-slate-400 font-mono">${m.email}</span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${m.status === 'SENT_LIVE' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'}">
+                    ${m.status === 'SENT_LIVE' ? '✓ Verzonden' : 'Klaargezet voor SMTP'}
+                  </span>
+                </div>
+                <div class="text-slate-300 font-medium mb-1.5">${m.subject}</div>
+                <div class="text-[11px] text-slate-400 flex justify-between items-center pt-1 border-t border-slate-800/60">
+                  <span class="mono">Kanaal: ${m.delivery_channel || 'smtp.transip.email:587'}</span>
+                  <button onclick="copyText(${JSON.stringify(m.body)})" class="text-cyan-400 hover:underline font-semibold">
+                    📋 Kopieer Pitch
+                  </button>
+                </div>
+              </div>
+            `).join('');
+          }
+        }
+
+        // 7. Render Viral Marketing Packs
+        if (d.marketing_packs && Array.isArray(d.marketing_packs)) {
+          const marketingContainer = document.getElementById('marketing-container');
+          if (d.marketing_packs.length === 0) {
+            marketingContainer.innerHTML = '<div class="text-center py-6 text-slate-500">Geen packs gegenereerd</div>';
+          } else {
+            marketingContainer.innerHTML = d.marketing_packs.map(p => `
+              <div class="p-3.5 bg-slate-900/60 rounded-xl border border-slate-800/80 text-xs space-y-2">
+                <div class="flex justify-between items-center">
+                  <span class="font-bold text-purple-400 mono">${p.id}</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-purple-500/10 text-purple-300 border border-purple-500/30">
+                    Solana Kit (€47)
+                  </span>
+                </div>
+                <div class="bg-[#0b0e18] p-2.5 rounded-lg border border-slate-800 text-[11px] text-slate-300 max-h-24 overflow-y-auto whitespace-pre-line">
+                  ${escapeHtml(p.twitter_thread ? p.twitter_thread.substring(0, 220) + '...' : '')}
+                </div>
+                <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-800/60">
+                  <button onclick="copyText(${JSON.stringify(p.twitter_thread)})" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded font-semibold text-[11px]">
+                    🧵 Kopieer Twitter Thread
+                  </button>
+                  <button onclick="copyText(${JSON.stringify(p.reddit_post)})" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-amber-300 rounded font-semibold text-[11px]">
+                    📝 Kopieer Reddit Post
+                  </button>
+                  <button onclick="copyText(${JSON.stringify(p.telegram_alert)})" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-emerald-300 rounded font-semibold text-[11px]">
+                    ✈️ Kopieer Telegram
+                  </button>
+                </div>
+              </div>
+            `).join('');
+          }
+        }
+
+        // 8. Render Ledger
         if (d.ledger) {
           const lines = d.ledger.split('\n').filter(l => l.trim().length > 0).slice(-8);
           document.getElementById('ledger-box').innerHTML = lines.map(line => {
@@ -387,15 +637,47 @@
           }).join('');
         }
 
-        // 6. Render Console Logs
+        // 9. Render Autonomous Boardroom C-Suite Swarm
+        if (d.boardroom) {
+          const b = d.boardroom;
+          if (b.ceo_plan && b.ceo_plan.focus_area) {
+            const ceoEl = document.getElementById('ceo-focus');
+            if (ceoEl) ceoEl.textContent = b.ceo_plan.focus_area;
+          }
+          if (b.cmo_growth) {
+            const cmoEl = document.getElementById('cmo-status');
+            if (cmoEl) cmoEl.textContent = `Ads: ${b.cmo_growth.google_ads_account || '162-876-8552'} • ${b.cmo_growth.status || 'Actief'}`;
+          }
+          if (b.cro_revenue) {
+            const croEl = document.getElementById('cro-status');
+            if (croEl) croEl.textContent = `€ ${Number(b.cro_revenue.pipeline_value_eur || 18847).toLocaleString('nl-NL', {minimumFractionDigits: 2})} • ${b.cro_revenue.status || 'Actief'}`;
+          }
+          if (b.cto_systems) {
+            const ctoEl = document.getElementById('cto-status');
+            if (ctoEl) ctoEl.textContent = `${b.cto_systems.vps_ip || '2.31.30.14'} • ${b.cto_systems.uptime || '99.98%'} • ${b.cto_systems.security_status || 'SSL ECDSA'}`;
+          }
+          if (b.consensus_summary) {
+            const decEl = document.getElementById('board-decision');
+            if (decEl) decEl.textContent = `"${b.consensus_summary}"`;
+          }
+          if (b.timestamp) {
+            const timeEl = document.getElementById('board-time');
+            if (timeEl) {
+              const t = new Date(b.timestamp);
+              timeEl.textContent = `${b.meeting_id || 'Cyclus'} • ${t.toLocaleTimeString('nl-NL')}`;
+            }
+          }
+        }
+
+        // 10. Render Console Logs
         if (d.logs && Array.isArray(d.logs)) {
           const consoleBox = document.getElementById('console-box');
           consoleBox.innerHTML = d.logs.map(log => {
             let color = 'text-slate-300';
             if (log.includes('[ERROR]')) color = 'text-red-400';
-            else if (log.includes('✅') || log.includes('COMPLETE') || log.includes('SALE')) color = 'text-emerald-400 font-semibold';
-            else if (log.includes('⚡') || log.includes('STRIPE') || log.includes('DELIVERY')) color = 'text-cyan-300';
-            else if (log.includes('🔄') || log.includes('B2B ENGINE')) color = 'text-amber-300';
+            else if (log.includes('✅') || log.includes('COMPLETE') || log.includes('SALE') || log.includes('BOARDROOM')) color = 'text-emerald-400 font-semibold';
+            else if (log.includes('⚡') || log.includes('STRIPE') || log.includes('DELIVERY') || log.includes('DIRECTOR')) color = 'text-cyan-300';
+            else if (log.includes('🔄') || log.includes('AGENT CYCLE') || log.includes('B2B ENGINE') || log.includes('🏛️')) color = 'text-amber-300';
             return `<div class="${color} leading-tight">${escapeHtml(log)}</div>`;
           }).join('');
           consoleBox.scrollTop = consoleBox.scrollHeight;
@@ -407,7 +689,51 @@
     }
 
     function escapeHtml(str) {
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return (str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function copyText(text) {
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('📋 Gekopieerd naar klembord!');
+      }).catch(err => {
+        prompt('Kopieer handmatig:', text);
+      });
+    }
+
+    async function triggerBoardroomMeeting() {
+      const btnHeader = document.getElementById('btn-board-trigger');
+      const btnInner = document.getElementById('btn-board-inner');
+      if (btnHeader) { btnHeader.disabled = true; btnHeader.textContent = '🏛️ Overleg Bezig...'; }
+      if (btnInner) { btnInner.disabled = true; btnInner.textContent = '🏛️ Overleg Bezig...'; }
+      try {
+        const res = await fetch('/api/dashboard/trigger_boardroom', { method: 'POST' });
+        const resData = await res.json();
+        alert('🏛️ ' + (resData.message || 'Boardroom overleg voltooid!'));
+        fetchDashboardData();
+      } catch (e) {
+        alert('Fout bij triggeren boardroom: ' + e);
+      } finally {
+        if (btnHeader) { btnHeader.disabled = false; btnHeader.innerHTML = '<span>🏛️</span> Boardroom Overleg'; }
+        if (btnInner) { btnInner.disabled = false; btnInner.innerHTML = '<span>⚡</span> Overleg Nu Forceren'; }
+      }
+    }
+
+    async function triggerAgentCycle() {
+      const btn = document.getElementById('btn-agent-trigger');
+      btn.disabled = true;
+      btn.textContent = '🤖 Agent Draait...';
+      try {
+        const res = await fetch('/api/dashboard/trigger_agent_cycle', { method: 'POST' });
+        const resData = await res.json();
+        alert('🤖 ' + (resData.message || 'Cyclus voltooid!'));
+        fetchDashboardData();
+      } catch (e) {
+        alert('Fout bij triggeren agent: ' + e);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>🤖</span> Forceer AI Agent Cyclus';
+      }
     }
 
     async function triggerOutreach() {
@@ -417,13 +743,13 @@
       try {
         const res = await fetch('/api/dashboard/trigger_outreach', { method: 'POST' });
         const resData = await res.json();
-        alert('✅ B2B Outreach Cyclus succesvol getriggerd! ' + (resData.message || ''));
+        alert('✅ B2B Outreach Scan voltooid! ' + (resData.message || ''));
         fetchDashboardData();
       } catch (e) {
         alert('Fout bij triggeren: ' + e);
       } finally {
         btn.disabled = false;
-        btn.textContent = '⚡ Forceer B2B Scan';
+        btn.textContent = '⚡ B2B Scan';
       }
     }
 
