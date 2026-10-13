@@ -393,5 +393,145 @@
       }
     }
   </script>
+
+  <!-- OrionX Floating AI Consultant Widget -->
+  <style>
+    @keyframes orionx-pulse-ping {
+      75%, 100% { transform: scale(2.2); opacity: 0; }
+    }
+  </style>
+  <div id="orionx-chat-widget" style="position: fixed; bottom: 24px; right: 24px; z-index: 99999; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+    <button id="orionx-chat-toggle" onclick="toggleOrionXChat()" style="display: flex; align-items: center; gap: 10px; padding: 12px 20px; background: rgba(11, 15, 25, 0.95); border: 1px solid rgba(6, 182, 212, 0.6); border-radius: 9999px; color: #fff; cursor: pointer; box-shadow: 0 8px 32px rgba(6, 182, 212, 0.35); backdrop-filter: blur(12px); transition: all 0.25s ease;">
+      <span style="position: relative; display: flex; height: 10px; width: 10px;">
+        <span style="position: absolute; display: inline-flex; height: 100%; width: 100%; border-radius: 9999px; background: #14F195; opacity: 0.75; animation: orionx-pulse-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;"></span>
+        <span style="position: relative; display: inline-flex; border-radius: 9999px; height: 10px; width: 10px; background: #14F195;"></span>
+      </span>
+      <span style="font-weight: 700; font-size: 0.9rem; letter-spacing: 0.02em;">💬 OrionX AI Consultant</span>
+      <span style="font-size: 0.75rem; background: rgba(6,182,212,0.2); color: #38bdf8; padding: 2px 8px; border-radius: 12px; font-weight: 600;">Live</span>
+    </button>
+
+    <div id="orionx-chat-modal" style="display: none; position: absolute; bottom: 65px; right: 0; width: 360px; max-width: calc(100vw - 40px); height: 500px; max-height: calc(100vh - 100px); background: #0b0f19; border: 1px solid rgba(6, 182, 212, 0.35); border-radius: 20px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(6, 182, 212, 0.2); flex-direction: column; overflow: hidden; backdrop-filter: blur(20px);">
+      <div style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(20, 241, 149, 0.1) 100%); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 14px 18px; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #06b6d4, #14F195); display: flex; align-items: center; justify-content: center; font-size: 16px;">⚡</div>
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem; color: #fff;">OrionX AI Consultant</div>
+            <div style="font-size: 0.72rem; color: #14F195; display: flex; align-items: center; gap: 4px;">
+              <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #14F195;"></span> 24/7 NEN 7510 &amp; ROI Expert
+            </div>
+          </div>
+        </div>
+        <button onclick="toggleOrionXChat()" style="background: transparent; border: none; color: #94a3b8; font-size: 20px; cursor: pointer; padding: 4px; line-height: 1;">&times;</button>
+      </div>
+
+      <div id="orionx-chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.88rem; scroll-behavior: smooth;">
+        <div style="align-self: flex-start; max-width: 90%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px 14px 14px 2px; padding: 12px 14px; color: #e2e8f0; line-height: 1.5;">
+          👋 Welkom! Ik ben de realtime AI-consultant van OrionX. Stel mij gerust een vraag over onze automatiseringen, privacy conform NEN 7510, of de verwachte besparing voor uw organisatie.
+        </div>
+        <div id="orionx-quick-prompts" style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;">
+          <button onclick="sendQuickPrompt('Wat kost de AI-FTE Retainer per maand?')" style="background: rgba(6, 182, 212, 0.12); border: 1px solid rgba(6, 182, 212, 0.3); color: #38bdf8; font-size: 0.75rem; padding: 6px 10px; border-radius: 12px; cursor: pointer; text-align: left;">💰 Wat kost de AI Retainer?</button>
+          <button onclick="sendQuickPrompt('Hoe zit het met privacy en NEN 7510?')" style="background: rgba(20, 241, 149, 0.12); border: 1px solid rgba(20, 241, 149, 0.3); color: #14F195; font-size: 0.75rem; padding: 6px 10px; border-radius: 12px; cursor: pointer; text-align: left;">🛡️ Privacy &amp; NEN 7510</button>
+          <button onclick="sendQuickPrompt('Wat is de OpenClaw Solana Trading Kit?')" style="background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.3); color: #c084fc; font-size: 0.75rem; padding: 6px 10px; border-radius: 12px; cursor: pointer; text-align: left;">⚡ OpenClaw Kit (€47)</button>
+        </div>
+      </div>
+
+      <div style="padding: 12px 14px; border-top: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.4); display: flex; gap: 8px;">
+        <input type="text" id="orionx-chat-input" placeholder="Typ uw vraag hier..." onkeydown="if(event.key==='Enter') sendOrionXChatMessage()" style="flex: 1; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 0.85rem; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#06b6d4'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+        <button id="orionx-chat-send-btn" onclick="sendOrionXChatMessage()" style="background: linear-gradient(135deg, #06b6d4, #14F195); border: none; border-radius: 10px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; cursor: pointer; transition: transform 0.15s ease;">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let orionxChatHistory = [];
+    function toggleOrionXChat() {
+      const modal = document.getElementById('orionx-chat-modal');
+      const isHidden = modal.style.display === 'none' || modal.style.display === '';
+      modal.style.display = isHidden ? 'flex' : 'none';
+      if (isHidden) {
+        setTimeout(() => document.getElementById('orionx-chat-input').focus(), 100);
+      }
+    }
+
+    function sendQuickPrompt(promptText) {
+      document.getElementById('orionx-chat-input').value = promptText;
+      const promptsDiv = document.getElementById('orionx-quick-prompts');
+      if (promptsDiv) promptsDiv.style.display = 'none';
+      sendOrionXChatMessage();
+    }
+
+    function appendChatMessage(sender, text) {
+      const container = document.getElementById('orionx-chat-messages');
+      const msgDiv = document.createElement('div');
+      const isUser = sender === 'user';
+      msgDiv.style.alignSelf = isUser ? 'flex-end' : 'flex-start';
+      msgDiv.style.maxWidth = '90%';
+      msgDiv.style.padding = '10px 14px';
+      msgDiv.style.borderRadius = isUser ? '14px 14px 2px 14px' : '14px 14px 14px 2px';
+      msgDiv.style.background = isUser ? 'linear-gradient(135deg, #0284c7, #06b6d4)' : 'rgba(255, 255, 255, 0.05)';
+      msgDiv.style.border = isUser ? 'none' : '1px solid rgba(255, 255, 255, 0.08)';
+      msgDiv.style.color = isUser ? '#fff' : '#e2e8f0';
+      msgDiv.style.lineHeight = '1.45';
+      msgDiv.style.wordBreak = 'break-word';
+
+      let formatted = text
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\[(.*?)\]\((https?:\/\/[^\s]+)\)/g, '<a href="$2" target="_blank" style="color: #38bdf8; text-decoration: underline;">$1</a>')
+        .replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+
+      msgDiv.innerHTML = formatted;
+      container.appendChild(msgDiv);
+      container.scrollTop = container.scrollHeight;
+      return msgDiv;
+    }
+
+    async function sendOrionXChatMessage() {
+      const input = document.getElementById('orionx-chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+
+      appendChatMessage('user', text);
+      orionxChatHistory.push({ sender: 'user', text: text });
+
+      const container = document.getElementById('orionx-chat-messages');
+      const loadingDiv = document.createElement('div');
+      loadingDiv.id = 'orionx-chat-typing';
+      loadingDiv.style.alignSelf = 'flex-start';
+      loadingDiv.style.padding = '8px 12px';
+      loadingDiv.style.background = 'rgba(255,255,255,0.04)';
+      loadingDiv.style.borderRadius = '12px';
+      loadingDiv.style.color = '#94a3b8';
+      loadingDiv.style.fontSize = '0.8rem';
+      loadingDiv.innerHTML = '⚡ <em>Consultant denkt na...</em>';
+      container.appendChild(loadingDiv);
+      container.scrollTop = container.scrollHeight;
+
+      const sendBtn = document.getElementById('orionx-chat-send-btn');
+      sendBtn.disabled = true;
+
+      try {
+        const res = await fetch('/api/chat/consultant', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, history: orionxChatHistory })
+        });
+        const data = await res.json();
+        const typingEl = document.getElementById('orionx-chat-typing');
+        if (typingEl) typingEl.remove();
+
+        const reply = data.reply || 'Dank voor uw bericht. Ons team beantwoordt dit graag via jwp@orionx.nl.';
+        appendChatMessage('consultant', reply);
+        orionxChatHistory.push({ sender: 'consultant', text: reply });
+      } catch (err) {
+        const typingEl = document.getElementById('orionx-chat-typing');
+        if (typingEl) typingEl.remove();
+        appendChatMessage('consultant', 'Er is tijdelijk geen verbinding. U kunt onze directie bereiken via jwp@orionx.nl.');
+      } finally {
+        sendBtn.disabled = false;
+      }
+    }
+  </script>
 </body>
 </html>

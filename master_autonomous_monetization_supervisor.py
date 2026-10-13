@@ -89,26 +89,54 @@ def verify_dashboard_admin(credentials: Optional[HTTPBasicCredentials] = Depends
         )
     return credentials.username
 
-DOWNLOAD_SECRET = os.getenv("DOWNLOAD_SECRET", "orionx-secure-download-token-key-2026")
+DOWNLOAD_SECRET = os.getenv("DOWNLOAD_SECRET")
+if not DOWNLOAD_SECRET or DOWNLOAD_SECRET == "orionx-secure-download-token-key-2026":
+    import secrets
+    DOWNLOAD_SECRET = secrets.token_hex(32)
 
 def make_paid_token(session_id: str) -> str:
+    """Generates a cryptographically signed, session-bound digital product delivery token."""
     ts = int(time.time())
-    sig = hmac.new(DOWNLOAD_SECRET.encode("utf-8"), f"paid:{ts}".encode("utf-8"), hashlib.sha256).hexdigest()[:32]
-    return f"{ts}.{sig}"
+    clean_sid = str(session_id).strip()
+    payload = f"{clean_sid}:{ts}"
+    sig = hmac.new(DOWNLOAD_SECRET.encode("utf-8"), payload.encode("utf-8"), hashlib.sha256).hexdigest()[:32]
+    return f"{ts}.{clean_sid}.{sig}"
 
-def verify_download_token(token: str, max_age_seconds: int = 86400) -> bool:
-    if token in ["admin", "TheHagueO7O-", "orionx-admin-master"]:
-        return True
-    if not token or "." not in token:
+def verify_download_token(token: str, max_age_seconds: int = 7200) -> bool:
+    """
+    Cryptographically verifies digital product delivery token.
+    STRICT SECURITY CONTROLS:
+    1. Zero hardcoded bypass tokens (no 'admin' or static backdoors).
+    2. Enforces 2-hour maximum lifetime from generation.
+    3. Validates HMAC signature against server secret.
+    4. Validates directly with Stripe API that session_id was successfully paid.
+    """
+    if not token or token.count(".") != 2:
         return False
     try:
-        ts_str, sig = token.split(".", 1)
+        ts_str, session_id, sig = token.split(".", 2)
         ts = int(ts_str)
-        if time.time() - ts > max_age_seconds or time.time() < ts - 60:
+        now = time.time()
+        # Enforce maximum validity window (2 hours)
+        if now - ts > max_age_seconds or now < ts - 60:
+            logger.warning(f"⛔ [EXPIRED TOKEN] Download token voor sessie {session_id} is verlopen ({now - ts:.0f}s)")
             return False
-        expected_sig = hmac.new(DOWNLOAD_SECRET.encode("utf-8"), f"paid:{ts}".encode("utf-8"), hashlib.sha256).hexdigest()[:32]
-        return hmac.compare_digest(sig, expected_sig)
-    except Exception:
+            
+        payload = f"{session_id}:{ts}"
+        expected_sig = hmac.new(DOWNLOAD_SECRET.encode("utf-8"), payload.encode("utf-8"), hashlib.sha256).hexdigest()[:32]
+        if not hmac.compare_digest(sig, expected_sig):
+            logger.warning(f"⛔ [FORGED TOKEN] Ongeldige token handtekening voor sessie {session_id}")
+            return False
+            
+        # Verify legitimate payment in Stripe
+        verification = stripe_gw.verify_session(session_id)
+        if verification.get("valid") is not True:
+            logger.warning(f"⛔ [UNPAID TOKEN] Stripe sessie {session_id} is niet betaald ({verification.get('reason')})")
+            return False
+            
+        return True
+    except Exception as e:
+        logger.error(f"Download token verificatie error: {e}")
         return False
 
 LOG_FILE = LOG_DIR / 'autonomous_master.log'
@@ -721,7 +749,24 @@ a{display:inline-block;background:#14F195;color:#000;padding:12px 24px;border-ra
     return FileResponse(
         str(PDF_FILE),
         media_type="application/pdf",
-        filename="OpenClaw_Solana_Memecoin_AI_Trading_Kit.pdf"
+        filename="OpenClaw_Solana_Memecoin_AI_Trading_Kit.pdf",
+        headers={
+            "Cache-Control": "private, no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0"
+        }
+    )
+
+@app.api_route("/download/admin/openclaw-pumpfun-workflow.pdf", methods=["GET", "HEAD"])
+async def download_product_admin(_admin: str = Depends(verify_dashboard_admin)):
+    """Allows authenticated OrionX dashboard admins to download the digital kit directly."""
+    if not PDF_FILE.exists():
+        raise HTTPException(status_code=404, detail="Product file not found")
+    return FileResponse(
+        str(PDF_FILE),
+        media_type="application/pdf",
+        filename="OpenClaw_Solana_Memecoin_AI_Trading_Kit.pdf",
+        headers={"Cache-Control": "no-store, no-cache, must-revalidate, private"}
     )
 
 @app.api_route("/download/google-ads-campaigns.csv", methods=["GET", "HEAD"])
@@ -936,6 +981,117 @@ async def ingest_lead(payload: dict):
         logger.warning(f"Telegram lead notification error: {e}")
 
     return {"status": "success", "message": "Lead succesvol opgeslagen en geanalyseerd"}
+
+# --- ORIONX 24/7 LIVE AI EXECUTIVE CONSULTANT API ---
+
+CHAT_RATE_LIMITS = {}  # ip -> list of timestamps
+
+@app.post("/api/chat/consultant")
+async def chat_consultant(request: Request):
+    """Interactive live AI consultant powered by Gemini 2.5 Flash for website visitors."""
+    client_ip = request.headers.get("x-forwarded-for", request.client.host if request.client else "unknown").split(",")[0].strip()
+    now_ts = time.time()
+    
+    # Rate limit: max 20 messages per minute per IP
+    ip_times = [t for t in CHAT_RATE_LIMITS.get(client_ip, []) if now_ts - t < 60]
+    if len(ip_times) >= 20:
+        return JSONResponse({"reply": "U verstuurt berichten te snel. Wacht alstublieft een halve minuut voordat u een nieuw bericht stuurt."}, status_code=429)
+    ip_times.append(now_ts)
+    CHAT_RATE_LIMITS[client_ip] = ip_times
+
+    try:
+        data = await request.json()
+    except Exception:
+        return JSONResponse({"reply": "Ongeldige aanvraag (geen JSON)."}, status_code=400)
+
+    user_msg = str(data.get("message", "")).strip()
+    if not user_msg:
+        return JSONResponse({"reply": "Stel gerust uw vraag over onze oplossingen of tarieven."}, status_code=400)
+
+    history = data.get("history", [])
+    
+    # Professional context for Gemini 2.5 Flash
+    system_prompt = (
+        "Je bent de OrionX Executive AI Consultant, de officiële realtime assistent van OrionX AI Technologies "
+        "(gevestigd in Den Haag, Nederland, geleid door J.W. Pabst).\n"
+        "Je spreekt zakelijk, gezaghebbend, behulpzaam en helder in het Nederlands "
+        "(schakel over naar Engels als de bezoeker Engels spreekt).\n\n"
+        "Kernfeiten OrionX:\n"
+        "• Missie: Het wegnemen van repetitieve administratieve overhead (85% tijdwinst) bij zorgklinieken "
+        "(ZBC's, plastische chirurgie, tandheelkunde, fysiotherapie, poliklinieken) en MKB.\n"
+        "• NEN 7510 & AVG: Volledig compliant dataverwerking op Europese servers. Patiëntgegevens worden strikt "
+        "vertrouwelijk en versleuteld verwerkt. Directe integraties met Cliniseer, Medicore, ONS Nedap en open standaarden.\n"
+        "• Enterprise AI-FTE Retainer: € 1.450,- per maand (dedicated AI-capaciteit voor intake, planning, verslaglegging en facturatie).\n"
+        "• Gratis Besparingsscan: Direct te berekenen op https://scan.orionx.nl\n"
+        "• OpenClaw Solana AI Trading Kit: € 47,- eenmalig op https://orionx.nl/openclaw (sub-second DEX & Pump.fun automatisering)\n"
+        "• VIP Solana Quant Abonnement: € 97,- / mnd op https://trade.orionx.nl\n"
+        "• Directie Contact: jwp@orionx.nl voor intakegesprekken, demo's en geheimhoudingsverklaringen (NDA).\n\n"
+        "Richtlijnen voor je antwoord:\n"
+        "- Houd antwoorden bondig, professioneel en direct ter zake (2 tot 4 korte alinea's).\n"
+        "- Vermijd vakjargon zonder uitleg; benadruk tijd- en kostenbesparingen.\n"
+        "- Verwijs bezoekers proactief naar https://scan.orionx.nl, of nodig hen uit contact op te nemen via jwp@orionx.nl."
+    )
+
+    gemini_key = os.getenv("GEMINI_API_KEY", "AIzaSyAKYoKyzJV0AXOQHJJsMwHSyMfIQomEx2Y")
+
+    # Build conversation turns
+    conv_turns = ""
+    for h in history[-4:]:
+        role = "Bezoeker" if h.get("sender") == "user" else "Consultant"
+        conv_turns += f"{role}: {h.get('text', '')}\n"
+    conv_turns += f"Bezoeker: {user_msg}\nConsultant:"
+
+    full_prompt = f"{system_prompt}\n\nGespreksgeschiedenis:\n{conv_turns}"
+
+    reply = None
+    if gemini_key:
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={gemini_key}"
+            payload = {
+                "contents": [{"parts": [{"text": full_prompt}]}],
+                "generationConfig": {"temperature": 0.3, "maxOutputTokens": 600}
+            }
+            req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=12) as resp:
+                res_data = json.loads(resp.read().decode("utf-8"))
+                candidates = res_data.get("candidates", [])
+                if candidates:
+                    reply = candidates[0]["content"]["parts"][0]["text"].strip()
+        except Exception as e:
+            logger.warning(f"Live chat Gemini API error: {e}")
+
+    if not reply:
+        # Factual fallback response
+        lower = user_msg.lower()
+        if any(k in lower for k in ["kosten", "prijs", "tarief", "wat kost"]):
+            reply = (
+                "Onze investeringsmodellen zijn helder en transparant:\n\n"
+                "• **Enterprise AI-FTE Retainer:** € 1.450,- per maand (volledige NEN 7510 backoffice automatisering voor uw kliniek of praktijk).\n"
+                "• **OpenClaw Solana Trading Kit:** € 47,- eenmalig (directe toegang).\n"
+                "• **VIP Solana Alpha Abonnement:** € 97,- per maand.\n\n"
+                "U kunt de specifieke besparing voor uw team direct calculeren via onze gratis [AI Besparingsscan](https://scan.orionx.nl)."
+            )
+        elif any(k in lower for k in ["avg", "nen", "veilig", "privacy", "epd"]):
+            reply = (
+                "Dataveiligheid en privacy zijn geborgd conform de **NEN 7510** normering en Europese **AVG** richtlijnen. "
+                "Onze oplossingen draaien op beveiligde Europese servers en patiëntgegevens worden NOOIT gedeeld met derden "
+                "of gebruikt voor publieke AI-modeltrainingen."
+            )
+        elif any(k in lower for k in ["openclaw", "solana", "crypto", "trading"]):
+            reply = (
+                "De **OpenClaw Solana AI Trading Kit** (€ 47,-) biedt onze geavanceerde kwantitatieve strategie voor "
+                "geautomatiseerde tokendetectie en sub-second executie op Solana DEX'en. "
+                "Direct beschikbaar via [orionx.nl/openclaw](https://orionx.nl/openclaw)."
+            )
+        else:
+            reply = (
+                "Welkom bij OrionX AI Technologies. Wij zijn gespecialiseerd in het elimineren van administratieve lasten "
+                "in de zorg en het MKB door middel van autonome AI-processen (85% tijdwinst).\n\n"
+                "Hoe kan ik u specifiek van dienst zijn? U kunt direct een gratis analyse starten via "
+                "[scan.orionx.nl](https://scan.orionx.nl) of contact opnemen met onze directie via **jwp@orionx.nl**."
+            )
+
+    return JSONResponse({"reply": reply, "timestamp": int(time.time())})
 
 # --- DASHBOARD REAL-TIME DATA API ---
 
