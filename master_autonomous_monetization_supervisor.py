@@ -422,6 +422,7 @@ async def serve_sitemap():
 </urlset>"""
     return Response(content=content, media_type="application/xml")
 
+@app.api_route("/openclaw_trading_kit_cover.jpg", methods=["GET", "HEAD"])
 @app.api_route("/cover", methods=["GET", "HEAD"])
 async def serve_cover_image():
     if COVER_FILE.exists():
@@ -806,8 +807,8 @@ def main():
     agent_thread = threading.Thread(target=agent.start_background_daemon, kwargs={"interval_seconds": 300}, daemon=True)
     agent_thread.start()
     
-    logger.info("🌐 [WEB PORTAL] Starting OrionX Agency Engine on http://0.0.0.0:8899...")
-    uvicorn.run(app, host="0.0.0.0", port=8899, log_level="warning")
+    logger.info("🌐 [WEB PORTAL] Starting OrionX Agency Engine on http://127.0.0.1:8899...")
+    uvicorn.run(app, host="127.0.0.1", port=8899, log_level="warning")
 
 if __name__ == "__main__":
     main()
