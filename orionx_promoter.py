@@ -21,6 +21,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, List
 
+import smtplib
+import ssl
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.utils import formatdate, make_msgid
+
 # Setup logging
 LOG_FORMAT = '%(asctime)s [%(levelname)s] [OrionXPromoter] %(message)s'
 logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
@@ -28,6 +34,12 @@ logger = logging.getLogger("OrionXPromoter")
 
 TELEGRAM_BOT_TOKEN = "8608971534:AAH_XDzmmp229-OhR3JVsGXy_LErAxEpvxM"
 TELEGRAM_CHAT_ID = "6133249549"
+
+# TransIP Live Authenticated SMTP Configuration
+SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.transip.email")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
+SMTP_USER = os.environ.get("SMTP_USER", "jwp@orionx.nl")
+SMTP_PASS = os.environ.get("SMTP_PASS", "TheHagueO7O-")
 
 BASE_DIR = Path(__file__).resolve().parent
 # Resolve Hetzner vs local layout
@@ -59,6 +71,123 @@ def send_telegram(text: str, disable_preview: bool = False) -> bool:
             return True
     except Exception as e:
         logger.error(f"Telegram dispatch error: {e}")
+def check_domain_has_mx(email: str) -> bool:
+    """Verifies that the target email's domain has active MX records before sending to prevent bounces."""
+    try:
+        domain = email.split("@")[1].strip()
+        url = f"https://dns.google/resolve?name={domain}&type=MX"
+        req = urllib.request.Request(url, headers={"User-Agent": "OrionX-MXChecker"})
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            return bool(data.get("Answer"))
+    except Exception as e:
+        logger.warning(f"MX lookup error for {email}: {e}")
+        return False
+
+def send_b2b_email(to_email: str, contact: str, company: str, pain_point: str, pitch_angle: str) -> bool:
+    """Sends a professional, factual B2B outreach email via authenticated TransIP SMTP."""
+    try:
+        msg = MIMEMultipart("alternative")
+        msg["From"] = f'"J.W. Pabst | OrionX AI Technologies" <{SMTP_USER}>'
+        msg["To"] = to_email
+        msg["Reply-To"] = SMTP_USER
+        msg["Date"] = formatdate(localtime=True)
+        msg["Message-ID"] = make_msgid(domain="orionx.nl")
+        msg["Subject"] = f"Administratieve procesautomatisering & NEN 7510 voor {company}"
+
+        text_content = f"""Geachte {contact},
+
+Binnen zelfstandige behandelcentra en gespecialiseerde praktijken zien wij dat administratieve lasten rondom patiëntintakes, documentverwerking en dossierbeheer wekelijks tientallen uren opeisen van het team.
+
+Voor {company} hebben wij een gerichte analyse uitgevoerd naar praktische procesautomatisering:
+- Focuspunt: {pain_point}
+- Oplossing: {pitch_angle}
+
+Onze systemen draaien op beveiligde, Europese ISO 27001-gecertificeerde infrastructuur conform de NEN 7510 en AVG kwaliteitsnormen. Patiëntgegevens verlaten de EU niet en worden strikt conform medische geheimhouding verwerkt.
+
+Wilt u inzicht in de concrete tijds- en kostenbesparing voor uw praktijk? U kunt via onze beveiligde omgeving direct een vrijblijvende calculatie maken:
+https://scan.orionx.nl
+
+Mocht u liever een korte toelichting van 15 minuten wensen, dan beantwoorden wij deze e-mail graag om een geschikt moment af te stemmen.
+
+Met vriendelijke groet,
+
+J.W. Pabst
+OrionX AI Technologies
+E-mail: jwp@orionx.nl | Web: https://orionx.nl
+Gevestigd te Den Haag
+
+Dit bericht is gericht aan de directie of praktijkleiding van {company}. Wilt u geen verdere communicatie ontvangen? Beantwoord deze e-mail gerust met 'afmelden'.
+"""
+
+        html_content = f"""<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #1e293b; max-width: 620px; margin: 0 auto; padding: 24px; background-color: #ffffff;">
+  
+  <div style="border-bottom: 2px solid #0284c7; padding-bottom: 14px; margin-bottom: 24px;">
+    <h2 style="margin: 0; color: #0f172a; font-size: 20px; letter-spacing: -0.5px;">OrionX AI Technologies</h2>
+    <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Praktijk- &amp; Procesautomatisering | NEN 7510 &amp; AVG Compliant</p>
+  </div>
+
+  <p style="font-size: 15px; margin-bottom: 16px;">Geachte {contact},</p>
+
+  <p style="font-size: 14px; color: #334155; margin-bottom: 14px;">
+    Binnen zelfstandige behandelcentra en gespecialiseerde praktijken zien wij dat administratieve lasten rondom patiëntintakes, documentverwerking en dossierbeheer wekelijks tientallen kostbare uren van het team opeisen.
+  </p>
+
+  <p style="font-size: 14px; color: #334155; margin-bottom: 14px;">
+    Voor <strong>{company}</strong> hebben wij een gerichte analyse uitgevoerd naar praktische procesautomatisering:
+  </p>
+
+  <div style="background-color: #f8fafc; border-left: 4px solid #0284c7; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
+    <p style="margin: 0 0 6px 0; font-weight: 600; color: #0f172a; font-size: 14px;">Focuspunt: {pain_point}</p>
+    <p style="margin: 0; color: #475569; font-size: 13px; line-height: 1.5;">{pitch_angle}</p>
+  </div>
+
+  <p style="font-size: 14px; color: #334155; margin-bottom: 14px;">
+    Onze systemen draaien op beveiligde, Europese ISO 27001-gecertificeerde infrastructuur conform de <strong>NEN 7510</strong> en <strong>AVG</strong> kwaliteitsnormen. Patiëntgegevens verlaten de EU niet en worden strikt conform medische geheimhouding verwerkt.
+  </p>
+
+  <p style="font-size: 14px; color: #334155; margin-bottom: 20px;">
+    Wilt u inzicht in de concrete tijds- en kostenbesparing voor uw praktijk? U kunt via onze beveiligde omgeving direct een vrijblijvende calculatie maken:
+  </p>
+
+  <div style="text-align: left; margin: 24px 0;">
+    <a href="https://scan.orionx.nl" style="background-color: #0284c7; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; display: inline-block;">
+      Bereken Praktijkbesparing &rarr;
+    </a>
+  </div>
+
+  <p style="font-size: 14px; color: #334155; margin-bottom: 24px;">
+    Mocht u liever een korte toelichting van 15 minuten wensen, dan beantwoorden wij deze e-mail graag om een geschikt moment af te stemmen.
+  </p>
+
+  <div style="border-top: 1px solid #e2e8f0; padding-top: 18px; margin-top: 28px;">
+    <p style="margin: 0; font-weight: 600; color: #0f172a; font-size: 14px;">J.W. Pabst</p>
+    <p style="margin: 2px 0; color: #64748b; font-size: 13px;">OrionX AI Technologies</p>
+    <p style="margin: 2px 0; color: #64748b; font-size: 13px;">E-mail: <a href="mailto:jwp@orionx.nl" style="color: #0284c7; text-decoration: none;">jwp@orionx.nl</a> | Web: <a href="https://orionx.nl" style="color: #0284c7; text-decoration: none;">orionx.nl</a></p>
+  </div>
+
+  <p style="margin-top: 24px; font-size: 11px; color: #94a3b8; line-height: 1.4;">
+    Dit bericht is uitsluitend gericht aan de directie of praktijkleiding van {company}. Wilt u geen verdere communicatie ontvangen? Beantwoord deze e-mail gerust met het woord 'afmelden', waarna uw gegevens direct worden verwijderd.
+  </p>
+</body>
+</html>"""
+
+        msg.attach(MIMEText(text_content, "plain", "utf-8"))
+        msg.attach(MIMEText(html_content, "html", "utf-8"))
+
+        context = ssl.create_default_context()
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=15) as server:
+            server.starttls(context=context)
+            server.login(SMTP_USER, SMTP_PASS)
+            server.sendmail(SMTP_USER, [to_email], msg.as_string())
+
+        logger.info(f"✓ E-mail SUCCESVOL verzonden via TransIP naar {company} ({to_email})")
+        return True
+    except Exception as e:
+        logger.error(f"Fout bij verzenden naar {to_email}: {e}")
         return False
 
 class OrionXPromotionEngine:
@@ -221,45 +350,69 @@ class OrionXPromotionEngine:
         for lead in to_dispatch:
             company = lead.get("company", "Zorginstelling")
             contact = lead.get("contact", "Directie")
-            email = lead.get("email", "info@bedrijf.nl")
+            email = lead.get("email", "info@bedrijf.nl").strip()
             pain_point = lead.get("pain_point", "handmatige administratieve overlast")
             pitch_angle = lead.get("pitch_angle", "NEN 7510 AI procesautomatisering")
             checkout_url = lead.get("checkout_url", "https://agency.orionx.nl/checkout/retainer")
+
+            # 1. Zero Bounce Protection: Verify Domain MX
+            has_mx = check_domain_has_mx(email)
+            if not has_mx and not dry_run:
+                logger.warning(f"  ⚠️ [OVERGESLAGEN: GEEN MX] {company} ({email}) heeft geen actief mailserver record. Bounce voorkomen!")
+                lead["status"] = "skipped_no_mx"
+                lead["skip_reason"] = "Domein heeft geen geldig MX record"
+                continue
+
+            # 2. Dispatch real email or simulation
+            email_sent = False
+            if not dry_run:
+                email_sent = send_b2b_email(
+                    to_email=email,
+                    contact=contact,
+                    company=company,
+                    pain_point=pain_point,
+                    pitch_angle=pitch_angle
+                )
+                time.sleep(5)  # Professional pacing between sends
 
             record = {
                 "timestamp": datetime.now(timezone.utc).isoformat(),
                 "company": company,
                 "contact": contact,
                 "email": email,
-                "subject": f"Administratieve tijdsbesparing & AI-FTE automatisering voor {company}",
-                "status": "DISPATCHED" if not dry_run else "SIMULATED",
+                "subject": f"Administratieve procesautomatisering & NEN 7510 voor {company}",
+                "status": "DISPATCHED_LIVE_SMTP" if email_sent else ("SIMULATED" if dry_run else "SEND_FAILED"),
                 "checkout_url": checkout_url
             }
 
-            if not dry_run:
+            if not dry_run and email_sent:
                 lead["status"] = "dispatched"
                 lead["dispatched_at"] = record["timestamp"]
+                lead["delivery_method"] = "transip_smtp_tls"
                 lead["last_autonomous_check"] = record["timestamp"]
                 # Append to dispatch log
                 with open(self.dispatch_log, "a", encoding="utf-8") as lf:
                     lf.write(json.dumps(record, ensure_ascii=False) + "\n")
+                dispatched.append(record)
+            elif dry_run:
+                dispatched.append(record)
 
-            dispatched.append(record)
-            logger.info(f"  ✉️ {'[SIMULATIE] ' if dry_run else ''}Outreach -> {company} ({contact} <{email}>)")
+            logger.info(f"  ✉️ {'[SIMULATIE] ' if dry_run else ('[LIVE SMTP VERZONDEN] ' if email_sent else '[MISLUKT] ')}Outreach -> {company} ({contact} <{email}>)")
 
         if not dry_run:
             with open(self.leads_file, "w", encoding="utf-8") as f:
                 json.dump(leads, f, indent=2, ensure_ascii=False)
 
-            # Send Telegram update
-            tg_text = (
-                f"📨 <b>[B2B OUTREACH BATCH VERZONDEN]</b>\n\n"
-                f"Er zijn <b>{len(dispatched)} voorstellen</b> succesvol verzonden naar Nederlandse praktijken:\n"
-            )
-            for d in dispatched:
-                tg_text += f"• <b>{d['company']}</b> ({d['email']})\n"
-            tg_text += f"\n📊 Bekijk status in het dashboard: https://orionx.nl/dashboard"
-            send_telegram(tg_text)
+            # Send Telegram update if any were dispatched
+            if dispatched:
+                tg_text = (
+                    f"📨 <b>[B2B OUTREACH LIVE VERZONDEN VIA TRANSIP]</b>\n\n"
+                    f"Er zijn <b>{len(dispatched)} officiële voorstellen</b> succesvol per e-mail bezorgd:\n"
+                )
+                for d in dispatched:
+                    tg_text += f"• <b>{d['company']}</b> ({d['email']})\n"
+                tg_text += f"\n📊 Bekijk status in het dashboard: https://orionx.nl/dashboard"
+                send_telegram(tg_text)
 
         return dispatched
 

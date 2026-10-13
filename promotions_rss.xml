@@ -1,27 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
-<channel>
-  <title>OrionX Promotion &amp; Customer Acquisition Stream</title>
-  <link>https://orionx.nl</link>
-  <description>Automated syndication drops for OrionX AI Technologies and OpenClaw Solana Swarm</description>
-  <lastBuildDate>Tue, 13 Oct 2026 02:52:04 GMT</lastBuildDate>
-  <item>
-    <title>Autonomous 3-Agent Solana Memecoin Swarm Live</title>
-    <link>https://trade.orionx.nl/openclaw</link>
-    <description>Launch of OpenClaw Solana AI Trading Kit with 24/7 MEV protection and live showroom.</description>
-    <pubDate>Tue, 13 Oct 2026 02:52:04 GMT</pubDate>
-  </item>
-  <item>
-    <title>VIP Solana Alpha Signals &amp; Neural Swarm Terminal</title>
-    <link>https://trade.orionx.nl/checkout/vip</link>
-    <description>Sub-80ms Yellowstone gRPC signals and on-chain breakout radar via Telegram for €97/month.</description>
-    <pubDate>Tue, 13 Oct 2026 02:52:04 GMT</pubDate>
-  </item>
-  <item>
-    <title>Dedicated AI-FTE Staff-as-a-Service voor Zorg &amp; MKB</title>
-    <link>https://scan.orionx.nl</link>
-    <description>Ontdek binnen 60 seconden hoeveel administratieve uren uw kliniek of praktijk bespaart conform NEN 7510.</description>
-    <pubDate>Tue, 13 Oct 2026 02:52:04 GMT</pubDate>
-  </item>
-</channel>
+  <channel>
+    <title>OrionX Autonomous Content & Alpha Feed</title>
+    <link>https://trade.orionx.nl</link>
+    <description>Live autonomous crypto market intelligence, trading alpha and strategic updates from the OrionX Empire.</description>
+    <lastBuildDate>Tue, 13 Oct 2026 10:02:52 GMT</lastBuildDate>
+    <item>
+      <title>TELEGRAM_PUBLIC: $BTC Alert
+
+Detected: news_impact
+Confidence: 70%
+
+Analysis:...</title>
+      <description>$BTC Alert
+
+Detected: news_impact
+Confidence: 70%
+
+Analysis: Alpha update: Significant volatility expansion detected across top crypto pairs. Real-time metrics streaming at trade.orionx.nl #Crypto
+
+#crypto #BTC</description>
+      <link>https://trade.orionx.nl</link>
+      <guid isPermaLink="false">orionx-content-2</guid>
+      <pubDate>2026-10-13T10:01:33.269444</pubDate>
+    </item>
+    <item>
+      <title>TELEGRAM_PUBLIC: $BTC Alert
+
+Detected: news_impact
+Confidence: 70%
+
+Analysis:...</title>
+      <description>$BTC Alert
+
+Detected: news_impact
+Confidence: 70%
+
+Analysis: Detected news_impact for BTC based on market data.
+
+#crypto #BTC</description>
+      <link>https://trade.orionx.nl</link>
+      <guid isPermaLink="false">orionx-content-1</guid>
+      <pubDate>2026-10-13T10:00:39.907512</pubDate>
+    </item>
+  </channel>
 </rss>

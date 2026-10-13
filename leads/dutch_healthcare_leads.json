@@ -1,5 +1,60 @@
 [
   {
+    "company": "Equipe Zorgbedrijven (Velthuis / Xpert Clinic)",
+    "contact": "Directie & Medische Staf",
+    "email": "info@equipezorgbedrijven.nl",
+    "sector": "Zelfstandige Klinieken & Gespecialiseerde Zorg",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Complexe multidisciplinaire verslaglegging en EPD dossieroverdracht tussen vestigingen.",
+    "pitch_angle": "Beveiligde NEN 7510 AI procesautomatisering voor gestroomlijnde patiëntintakes en rapportages.",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#equipe"
+  },
+  {
+    "company": "Bergman Clinics Nederland",
+    "contact": "Directie & Praktijkmanagement",
+    "email": "info@bergmanclinics.nl",
+    "sector": "ZBC Klinieken & Medisch Specialistische Zorg",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Hoge werkdruk bij balie- en intaketeams door handmatige verwerking van patiëntvragenlijsten.",
+    "pitch_angle": "Europese ISO 27001 gehoste AI intake-assistent die pre-operatieve dossiers direct structureert.",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#bergman"
+  },
+  {
+    "company": "FysioHolland Groep",
+    "contact": "Operationeel Management",
+    "email": "info@fysioholland.nl",
+    "sector": "Paramedische Zorg & Fysiotherapie ZBC",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Tijdrovende administratieve dossiervorming en rapportageverplichtingen conform KNGF richtlijnen.",
+    "pitch_angle": "Automatische AI extractie van behandelnotities en gestructureerde EPD dossiervorming.",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#fysioholland"
+  },
+  {
+    "company": "Mohs Klinieken Dermatologie",
+    "contact": "Medische Directie",
+    "email": "info@mohsklinieken.nl",
+    "sector": "Dermatologie & Mohs Chirurgie ZBC",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Administratieve verwerking van pathologie- en behandelverslagen in poliklinische EPDs.",
+    "pitch_angle": "AVG-conforme AI documentkoppeling die medische verslagen binnen seconden valideert en koppelt.",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#mohs"
+  },
+  {
+    "company": "Orthocenter Praktijken",
+    "contact": "Praktijkmanagement & IT",
+    "email": "info@orthocenter.nl",
+    "sector": "Orthodontie & Tandheelkunde",
+    "status": "ready_for_outreach",
+    "personalized": true,
+    "pain_point": "Handmatige administratieve invoer van behandelplannen en communicatie met zorgverzekeraars.",
+    "pitch_angle": "Geautomatiseerde dossierintake en gestroomlijnde declaratieverwerking met 0 wachttijd.",
+    "checkout_url": "https://agency.orionx.nl/checkout/retainer#orthocenter"
+  },
+  {
     "company": "Kliniek Zorg & Automatisering Live Verification",
     "contact": "Dhr. Dr. J. de Boer",
     "email": "j.deboer@zorg-automatisering.nl",
