@@ -38,7 +38,6 @@ class StripeGateway:
         if self.is_live:
             try:
                 params = {
-                    "payment_method_types[0]": "card",
                     "mode": "subscription" if is_subscription else "payment",
                     "success_url": success_url,
                     "cancel_url": cancel_url,
@@ -49,7 +48,13 @@ class StripeGateway:
                     "client_reference_id": client_name,
                 }
                 if is_subscription:
+                    params["payment_method_types[0]"] = "card"
+                    params["payment_method_types[1]"] = "sepa_debit"
                     params["line_items[0][price_data][recurring][interval]"] = "month"
+                else:
+                    # Frictionless Dutch Payment Stack (Creditcard + iDEAL)
+                    params["payment_method_types[0]"] = "card"
+                    params["payment_method_types[1]"] = "ideal"
 
                 data = urllib.parse.urlencode(params).encode("utf-8")
 

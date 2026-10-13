@@ -326,7 +326,32 @@ DUTCH_CITIES = {
     "rotterdam": "Rotterdam & Rijnmond",
     "utrecht": "Utrecht & Midden-Nederland",
     "den-haag": "Den Haag & Haaglanden",
-    "eindhoven": "Eindhoven & Brainport Regio"
+    "eindhoven": "Eindhoven & Brainport Regio",
+    "groningen": "Groningen & Noord-Nederland",
+    "tilburg": "Tilburg & Midden-Brabant",
+    "almere": "Almere & Flevoland",
+    "breda": "Breda & West-Brabant",
+    "nijmegen": "Nijmegen & Rijk van Nijmegen",
+    "apeldoorn": "Apeldoorn & Stedendriehoek",
+    "haarlem": "Haarlem & Kennemerland",
+    "arnhem": "Arnhem & Gelderse Vallei",
+    "enschede": "Enschede & Twente",
+    "amersfoort": "Amersfoort & Eemland",
+    "zaanstad": "Zaanstad & Zaanstreek",
+    "s-hertogenbosch": "'s-Hertogenbosch & Meierij",
+    "zoetermeer": "Zoetermeer & Oostland",
+    "leiden": "Leiden & Duin- en Bollenstreek",
+    "maastricht": "Maastricht & Zuid-Limburg",
+    "dordrecht": "Dordrecht & Drechtsteden",
+    "ede": "Ede & FoodValley",
+    "alphen-aan-den-rijn": "Alphen aan den Rijn & Groene Hart",
+    "alkmaar": "Alkmaar & Noord-Holland Noord",
+    "delft": "Delft & Westland",
+    "venlo": "Venlo & Noord-Limburg",
+    "deventer": "Deventer & IJsselstreek",
+    "helmond": "Helmond & Peelland",
+    "hilversum": "Hilversum & 't Gooi",
+    "amstelveen": "Amstelveen & Amstelland"
 }
 
 @app.api_route("/zorg-automatisering-{city}", methods=["GET", "HEAD"], response_class=HTMLResponse)
@@ -427,56 +452,35 @@ async def serve_robots():
 
 @app.api_route("/sitemap.xml", methods=["GET", "HEAD"])
 async def serve_sitemap():
-    content = """<?xml version="1.0" encoding="UTF-8"?>
+    today_str = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+    city_entries = "\n".join([f"""  <url>
+    <loc>https://orionx.nl/zorg-automatisering-{c}</loc>
+    <lastmod>{today_str}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>""" for c in DUTCH_CITIES.keys()])
+
+    content = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://orionx.nl/</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>{today_str}</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://orionx.nl/scan</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>{today_str}</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://orionx.nl/zorg-automatisering-amsterdam</loc>
-    <lastmod>2026-10-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://orionx.nl/zorg-automatisering-rotterdam</loc>
-    <lastmod>2026-10-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://orionx.nl/zorg-automatisering-utrecht</loc>
-    <lastmod>2026-10-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://orionx.nl/zorg-automatisering-den-haag</loc>
-    <lastmod>2026-10-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://orionx.nl/zorg-automatisering-eindhoven</loc>
-    <lastmod>2026-10-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://orionx.nl/openclaw</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>{today_str}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.90</priority>
   </url>
+{city_entries}
 </urlset>"""
     return Response(content=content, media_type="application/xml")
 
@@ -516,6 +520,12 @@ async def create_live_checkout(request: Request, tier: str = "openclaw", plan: s
         is_sub = True
         client_name = "Enterprise B2B Client"
         cancel_url = f"{proto}://{host}/scan"
+    elif selected_plan in ["pilot", "proef", "quickscan", "trial"]:
+        amount_eur = 195.0
+        description = "OrionX 14-Dagen NEN 7510 AI Zorg Pilot & Quickscan Implementatie"
+        is_sub = False
+        client_name = "Zorg Pilot Deelnemer"
+        cancel_url = f"{proto}://{host}/scan"
     else:
         # Default OpenClaw Kit
         amount_eur = 47.0
@@ -538,7 +548,7 @@ async def create_live_checkout(request: Request, tier: str = "openclaw", plan: s
     checkout_url = session.get("checkout_url")
     if checkout_url:
         logger.info(f"💳 [STRIPE] Redirecting customer to live Stripe checkout [{selected_plan.upper()}]: {session.get('session_id')}")
-        tier_label = f"VIP Swarm Abonnement (€97/mnd)" if is_sub and amount_eur == 97.0 else (f"Enterprise Retainer (€1.450/mnd)" if amount_eur == 1450.0 else f"OpenClaw Trading Kit (€47)")
+        tier_label = f"VIP Swarm Abonnement (€97/mnd)" if is_sub and amount_eur == 97.0 else (f"Enterprise Retainer (€1.450/mnd)" if amount_eur == 1450.0 else (f"14-Dagen Zorg Pilot (€195)" if amount_eur == 195.0 else f"OpenClaw Trading Kit (€47)"))
         send_telegram_notification(
             f"🛒 <b>[STRIPE CHECKOUT GESTART]</b>\n\n"
             f"Een bezoeker is gestart met de Stripe checkout voor <b>{tier_label}</b>!\n"
@@ -575,6 +585,8 @@ async def payment_success(session_id: str = "", plan: str = ""):
             # Determine plan tier
             if amount_paid >= 1000.0 or "retainer" in plan.lower() or "enterprise" in session_id:
                 product_name = "OrionX AI-FTE Enterprise Retainer (€1.450/mnd)"
+            elif amount_paid >= 150.0 or "pilot" in plan.lower() or "proef" in session_id:
+                product_name = "OrionX 14-Dagen NEN 7510 AI Zorg Pilot (€195 eenmalig)"
             elif amount_paid >= 80.0 or "vip" in plan.lower() or "sub" in session_id:
                 product_name = "OrionX VIP Solana Alpha & Swarm Terminal (€97/mnd)"
             else:
@@ -653,6 +665,36 @@ async def payment_success(session_id: str = "", plan: str = ""):
             <div>✓ <strong>Directe Executive Lijn:</strong> Prioriteitssupport via <a href="mailto:jwp@orionx.nl" style="color: #38bdf8;">jwp@orionx.nl</a>.</div>
         </div>
         <a href="https://calendly.com" class="btn">📅 Plan Direct Uw Kick-off & Intake In</a>
+        <p style="margin-top: 24px; font-size: 0.8rem; color: #64748b;">Order: {order_id} | Klant: {customer_email}</p>
+    </div>
+</body>
+</html>"""
+    elif (amount_paid >= 150.0 and amount_paid < 500.0) or "pilot" in plan.lower() or "proef" in plan.lower():
+        # 14-Dagen Zorg Pilot
+        html_paid = f"""<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14-Dagen NEN 7510 AI Pilot Geactiveerd // OrionX AI Technologies</title>
+    <style>
+        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0c14; color: #fff; text-align: center; padding: 60px 20px; }}
+        .card {{ max-width: 580px; margin: 0 auto; background: #141826; padding: 40px; border-radius: 20px; border: 1px solid #14F195; box-shadow: 0 10px 40px rgba(20,241,149,0.25); }}
+        h1 {{ color: #14F195; margin-bottom: 12px; }}
+        p {{ color: #9ba3b8; line-height: 1.6; margin-bottom: 24px; }}
+        .btn {{ display: inline-block; background: linear-gradient(135deg, #06b6d4 0%, #14F195 100%); color: #000; font-weight: bold; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 1.1rem; }}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>✓ 14-Dagen NEN 7510 AI Pilot Geactiveerd!</h1>
+        <p>Gefeliciteerd. Uw zorginstelling of praktijk start direct met de 14-dagen proefimplementatie van de OrionX AI-FTE workflow.</p>
+        <div style="background: rgba(0,0,0,0.4); border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: left; font-size: 0.9rem; color: #cbd5e1;">
+            <div>✓ <strong>Dedicated Kick-off:</strong> Ons engineering team neemt binnen 4 werkuren contact op voor de onboarding.</div>
+            <div>✓ <strong>NEN 7510 & AVG:</strong> Volledig beveiligde dataverwerking en geheimhoudingsovereenkomst (NDA).</div>
+            <div>✓ <strong>Directe Executive Lijn:</strong> Prioriteitssupport via <a href="mailto:jwp@orionx.nl" style="color: #38bdf8;">jwp@orionx.nl</a>.</div>
+        </div>
+        <a href="mailto:jwp@orionx.nl?subject=Kick-off%20AI%20Pilot%20{order_id}" class="btn">✉️ Bevestig Uw Praktijkgegevens</a>
         <p style="margin-top: 24px; font-size: 0.8rem; color: #64748b;">Order: {order_id} | Klant: {customer_email}</p>
     </div>
 </body>
