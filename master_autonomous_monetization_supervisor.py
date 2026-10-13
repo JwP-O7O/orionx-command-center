@@ -238,8 +238,12 @@ async def health_check():
     return {"status": "ok", "business": "OrionX AI Technologies", "domain": "orionx.nl"}
 
 @app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
-async def serve_agency_homepage():
-    """Serves the flagship OrionX AI Technologies corporate website."""
+async def serve_agency_homepage(request: Request):
+    """Serves corporate website on orionx.nl, or trading showroom on trade.orionx.nl."""
+    host = request.headers.get("host", "").lower()
+    if any(sub in host for sub in ["trade.orionx.nl", "solana.orionx.nl", "claw.orionx.nl", "pump.orionx.nl"]):
+        if TRADING_DASHBOARD_PAGE.exists():
+            return HTMLResponse(content=inject_tracking(TRADING_DASHBOARD_PAGE.read_text(encoding="utf-8")))
     SYSTEM_METRICS["store_visits"] += 1
     if AGENCY_HOME_PAGE.exists():
         content = inject_tracking(AGENCY_HOME_PAGE.read_text(encoding="utf-8"))
