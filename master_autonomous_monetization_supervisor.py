@@ -566,34 +566,45 @@ async def create_live_checkout(request: Request, tier: str = "", plan: str = "")
     selected_plan = (plan or tier or default_tier).lower().strip()
     trial_days = 0
     
+    # Check for exclusive abandonment discount (10% to 50%)
+    discount_param = request.query_params.get("discount") or request.query_params.get("korting") or ""
+    discount_pct = 0
+    if discount_param:
+        try:
+            val = int(float(discount_param))
+            if 10 <= val <= 50:
+                discount_pct = val
+        except Exception:
+            pass
+
     if selected_plan in ["vip", "signals", "alpha"]:
         amount_eur = 97.0
         description = "OrionX VIP Solana Alpha Signals & Swarm Terminal (7 Dagen Gratis Proef - daarna €97/mnd)"
         is_sub = True
         trial_days = 7
         client_name = "VIP Quant Member"
-        cancel_url = f"{proto}://{host}/trade"
+        cancel_url = f"{proto}://{host}/trade?abandoned=true&plan=vip"
     elif selected_plan in ["trial", "proefperiode", "7days", "free-trial"]:
         amount_eur = 1450.0
         description = "OrionX Dedicated AI-FTE Retainer (7 Dagen Gratis Proefperiode - €0 Vandaag, daarna €1.450/mnd)"
         is_sub = True
         trial_days = 7
         client_name = "Enterprise B2B Trial"
-        cancel_url = f"{proto}://{host}/scan"
+        cancel_url = f"{proto}://{host}/?abandoned=true&plan=trial"
     elif selected_plan in ["retainer", "b2b", "enterprise"]:
         amount_eur = 1450.0
         description = "OrionX AI-FTE Enterprise Retainer (7 Dagen Vrijblijvende Proef - daarna €1.450/mnd)"
         is_sub = True
         trial_days = 7
         client_name = "Enterprise B2B Client"
-        cancel_url = f"{proto}://{host}/scan"
+        cancel_url = f"{proto}://{host}/?abandoned=true&plan=retainer"
     elif selected_plan in ["pilot", "proef", "quickscan", "195"]:
         amount_eur = 195.0
         description = "OrionX 14-Dagen NEN 7510 AI Zorg Pilot (100% Niet-Goed-Geld-Terug Garantie)"
         is_sub = False
         trial_days = 0
         client_name = "Zorg Pilot Deelnemer"
-        cancel_url = f"{proto}://{host}/scan"
+        cancel_url = f"{proto}://{host}/?abandoned=true&plan=pilot"
     else:
         # Default OpenClaw Kit
         amount_eur = 47.0
@@ -601,7 +612,13 @@ async def create_live_checkout(request: Request, tier: str = "", plan: str = "")
         is_sub = False
         trial_days = 0
         client_name = "OpenClaw Koper"
-        cancel_url = f"{proto}://{host}/openclaw"
+        cancel_url = f"{proto}://{host}/openclaw?abandoned=true&plan=openclaw"
+
+    # Apply 10% to 50% discount if present
+    if discount_pct > 0:
+        discount_amount = round(amount_eur * (discount_pct / 100.0), 2)
+        amount_eur = round(amount_eur - discount_amount, 2)
+        description = f"{description} (Inclusief {discount_pct}% Exclusieve Welkomstkorting: -€{discount_amount:,.2f})"
 
     success_url = f"{proto}://{host}/success?session_id={{CHECKOUT_SESSION_ID}}&plan={selected_plan}"
     
@@ -619,14 +636,17 @@ async def create_live_checkout(request: Request, tier: str = "", plan: str = "")
     if checkout_url:
         logger.info(f"💳 [STRIPE] Redirecting customer to live Stripe checkout [{selected_plan.upper()}]: {session.get('session_id')}")
         tier_label = (
-            f"Dedicated AI-FTE Retainer 7-Dagen Gratis Proef (€0 Vandaag)" if (is_sub and amount_eur == 1450.0 and trial_days > 0)
-            else (f"VIP Swarm 7-Dagen Proef (€0 Vandaag, daarna €97/mnd)" if (is_sub and amount_eur == 97.0 and trial_days > 0)
-            else (f"14-Dagen Zorg Pilot (€195 eenmalig)" if amount_eur == 195.0 else f"OpenClaw Trading Kit (€47)"))
+            f"Dedicated AI-FTE Retainer 7-Dagen Gratis Proef (€0 Vandaag)" if (is_sub and amount_eur >= 700.0 and trial_days > 0)
+            else (f"VIP Swarm 7-Dagen Proef (€0 Vandaag, daarna €97/mnd)" if (is_sub and amount_eur >= 40.0 and trial_days > 0)
+            else (f"14-Dagen Zorg Pilot (€{amount_eur:,.2f} eenmalig)" if "pilot" in selected_plan else f"OpenClaw Trading Kit (€{amount_eur:,.2f})"))
         )
+        if discount_pct > 0:
+            tier_label += f" [MET {discount_pct}% EXCLUSIEVE KORTING]"
         send_telegram_notification(
             f"🛒 <b>[STRIPE CHECKOUT GESTART]</b>\n\n"
             f"Een bezoeker is gestart met de Stripe checkout voor <b>{tier_label}</b>!\n"
             f"• Plan: <code>{selected_plan}</code> (Proefperiode: {trial_days} dagen)\n"
+            f"• Korting: <b>{discount_pct}%</b>\n"
             f"• Sessie ID: <code>{session.get('session_id', 'n/a')}</code>\n"
             f"• Bedrag: <b>€{amount_eur:,.2f}</b>\n"
             f"• Tijdstip: {datetime.now(timezone.utc).strftime('%H:%M:%S UTC')}"
@@ -657,11 +677,11 @@ async def payment_success(session_id: str = "", plan: str = ""):
             order_id = f"ORD-{int(time.time())}"
             
             # Determine plan tier
-            if amount_paid >= 1000.0 or "retainer" in plan.lower() or "enterprise" in session_id:
+            if amount_paid >= 700.0 or "retainer" in plan.lower() or "enterprise" in session_id:
                 product_name = "OrionX AI-FTE Enterprise Retainer (€1.450/mnd)"
-            elif amount_paid >= 150.0 or "pilot" in plan.lower() or "proef" in session_id:
+            elif amount_paid >= 70.0 or "pilot" in plan.lower() or "proef" in session_id:
                 product_name = "OrionX 14-Dagen NEN 7510 AI Zorg Pilot (€195 eenmalig)"
-            elif amount_paid >= 80.0 or "vip" in plan.lower() or "sub" in session_id:
+            elif amount_paid >= 40.0 or "vip" in plan.lower() or "sub" in session_id:
                 product_name = "OrionX VIP Solana Alpha & Swarm Terminal (€97/mnd)"
             else:
                 product_name = "OpenClaw Solana AI Memecoin Trading Kit (€47)"
