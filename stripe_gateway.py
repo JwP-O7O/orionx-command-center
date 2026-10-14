@@ -29,10 +29,11 @@ class StripeGateway:
         success_url: str = "https://orionx.nl/success",
         cancel_url: str = "https://orionx.nl/cancel",
         is_subscription: bool = False,
+        trial_days: int = 0,
     ) -> Dict[str, Any]:
         """Creates a Stripe Checkout Session for one-time payment or recurring subscription."""
         amount_cents = int(amount_eur * 100)
-        prefix = "sub" if is_subscription else "live"
+        prefix = "trial" if (is_subscription and trial_days > 0) else ("sub" if is_subscription else "live")
         session_id = f"cs_{prefix}_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}_{client_name.replace(' ', '_')[:10]}"
 
         if self.is_live:
@@ -51,6 +52,8 @@ class StripeGateway:
                     params["payment_method_types[0]"] = "card"
                     params["payment_method_types[1]"] = "sepa_debit"
                     params["line_items[0][price_data][recurring][interval]"] = "month"
+                    if trial_days > 0:
+                        params["subscription_data[trial_period_days]"] = trial_days
                 else:
                     # Frictionless Dutch Payment Stack (Creditcard + iDEAL)
                     params["payment_method_types[0]"] = "card"

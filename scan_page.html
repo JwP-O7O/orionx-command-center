@@ -133,6 +133,37 @@
             </p>
           </form>
 
+          <!-- ON-PAGE INSTANT AUDIT SCORECARD (Displayed immediately on submission) -->
+          <div id="scan-success-panel" style="display: none;" class="p-6 rounded-2xl bg-slate-900/90 border-2 border-emerald-400 glow-emerald space-y-4 text-left">
+            <div class="flex items-center gap-2 text-emerald-400 font-extrabold text-sm uppercase tracking-wider">
+              <span>✅</span> NEN 7510 Audit Rapport Gegenereerd
+            </div>
+            <h4 class="text-lg font-black text-white" id="success-company-title">Praktijkrapport Klaargezet</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Uw gepersonaliseerde calculatie is zojuist verstuurd naar <strong class="text-cyan-400" id="success-email-text">uw e-mail</strong>. U kunt direct starten met het automatiseren van uw praktijk:
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 p-3 bg-black/40 rounded-xl border border-slate-800 text-xs">
+              <div>
+                <div class="text-[10px] uppercase text-slate-400 font-semibold">Tijdwinst</div>
+                <div class="text-base font-black text-cyan-400 mono" id="success-hours-text">80 uur / mnd</div>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase text-slate-400 font-semibold">Netto Besparing</div>
+                <div class="text-base font-black text-emerald-400 mono" id="success-savings-text">€ 18.500,- / jr</div>
+              </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              <a href="/checkout/pilot" class="block text-center w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/20 hover:opacity-90 transition-all">
+                🛡️ Activeer Direct de 14-Dagen Pilot (€ 195,-) met 100% Garantie
+              </a>
+              <a href="/checkout/trial" class="block text-center w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 font-bold text-xs transition-all">
+                ⚡ Start 7-Dagen Gratis Proefperiode (€ 0,- Vandaag)
+              </a>
+            </div>
+          </div>
+
         </div>
 
         <!-- RIGHT REAL-TIME METRICS (5 cols) -->
@@ -285,8 +316,14 @@
           });
         }
 
-        alert('✅ Uw AI Besparingsscan is berekend! Ons team (OrionX AI Directie) stuurt het volledige NEN 7510 rapport direct naar ' + payload.email + '.');
-        window.location.href = '/?scanned=true';
+        // Display Instant Scorecard on Screen
+        document.getElementById('scan-form').style.display = 'none';
+        document.getElementById('success-company-title').textContent = 'Audit Rapport Gegenereerd voor ' + payload.company;
+        document.getElementById('success-email-text').textContent = payload.email;
+        document.getElementById('success-hours-text').textContent = monthlyHours + ' uur / mnd';
+        document.getElementById('success-savings-text').textContent = '€ ' + annualSavings.toLocaleString('nl-NL') + ',- / jr';
+        document.getElementById('scan-success-panel').style.display = 'block';
+
       } catch (err) {
         alert('Er ging iets mis bij het verzenden: ' + err);
         btn.disabled = false;

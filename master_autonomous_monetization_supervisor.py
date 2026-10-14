@@ -259,6 +259,60 @@ OrionX Autonoom Lead Intelligence Systeem
     except Exception as e:
         logger.warning(f"Kon lead notificatie e-mail niet versturen: {e}")
 
+def send_lead_confirmation_email_to_client(lead_data: dict):
+    """Sends instant personalized NEN 7510 audit summary & pilot invitation to the prospective client."""
+    smtp_pass = os.getenv("SMTP_PASS", "")
+    smtp_user = os.getenv("SMTP_USER", "jwp@orionx.nl")
+    client_email = lead_data.get("email", "").strip()
+    client_name = lead_data.get("contact", "").strip() or "heer/mevrouw"
+    company = lead_data.get("company", "").strip() or "uw organisatie"
+    
+    if not smtp_pass or not client_email or "@" not in client_email:
+        return
+        
+    try:
+        msg = MIMEMultipart("alternative")
+        msg["From"] = f'"J.W. Pabst | OrionX AI Technologies" <{smtp_user}>'
+        msg["To"] = client_email
+        msg["Reply-To"] = smtp_user
+        msg["Subject"] = f"Uw NEN 7510 AI Besparingsrapport & Implementatieplan voor {company}"
+        
+        body_text = f"""Geachte {client_name},
+
+Hartelijk dank voor uw interesse en aanvraag via de OrionX AI Besparingsscan.
+
+Op basis van uw profiel hebben wij uw potentiële tijdwinst en compliance-architectuur in kaart gebracht:
+• Praktijk / Organisatie: {company}
+• Data Residency: 100% binnen de Europese Unie (ISO 27001 gecertificeerd, NEN 7510:2017 conform)
+• Verwachte tijdsbesparing: 15 tot 25 uur per behandelaar per week
+
+Om de concrete voordelen van een autonome AI-assistent zonder langdurige verplichtingen in uw praktijk te testen, kunt u direct starten met onze 14-Dagen Zorg Pilot (€195,- eenmalig met 30 dagen 100% niet-goed-geld-terug garantie) of onze 7-Dagen Gratis Proefperiode van de Dedicated AI-FTE Retainer:
+
+👉 Activeer de 14-Dagen Pilot (€195,- eenmalig):
+https://orionx.nl/checkout/pilot
+
+👉 Start 7 Dagen Vrijblijvende Proef (€0,- Vandaag):
+https://orionx.nl/checkout/trial
+
+Heeft u specifieke vragen omtrent uw EPD/ECD koppeling of wenst u een korte online kennismaking van 15 minuten? U kunt direct reageren op dit bericht.
+
+Met vriendelijke groet,
+
+J.W. Pabst
+Technisch Directeur | OrionX AI Technologies
+E-mail: jwp@orionx.nl | Web: https://orionx.nl
+Gevestigd te Den Haag
+"""
+        msg.attach(MIMEText(body_text, "plain", "utf-8"))
+        server = smtplib.SMTP("smtp.transip.email", 587, timeout=12)
+        server.starttls()
+        server.login(smtp_user, smtp_pass)
+        server.send_message(msg)
+        server.quit()
+        logger.info(f"📧 [CONFIRMATION SENT] Bevestiging & pilot-aanbod verstuurd naar {client_email}")
+    except Exception as e:
+        logger.warning(f"Kon bevestigingsmail niet versturen naar {client_email}: {e}")
+
 # --- STORE, AGENCY & DASHBOARD ROUTES ---
 
 @app.api_route("/health", methods=["GET", "HEAD"])
@@ -502,28 +556,42 @@ async def serve_logo_image(filename: str):
 
 @app.api_route("/checkout", methods=["GET", "HEAD"])
 @app.api_route("/checkout/{tier}", methods=["GET", "HEAD"])
-async def create_live_checkout(request: Request, tier: str = "openclaw", plan: str = ""):
+async def create_live_checkout(request: Request, tier: str = "", plan: str = ""):
     """Generates a live Stripe Checkout Session and redirects customer directly to Stripe."""
-    selected_plan = (plan or tier or "openclaw").lower().strip()
-    host = request.headers.get("host", "orionx.nl")
+    host = request.headers.get("host", "orionx.nl").lower()
     proto = request.headers.get("x-forwarded-proto", "https")
+    
+    # Smart default based on domain
+    default_tier = "openclaw" if any(t in host for t in ["trade", "solana", "claw"]) else "pilot"
+    selected_plan = (plan or tier or default_tier).lower().strip()
+    trial_days = 0
     
     if selected_plan in ["vip", "signals", "alpha"]:
         amount_eur = 97.0
-        description = "OrionX VIP Solana Alpha Signals & Swarm Terminal (Maandelijks Abonnement)"
+        description = "OrionX VIP Solana Alpha Signals & Swarm Terminal (7 Dagen Gratis Proef - daarna €97/mnd)"
         is_sub = True
+        trial_days = 7
         client_name = "VIP Quant Member"
         cancel_url = f"{proto}://{host}/trade"
+    elif selected_plan in ["trial", "proefperiode", "7days", "free-trial"]:
+        amount_eur = 1450.0
+        description = "OrionX Dedicated AI-FTE Retainer (7 Dagen Gratis Proefperiode - €0 Vandaag, daarna €1.450/mnd)"
+        is_sub = True
+        trial_days = 7
+        client_name = "Enterprise B2B Trial"
+        cancel_url = f"{proto}://{host}/scan"
     elif selected_plan in ["retainer", "b2b", "enterprise"]:
         amount_eur = 1450.0
-        description = "OrionX AI-FTE Enterprise Retainer (NEN 7510 & AVG Automatisering)"
+        description = "OrionX AI-FTE Enterprise Retainer (7 Dagen Vrijblijvende Proef - daarna €1.450/mnd)"
         is_sub = True
+        trial_days = 7
         client_name = "Enterprise B2B Client"
         cancel_url = f"{proto}://{host}/scan"
-    elif selected_plan in ["pilot", "proef", "quickscan", "trial"]:
+    elif selected_plan in ["pilot", "proef", "quickscan", "195"]:
         amount_eur = 195.0
-        description = "OrionX 14-Dagen NEN 7510 AI Zorg Pilot & Quickscan Implementatie"
+        description = "OrionX 14-Dagen NEN 7510 AI Zorg Pilot (100% Niet-Goed-Geld-Terug Garantie)"
         is_sub = False
+        trial_days = 0
         client_name = "Zorg Pilot Deelnemer"
         cancel_url = f"{proto}://{host}/scan"
     else:
@@ -531,6 +599,7 @@ async def create_live_checkout(request: Request, tier: str = "openclaw", plan: s
         amount_eur = 47.0
         description = "OpenClaw Solana AI Memecoin Trading Kit (Levenslange Toegang)"
         is_sub = False
+        trial_days = 0
         client_name = "OpenClaw Koper"
         cancel_url = f"{proto}://{host}/openclaw"
 
@@ -542,17 +611,22 @@ async def create_live_checkout(request: Request, tier: str = "openclaw", plan: s
         description=description,
         success_url=success_url,
         cancel_url=cancel_url,
-        is_subscription=is_sub
+        is_subscription=is_sub,
+        trial_days=trial_days,
     )
     
     checkout_url = session.get("checkout_url")
     if checkout_url:
         logger.info(f"💳 [STRIPE] Redirecting customer to live Stripe checkout [{selected_plan.upper()}]: {session.get('session_id')}")
-        tier_label = f"VIP Swarm Abonnement (€97/mnd)" if is_sub and amount_eur == 97.0 else (f"Enterprise Retainer (€1.450/mnd)" if amount_eur == 1450.0 else (f"14-Dagen Zorg Pilot (€195)" if amount_eur == 195.0 else f"OpenClaw Trading Kit (€47)"))
+        tier_label = (
+            f"Dedicated AI-FTE Retainer 7-Dagen Gratis Proef (€0 Vandaag)" if (is_sub and amount_eur == 1450.0 and trial_days > 0)
+            else (f"VIP Swarm 7-Dagen Proef (€0 Vandaag, daarna €97/mnd)" if (is_sub and amount_eur == 97.0 and trial_days > 0)
+            else (f"14-Dagen Zorg Pilot (€195 eenmalig)" if amount_eur == 195.0 else f"OpenClaw Trading Kit (€47)"))
+        )
         send_telegram_notification(
             f"🛒 <b>[STRIPE CHECKOUT GESTART]</b>\n\n"
             f"Een bezoeker is gestart met de Stripe checkout voor <b>{tier_label}</b>!\n"
-            f"• Plan: <code>{selected_plan}</code>\n"
+            f"• Plan: <code>{selected_plan}</code> (Proefperiode: {trial_days} dagen)\n"
             f"• Sessie ID: <code>{session.get('session_id', 'n/a')}</code>\n"
             f"• Bedrag: <b>€{amount_eur:,.2f}</b>\n"
             f"• Tijdstip: {datetime.now(timezone.utc).strftime('%H:%M:%S UTC')}"
@@ -1004,6 +1078,7 @@ async def ingest_lead(payload: dict):
     # Instant Notification Email to JWP
     try:
         threading.Thread(target=send_lead_notification_email, args=(lead_entry,), daemon=True).start()
+        threading.Thread(target=send_lead_confirmation_email_to_client, args=(lead_entry,), daemon=True).start()
     except Exception as e:
         logger.warning(f"Could not start lead notification thread: {e}")
         
@@ -1028,6 +1103,7 @@ async def ingest_lead(payload: dict):
 
 CHAT_RATE_LIMITS = {}  # ip -> list of timestamps
 
+@app.post("/api/chat")
 @app.post("/api/chat/consultant")
 async def chat_consultant(request: Request):
     """Interactive live AI consultant powered by Gemini 2.5 Flash for website visitors."""
@@ -1046,7 +1122,7 @@ async def chat_consultant(request: Request):
     except Exception:
         return JSONResponse({"reply": "Ongeldige aanvraag (geen JSON)."}, status_code=400)
 
-    user_msg = str(data.get("message", "")).strip()
+    user_msg = str(data.get("message") or data.get("question") or "").strip()
     if not user_msg:
         return JSONResponse({"reply": "Stel gerust uw vraag over onze oplossingen of tarieven."}, status_code=400)
 
