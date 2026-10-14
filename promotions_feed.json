@@ -1,23 +1,22 @@
 {
-  "source": "OrionX Content Engine",
-  "updated_at": "2026-10-13T10:02:52.920437+00:00",
-  "total_items": 2,
+  "title": "OrionX Autonomous Technology & AI Feeds",
+  "home_page_url": "https://orionx.nl",
+  "feed_url": "https://orionx.nl/promotions_feed.json",
+  "version": "https://jsonfeed.org/version/1.1",
   "items": [
     {
-      "id": 2,
-      "platform": "telegram_public",
-      "text": "$BTC Alert\n\nDetected: news_impact\nConfidence: 70%\n\nAnalysis: Alpha update: Significant volatility expansion detected across top crypto pairs. Real-time metrics streaming at trade.orionx.nl #Crypto\n\n#crypto #BTC",
-      "post_id": "27693",
-      "published_at": "2026-10-13T10:01:33.269444",
-      "link": "https://trade.orionx.nl"
+      "id": "pilot-195-nen7510",
+      "title": "Nieuwe B2B Case Study: 14,5 Uur Tijdwinst met NEN 7510 AI Assistent",
+      "content_text": "Praktijkervaringen en ROI-cijfers van de OrionX Dedicated AI-FTE binnen de eerstelijnszorg. Nu beschikbaar met 14-dagen pilot (\u20ac195,-).",
+      "url": "https://orionx.nl/checkout?product=pilot_195",
+      "date_published": "2026-10-14T13:22:48.307068+00:00"
     },
     {
-      "id": 1,
-      "platform": "telegram_public",
-      "text": "$BTC Alert\n\nDetected: news_impact\nConfidence: 70%\n\nAnalysis: Detected news_impact for BTC based on market data.\n\n#crypto #BTC",
-      "post_id": "27692",
-      "published_at": "2026-10-13T10:00:39.907512",
-      "link": "https://trade.orionx.nl"
+      "id": "scan-orionx-calculator",
+      "title": "Interactieve NEN 7510 & ROI Tijdbesparing Calculator",
+      "content_text": "Bereken in 60 seconden hoeveel administratieve FTE uw praktijk bespaart met een soevereine AI assistent.",
+      "url": "https://scan.orionx.nl",
+      "date_published": "2026-10-14T13:22:48.307068+00:00"
     }
   ]
 }

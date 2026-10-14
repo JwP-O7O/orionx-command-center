@@ -229,6 +229,85 @@ def send_reply_email(original_msg, reply_text: str) -> bool:
         logger.error(f"Fout bij verzenden van reply: {e}")
         return False
 
+HISTORY_FILE = Path(__file__).parent / "inbound_replied_history.json"
+
+def load_reply_history() -> dict:
+    if HISTORY_FILE.exists():
+        try:
+            with open(HISTORY_FILE, "r") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
+
+def save_reply_history(history: dict):
+    try:
+        with open(HISTORY_FILE, "w") as f:
+            json.dump(history, f, indent=2)
+    except Exception as e:
+        logger.error(f"Fout bij opslaan reply history: {e}")
+
+def can_reply_to_email(sender_email: str, cooldown_hours: int = 24) -> bool:
+    history = load_reply_history()
+    now_ts = time.time()
+    last_reply = history.get(sender_email.lower(), 0)
+    if (now_ts - last_reply) < (cooldown_hours * 3600):
+        return False
+    return True
+
+def record_reply_sent(sender_email: str):
+    history = load_reply_history()
+    history[sender_email.lower()] = time.time()
+    save_reply_history(history)
+
+def is_auto_responder_or_loop(msg, subject: str, body: str, sender_email: str, sender_name: str) -> tuple[bool, str]:
+    """Detects vacation notices, out of office, auto-generated replies, bounces, and mail loops."""
+    # 1. Header checks
+    auto_submitted = msg.get("Auto-Submitted", "").lower()
+    if auto_submitted and auto_submitted != "no":
+        return True, f"Auto-Submitted header ({auto_submitted})"
+
+    if msg.get("X-Autoreply") or msg.get("X-Autorespond"):
+        return True, "X-Autoreply header aanwezig"
+
+    precedence = msg.get("Precedence", "").lower()
+    if precedence in ["bulk", "junk", "auto_reply"]:
+        return True, f"Precedence header ({precedence})"
+
+    # 2. Subject keywords
+    lower_subj = subject.lower()
+    auto_subj_triggers = [
+        "automatisch antwoord",
+        "automatische reactie",
+        "out of office",
+        "automatic reply",
+        "auto reply",
+        "afwezigheid",
+        "afwezigheidsbericht",
+        "afwezig",
+        "vakantie",
+        "undeliverable",
+        "delivery status notification",
+        "failure notice",
+        "returned mail",
+        "mail delivery subsystem",
+        "afwezig t/m",
+        "ben afwezig"
+    ]
+    for trigger in auto_subj_triggers:
+        if trigger in lower_subj:
+            return True, f"Auto-reply keyword in onderwerp ({trigger})"
+
+    # 3. Sender domain / address checks
+    lower_email = sender_email.lower()
+    if any(k in lower_email for k in ["noreply", "no-reply", "mailer-daemon", "postmaster", "transip.nl", "stripe.com", "wise.com", "google.com", "transip.email"]):
+        return True, f"Systeem/service afzender ({lower_email})"
+
+    if lower_email == MAIL_USER.lower() or "lead intelligence" in sender_name.lower():
+        return True, "Eigen adres / self-generated"
+
+    return False, ""
+
 def check_and_process_inbox():
     """Connects to IMAP, scans unread messages, processes client inquiries."""
     try:
@@ -258,15 +337,23 @@ def check_and_process_inbox():
             subject = decode_mime_words(msg.get("Subject", ""))
             body = extract_email_body(msg)
 
-            # Skip self-generated, service notifications or loop emails
-            lower_email = sender_email.lower()
-            if (
-                lower_email == MAIL_USER.lower()
-                or "lead intelligence" in sender_name.lower()
-                or any(k in lower_email for k in ["noreply", "no-reply", "notifications@", "mailer-daemon", "postmaster", "transip.nl", "stripe.com", "wise.com", "google.com", "transip.email"])
-            ):
-                logger.info(f"Geautomatiseerde service-notificatie overgeslagen ({sender_email} - {subject})")
+            # 1. Check for automated reply, bounce or loop
+            is_loop, reason = is_auto_responder_or_loop(msg, subject, body, sender_email, sender_name)
+            if is_loop:
+                logger.info(f"⏭️ Overgeslagen (Geen auto-reply loop): {reason} van {sender_email} (Onderwerp: {subject})")
                 mail.store(mid, '+FLAGS', '\\Seen')
+                continue
+
+            # 2. Check 24-hour rate limit per sender
+            if not can_reply_to_email(sender_email, cooldown_hours=24):
+                logger.warning(f"⏳ Rate-limit: {sender_email} heeft al een reactie gehad in de afgelopen 24 uur. Geen auto-reply verzonden om loops te voorkomen.")
+                mail.store(mid, '+FLAGS', '\\Seen')
+                send_telegram(
+                    f"⚠️ <b>[HERHAALDE INKOMENDE EMAIL]</b>\n\n"
+                    f"<b>Van:</b> {sender_name or sender_email} (<code>{sender_email}</code>)\n"
+                    f"<b>Onderwerp:</b> {subject}\n"
+                    f"<i>Klant stuurde binnen 24u een vervolgmail. Automatische reply gepauzeerd ter voorkoming van lus. Handmatige actie mogelijk vereist.</i>"
+                )
                 continue
 
             logger.info(f"⚡ [KLANT INKOMEND] Van: {sender_name} <{sender_email}> | Onderwerp: {subject}")
@@ -276,6 +363,7 @@ def check_and_process_inbox():
             success = send_reply_email(msg, reply_text)
 
             if success:
+                record_reply_sent(sender_email)
                 # Mark as seen in IMAP
                 mail.store(mid, '+FLAGS', '\\Seen')
 

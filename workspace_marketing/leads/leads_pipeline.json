@@ -1,0 +1,46 @@
+{
+  "last_updated": "2026-10-14T13:22:30.527304+00:00",
+  "lead_count": 5,
+  "leads": [
+    {
+      "company": "Kliniek aan de Maas",
+      "sector": "Priv\u00e9kliniek / Plastische Chirurgie",
+      "city": "Rotterdam",
+      "focus": "Intake-optimalisatie & NEN 7510 audit",
+      "estimated_fte_saved": 1.2,
+      "status": "QUALIFIED_PROSPECT"
+    },
+    {
+      "company": "Huisartsenpraktijk Parkzoom",
+      "sector": "Huisartsenzorg",
+      "city": "Den Haag",
+      "focus": "EPD intake & consult samenvatting",
+      "estimated_fte_saved": 0.8,
+      "status": "QUALIFIED_PROSPECT"
+    },
+    {
+      "company": "Tandartsen Centrum Utrecht",
+      "sector": "Tandheelkunde",
+      "city": "Utrecht",
+      "focus": "Herhaalafspraken en telefonische AI-triage",
+      "estimated_fte_saved": 1.0,
+      "status": "QUALIFIED_PROSPECT"
+    },
+    {
+      "company": "Medisch Specialistisch Bedrijf Brabant",
+      "sector": "Specialistische Zorg",
+      "city": "Eindhoven",
+      "focus": "Verslaglegging & NEN 7510 compliance",
+      "estimated_fte_saved": 2.5,
+      "status": "ENTERPRISE_TARGET"
+    },
+    {
+      "company": "Fysiotherapie & Revalidatie Amstelland",
+      "sector": "Paramedisch",
+      "city": "Amsterdam",
+      "focus": "Intakevragenlijsten en behandelverslagen",
+      "estimated_fte_saved": 0.6,
+      "status": "QUALIFIED_PROSPECT"
+    }
+  ]
+}
