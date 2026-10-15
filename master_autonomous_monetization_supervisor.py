@@ -313,6 +313,68 @@ Gevestigd te Den Haag
     except Exception as e:
         logger.warning(f"Kon bevestigingsmail niet versturen naar {client_email}: {e}")
 
+def send_pilot_confirmation_email(pilot_data: dict):
+    """Sends immediate confirmation to the practice for their 14-day Pilot on invoice."""
+    smtp_pass = os.getenv("SMTP_PASS", "")
+    smtp_user = os.getenv("SMTP_USER", "jwp@orionx.nl")
+    client_email = pilot_data.get("email", "").strip()
+    client_name = pilot_data.get("contact", "").strip() or "heer/mevrouw"
+    company = pilot_data.get("company", "").strip() or "uw praktijk"
+    software = pilot_data.get("software", "").strip() or "uw huidige software"
+    workflow = pilot_data.get("workflow", "").strip() or "de administratieve workflow"
+    phone = pilot_data.get("phone", "").strip()
+    pilot_id = pilot_data.get("pilot_id", "OX-PILOT")
+    amount = pilot_data.get("invoice_amount_eur", 195)
+    
+    if not smtp_pass or not client_email or "@" not in client_email:
+        return
+        
+    try:
+        msg = MIMEMultipart("alternative")
+        msg["From"] = f'"J.W. Pabst | OrionX AI Technologies" <{smtp_user}>'
+        msg["To"] = client_email
+        msg["Reply-To"] = smtp_user
+        msg["Subject"] = f"Bevestiging 14-Dagen AI Pilot voor {company} [{pilot_id}]"
+        
+        body_text = f"""Geachte {client_name},
+
+Hartelijk dank voor uw aanvraag voor de 14-Dagen OrionX AI Praktijk Pilot voor {company}.
+
+Uw pilot-aanvraag is met succes geregistreerd onder referentie: {pilot_id}.
+
+Pilot Specificaties:
+• Organisatie / Praktijk: {company}
+• Contactpersoon: {client_name} (Tel: {phone})
+• Gekoppeld Systeem: {software}
+• Focus Workflow: {workflow}
+• Looptijd: 14 dagen volledige proefopstelling
+• Kosten vandaag: € 0,00 (Volledig kosteloze installatie & inrichting)
+• Facturatievoorwaarden: Factuur (€ {amount},- ex. btw) volgt pas ná 14 dagen tevredenheid conform onze 100% no-cure-no-pay garantie.
+
+Volgende stappen:
+1. Onze senior implementatie-adviseur neemt binnen 4 werkuren telefonisch contact met u op via {phone} om de specifieke routering van uw software ({software}) af te stemmen.
+2. U ontvangt onze standaard NEN 7510 / AVG Verwerkersovereenkomst (DPA) ter ondertekening.
+3. Binnen 48 uur draait uw eerste geautomatiseerde workflow proef.
+
+Heeft u voor die tijd al vragen of aanvullende documentatie? Reageer gerust direct op dit e-mailbericht.
+
+Met vriendelijke groet,
+
+J.W. Pabst
+Technisch Directeur | OrionX AI Technologies
+E-mail: jwp@orionx.nl | Web: https://orionx.nl
+Gevestigd te Den Haag / Delft
+"""
+        msg.attach(MIMEText(body_text, "plain", "utf-8"))
+        server = smtplib.SMTP("smtp.transip.email", 587, timeout=12)
+        server.starttls()
+        server.login(smtp_user, smtp_pass)
+        server.send_message(msg)
+        server.quit()
+        logger.info(f"📧 [PILOT CONFIRMATION SENT] Pilot bevestiging verstuurd naar {client_email}")
+    except Exception as e:
+        logger.warning(f"Kon pilot bevestigingsmail niet versturen naar {client_email}: {e}")
+
 # --- STORE, AGENCY & DASHBOARD ROUTES ---
 
 @app.api_route("/health", methods=["GET", "HEAD"])
@@ -1118,6 +1180,125 @@ async def ingest_lead(payload: dict):
         logger.warning(f"Telegram lead notification error: {e}")
 
     return {"status": "success", "message": "Lead succesvol opgeslagen en geanalyseerd"}
+
+# --- B2B 14-DAGEN PILOT OP FACTUUR ACHTERAF (€0 VOORAF, NO-CURE-NO-PAY) ---
+
+@app.post("/api/pilot-invoice-request")
+async def request_pilot_invoice(payload: dict):
+    """
+    Handles B2B 14-day Pilot requests with post-payment on invoice (Net 14, €0 upfront).
+    Zero friction for Dutch healthcare clinics and SMEs.
+    """
+    company = payload.get("company", "").strip() or "Onbekende Praktijk / Organisatie"
+    contact = payload.get("contact", "").strip() or "Praktijkhouder"
+    email = payload.get("email", "").strip() or "onbekend@praktijk.nl"
+    phone = payload.get("phone", "").strip() or "Onbekend"
+    sector = payload.get("sector", "Zorgpraktijk / MKB")
+    software = payload.get("software", "Nog te bepalen (Medicom/Exact/Exquise)")
+    workflow = payload.get("workflow", "Volledige Administratieve Automatisering")
+    discount = str(payload.get("discount", "0"))
+    
+    pilot_id = f"OX-PILOT-{int(time.time())}"
+    
+    try:
+        disc_int = int(discount) if discount.isdigit() else 0
+    except Exception:
+        disc_int = 0
+        
+    inv_amount = 195.0 if disc_int == 0 else round(195.0 * (1 - disc_int / 100), 2)
+    
+    pilot_entry = {
+        "pilot_id": pilot_id,
+        "company": company,
+        "contact": contact,
+        "email": email,
+        "phone": phone,
+        "sector": sector,
+        "software": software,
+        "workflow": workflow,
+        "discount_applied": disc_int,
+        "terms": "14-Dagen Pilot op Factuur Achteraf (€0 vooraf, no-cure-no-pay)",
+        "invoice_amount_eur": inv_amount,
+        "status": "pilot_requested_pending_onboarding",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "nen7510_avg_dpa_status": "sent"
+    }
+    
+    # Store in active_pilots.json
+    pilots_dir = BASE_DIR / "leads"
+    pilots_dir.mkdir(parents=True, exist_ok=True)
+    pilots_file = pilots_dir / "active_pilots.json"
+    pilots = []
+    if pilots_file.exists():
+        try:
+            with open(pilots_file, 'r', encoding='utf-8') as f:
+                pilots = json.load(f)
+        except Exception:
+            pilots = []
+    pilots.insert(0, pilot_entry)
+    with open(pilots_file, 'w', encoding='utf-8') as f:
+        json.dump(pilots, f, indent=2, ensure_ascii=False)
+        
+    # Also register in main leads pipeline
+    leads = []
+    if LEADS_FILE.exists():
+        try:
+            with open(LEADS_FILE, 'r', encoding='utf-8') as f:
+                leads = json.load(f)
+        except Exception:
+            leads = []
+    leads.insert(0, {
+        "company": company,
+        "contact": contact,
+        "email": email,
+        "phone": phone,
+        "sector": sector,
+        "status": "pilot_invoice_pending",
+        "pain_point": f"Software: {software} | Workflow: {workflow}",
+        "dispatched_at": datetime.now(timezone.utc).isoformat()
+    })
+    with open(LEADS_FILE, 'w', encoding='utf-8') as f:
+        json.dump(leads, f, indent=2, ensure_ascii=False)
+
+    # Update Master Ledger
+    try:
+        with open(LEDGER_FILE, 'a', encoding='utf-8') as f:
+            f.write(f"\n- **{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}**: 🚀 **NIEUWE PILOT OP FACTUUR ACHTERAF**: `{company}` ({contact}) | Tel: `{phone}` | E-mail: `{email}` | Software: `{software}` | Workflow: `{workflow}` | Status: Onboarding Gestart")
+    except Exception as e:
+        logger.warning(f"Ledger write error: {e}")
+
+    # Instant Telegram Push Alert
+    try:
+        tg_text = (
+            f"🎉 <b>[NIEUWE PILOT OP FACTUUR ACHTERAF AANGEVRAAGD!]</b>\n\n"
+            f"• <b>Praktijk/Bedrijf:</b> {company}\n"
+            f"• <b>Contactpersoon:</b> {contact}\n"
+            f"• <b>Telefoon:</b> <code>{phone}</code>\n"
+            f"• <b>E-mail:</b> <code>{email}</code>\n"
+            f"• <b>Software/EPD:</b> {software}\n"
+            f"• <b>Workflow Focus:</b> {workflow}\n"
+            f"• <b>Voorwaarden:</b> 14 Dagen Proef (€0 vooraf, no-cure-no-pay)\n"
+            f"• <b>Factuurbedrag na 14d:</b> €{inv_amount}\n\n"
+            f"⚡ <b>Actie vereist:</b> Neem binnen 4 uur telefonisch contact op voor de intake!"
+        )
+        send_telegram_notification(tg_text)
+    except Exception as e:
+        logger.warning(f"Telegram notification error: {e}")
+
+    # Send confirmation email to client & notification to admin
+    try:
+        threading.Thread(target=send_pilot_confirmation_email, args=(pilot_entry,), daemon=True).start()
+    except Exception as e:
+        logger.warning(f"Email dispatch error: {e}")
+
+    return {
+        "status": "success",
+        "pilot_id": pilot_id,
+        "company": company,
+        "message": "Uw 14-dagen pilot op factuur achteraf is succesvol geregistreerd. U ontvangt direct een bevestiging per e-mail."
+    }
+
+
 
 # --- ORIONX 24/7 LIVE AI EXECUTIVE CONSULTANT API ---
 

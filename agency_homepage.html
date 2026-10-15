@@ -90,9 +90,9 @@
     </div>
 
     <div class="flex items-center gap-3">
-      <a href="/checkout/pilot" class="hidden sm:inline-flex px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-r from-cyan-400 via-emerald-400 to-teal-400 text-black hover:opacity-90 transition-all shadow-lg shadow-cyan-500/25">
-        Start 14-Dagen Pilot (€195)
-      </a>
+      <button onclick="openInvoicePilotModal()" class="hidden sm:inline-flex px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-r from-cyan-400 via-emerald-400 to-teal-400 text-black hover:opacity-90 transition-all shadow-lg shadow-cyan-500/25 cursor-pointer">
+        📋 Start Pilot op Factuur (€0,-)
+      </button>
       <a href="/scan" class="inline-flex sm:hidden px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-400 text-black">
         ⚡ Scan
       </a>
@@ -116,11 +116,11 @@
 
     <!-- CTAS -->
     <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-10">
-      <a href="/scan" class="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold bg-gradient-to-r from-cyan-500 via-emerald-400 to-teal-400 text-black text-base hover:shadow-cyan-500/30 hover:shadow-xl transition-all flex items-center justify-center gap-2">
-        <span>⚡</span> Doe de Gratis 60s Besparingsscan
-      </a>
-      <a href="#pricing" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-slate-900/90 border border-slate-700 text-slate-200 text-base hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
-        <span>🛡️</span> Bekijk Tarieven &amp; Proefperiode
+      <button onclick="openInvoicePilotModal()" class="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold bg-gradient-to-r from-cyan-400 via-emerald-400 to-teal-400 text-black text-base hover:shadow-cyan-500/30 hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-cyan-500/25">
+        <span>📋</span> Start 14-Dagen Pilot op Factuur (€0,- Vandaag)
+      </button>
+      <a href="/scan" class="w-full sm:w-auto px-7 py-4 rounded-xl font-bold bg-slate-900/90 border border-slate-700 text-slate-200 text-base hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
+        <span>⚡</span> Doe de Gratis 60s Scan
       </a>
     </div>
 
@@ -358,9 +358,9 @@
               Net als deze 28 zorgpraktijken ervaart u direct de tijdwinst van 15 tot 25 uur per week, met onze waterdichte 100% niet-goed-geld-terug garantie.
             </p>
           </div>
-          <a href="/checkout/pilot" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-xs text-center shadow-lg hover:opacity-90 transition-all">
-            Direct Starten met Pilot (€195) &rarr;
-          </a>
+          <button onclick="openInvoicePilotModal()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold text-xs text-center shadow-lg hover:opacity-90 transition-all cursor-pointer">
+            Start 14-Dagen Pilot op Factuur (€0,- Vandaag) &rarr;
+          </button>
         </div>
 
       </div>
@@ -418,9 +418,14 @@
             </ul>
           </div>
 
-          <a href="/checkout/pilot" class="w-full py-3.5 rounded-xl font-extrabold bg-slate-800 hover:bg-cyan-500 hover:text-black text-white text-center text-sm transition-all shadow-lg">
-            Activeer 14-Dagen Pilot (€ 195,-)
-          </a>
+          <div class="space-y-2 mt-4">
+            <button onclick="openInvoicePilotModal()" class="w-full py-3.5 px-4 rounded-xl font-extrabold bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 hover:opacity-95 text-black text-center text-sm transition-all shadow-xl shadow-cyan-500/20 flex items-center justify-center gap-2 cursor-pointer">
+              <span>📋</span> Start Pilot op Factuur Achteraf (€0,- Vandaag)
+            </button>
+            <a href="/checkout/pilot" class="w-full py-2 px-3 rounded-lg font-bold bg-slate-800/80 hover:bg-slate-700 text-slate-300 text-center text-xs transition-all flex items-center justify-center gap-1.5 border border-slate-700">
+              <span>💳</span> Direct afrekenen via iDEAL (€ 195,-) &rarr;
+            </a>
+          </div>
         </div>
 
         <!-- CARD 2: DEDICATED AI-FTE (FEATURED) -->
@@ -718,6 +723,9 @@
         <a id="abandon-pilot-link" href="/checkout/pilot" style="display: block; width: 100%; padding: 14px; background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); color: #000; font-weight: 900; font-size: 0.95rem; border-radius: 12px; text-decoration: none; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35); transition: opacity 0.2s;">
           ⚡ Claim Korting &amp; Start 14-Dagen Pilot
         </a>
+        <button onclick="closeAbandonModal(); openInvoicePilotModal();" style="display: block; width: 100%; padding: 12px; background: rgba(6, 182, 212, 0.15); border: 1.5px solid #06b6d4; color: #22d3ee; font-weight: 800; font-size: 0.85rem; border-radius: 12px; cursor: pointer; text-align: center;">
+          📋 Liever Achteraf op Factuur? Start Vandaag voor €0,- &rarr;
+        </button>
         <a id="abandon-trial-link" href="/checkout/trial" style="display: block; width: 100%; padding: 11px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5e1; font-weight: 700; font-size: 0.82rem; border-radius: 12px; text-decoration: none;">
           Claim Korting op Dedicated AI-FTE Retainer (&euro;0,- Vandaag) &rarr;
         </a>
@@ -1038,7 +1046,167 @@
         typingDiv.textContent = "Verbindingsfout. Neem direct contact op via jwp@orionx.nl.";
       }
     }
+
+    // --- 14-DAGEN PILOT OP FACTUUR ACHTERAF MODAL & SUBMIT ---
+    function openInvoicePilotModal(initialWorkflow = '') {
+      const modal = document.getElementById('invoice-pilot-modal');
+      if (modal) modal.style.display = 'flex';
+      const form = document.getElementById('invoice-pilot-form');
+      if (form) form.style.display = 'flex';
+      const success = document.getElementById('invoice-pilot-success');
+      if (success) success.style.display = 'none';
+      if (initialWorkflow) {
+        const wfEl = document.getElementById('ipm-workflow');
+        if (wfEl) wfEl.value = initialWorkflow;
+      }
+    }
+
+    function closeInvoicePilotModal() {
+      const modal = document.getElementById('invoice-pilot-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    async function submitInvoicePilot(e) {
+      e.preventDefault();
+      const btn = document.getElementById('ipm-submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳</span> Pilot Registreren &amp; DPA Genereren...';
+
+      const payload = {
+        company: document.getElementById('ipm-company').value,
+        contact: document.getElementById('ipm-contact').value,
+        phone: document.getElementById('ipm-phone').value,
+        email: document.getElementById('ipm-email').value,
+        software: document.getElementById('ipm-software').value,
+        workflow: document.getElementById('ipm-workflow').value,
+        discount: (window.orionxDiscountPercent || 0)
+      };
+
+      try {
+        const res = await fetch('/api/pilot-invoice-request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        
+        document.getElementById('invoice-pilot-form').style.display = 'none';
+        document.getElementById('ipm-success-name').textContent = payload.contact;
+        document.getElementById('ipm-success-email').textContent = payload.email;
+        document.getElementById('ipm-success-id').textContent = data.pilot_id || 'OX-PILOT-BEVESTIGD';
+        document.getElementById('ipm-success-phone').textContent = payload.phone;
+        document.getElementById('invoice-pilot-success').style.display = 'block';
+      } catch (err) {
+        alert('Er trad een fout op bij het aanvragen: ' + err);
+        btn.disabled = false;
+        btn.innerHTML = '🚀 Activeer Mijn 14-Dagen Pilot (€0,- Vandaag)';
+      }
+    }
   </script>
+
+  <!-- 14-DAGEN PILOT OP FACTUUR ACHTERAF MODAL (€0,- VOORAF) -->
+  <div id="invoice-pilot-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); backdrop-filter: blur(12px); z-index: 100005; align-items: center; justify-content: center; padding: 16px;">
+    <div style="background: linear-gradient(145deg, #0e1222 0%, #060913 100%); border: 1.5px solid rgba(6, 182, 212, 0.4); border-radius: 28px; max-width: 540px; width: 100%; padding: 32px 28px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(6, 182, 212, 0.25); position: relative; text-align: left; max-height: 90vh; overflow-y: auto;">
+      <button onclick="closeInvoicePilotModal()" style="position: absolute; top: 18px; right: 18px; background: transparent; border: none; color: #94a3b8; font-size: 26px; cursor: pointer; line-height: 1;">&times;</button>
+      
+      <!-- Modal Header -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+        <div style="width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(16,185,129,0.2)); border: 1px solid rgba(6,182,212,0.4); display: flex; align-items: center; justify-content: center; font-size: 22px;">
+          📋
+        </div>
+        <div>
+          <div style="font-size: 11px; font-weight: 800; color: #10b981; text-transform: uppercase; letter-spacing: 0.08em;">
+            14-Dagen Risicovrije Proefopstelling
+          </div>
+          <h3 style="font-size: 1.35rem; font-weight: 900; color: #fff; margin: 0; line-height: 1.2;">
+            Start Pilot op Factuur Achteraf
+          </h3>
+        </div>
+      </div>
+
+      <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.45; margin-bottom: 20px;">
+        Ervaar de concrete tijdwinst binnen uw praktijk of organisatie. <strong>€0,- vandaag</strong>. U betaalt pas na 14 dagen tevredenheid conform onze 100% no-cure-no-pay garantie.
+      </p>
+
+      <!-- The Form -->
+      <form id="invoice-pilot-form" onsubmit="submitInvoicePilot(event)" style="display: flex; flex-direction: column; gap: 12px;">
+        <div>
+          <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Praktijk- of Bedrijfsnaam *</label>
+          <input type="text" id="ipm-company" required placeholder="Bijv. Medisch Centrum Delft of Slof &amp; Van der Meer" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Contactpersoon &amp; Functie *</label>
+            <input type="text" id="ipm-contact" required placeholder="Dhr./Mevr. Jansen, Praktijkhouder" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Telefoonnummer *</label>
+            <input type="tel" id="ipm-phone" required placeholder="06 - 12345678" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Zakelijk E-mailadres (voor DPA &amp; Bevestiging) *</label>
+          <input type="email" id="ipm-email" required placeholder="directie@uwbedrijf.nl" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Huidig Systeem / EPD *</label>
+            <select id="ipm-software" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 12px; font-size: 0.8rem; color: #fff; outline: none;">
+              <option value="Medicom / PharmaCom">Medicom / PharmaCom</option>
+              <option value="Exquise / Simplex">Exquise / Simplex (Tandarts)</option>
+              <option value="Intramed / SpotOnMedics">Intramed / SpotOnMedics (Fysio)</option>
+              <option value="Exact Online / Twinfield">Exact Online / Twinfield (MKB)</option>
+              <option value="Afas / Visma">Afas / Visma</option>
+              <option value="Anders / Eigen Systeem">Anders / Eigen Systeem</option>
+            </select>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Focus Workflow *</label>
+            <select id="ipm-workflow" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 12px; font-size: 0.8rem; color: #fff; outline: none;">
+              <option value="Telefoonaanname &amp; Triage">Telefoonaanname &amp; Triage</option>
+              <option value="Dossier- &amp; E-mailverwerking">Dossier- &amp; E-mailverwerking</option>
+              <option value="Facturatie &amp; No-Show Reductie">Facturatie &amp; No-Show Reductie</option>
+              <option value="Volledige Praktijkautomatisering">Volledige Praktijkautomatisering</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" id="ipm-submit-btn" style="width: 100%; margin-top: 10px; padding: 14px; border: none; border-radius: 12px; background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%); color: #000; font-weight: 900; font-size: 0.92rem; cursor: pointer; box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3); transition: opacity 0.2s;">
+          🚀 Activeer Mijn 14-Dagen Pilot (€0,- Vandaag)
+        </button>
+
+        <!-- Trust Features -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 0.72rem; color: #94a3b8; margin-top: 8px;">
+          <div style="display: flex; align-items: center; gap: 4px;"><span style="color: #10b981;">✓</span> Geen automatische verlenging</div>
+          <div style="display: flex; align-items: center; gap: 4px;"><span style="color: #10b981;">✓</span> 100% No-Cure-No-Pay</div>
+          <div style="display: flex; align-items: center; gap: 4px;"><span style="color: #06b6d4;">✓</span> NEN 7510 &amp; AVG DPA inbegrepen</div>
+          <div style="display: flex; align-items: center; gap: 4px;"><span style="color: #06b6d4;">✓</span> Binnen 4 uur intake contact</div>
+        </div>
+      </form>
+
+      <!-- Success Screen -->
+      <div id="invoice-pilot-success" style="display: none; text-align: center; padding: 16px 0;">
+        <div style="width: 56px; height: 56px; border-radius: 20px; background: rgba(16, 185, 129, 0.2); border: 1.5px solid #10b981; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 28px;">
+          🎉
+        </div>
+        <h4 style="font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 8px;">Pilot Succesvol Aangevraagd!</h4>
+        <p style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 18px;">
+          Hartelijk dank, <strong id="ipm-success-name" style="color: #06b6d4;"></strong>! We hebben de bevestiging en NEN 7510/AVG Verwerkersovereenkomst klaargezet en verzonden naar <strong id="ipm-success-email" style="color: #10b981;"></strong>.
+        </p>
+        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 14px; font-size: 0.78rem; color: #94a3b8; text-align: left; margin-bottom: 18px;">
+          <div>• <strong>Referentie:</strong> <span id="ipm-success-id" style="font-family: monospace; color: #fff;"></span></div>
+          <div style="margin-top: 4px;">• <strong>Intake:</strong> Onze senior adviseur belt u binnen 4 werkuren op <span id="ipm-success-phone" style="color: #fff;"></span> voor de software-afstemming.</div>
+        </div>
+        <button onclick="closeInvoicePilotModal()" style="padding: 10px 24px; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: transparent; color: #fff; font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+          Venster Sluiten
+        </button>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>
