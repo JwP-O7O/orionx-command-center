@@ -1,0 +1,62 @@
+{
+  "info@selviadministratie.nl": {
+    "company": "Selvi Administratie",
+    "dispatched_at": "2026-10-15T20:52:51.433873+00:00",
+    "subject": "Document- en factuurverwerking automatiseren bij Selvi Administratie — OrionX Den Haag",
+    "status": "sent"
+  },
+  "info@deadministratie.nl": {
+    "company": "De Administratie Delft",
+    "dispatched_at": "2026-10-15T20:52:55.318202+00:00",
+    "subject": "Document- en factuurverwerking automatiseren bij De Administratie Delft — OrionX Delft",
+    "status": "sent"
+  },
+  "info@adminto.nl": {
+    "company": "Adminto Administratie",
+    "dispatched_at": "2026-10-15T20:52:59.207934+00:00",
+    "subject": "Document- en factuurverwerking automatiseren bij Adminto Administratie — OrionX Delft",
+    "status": "sent"
+  },
+  "info@kmaccountants.nl": {
+    "company": "K+M Adviserende Accountants",
+    "dispatched_at": "2026-10-15T20:53:03.030690+00:00",
+    "subject": "Document- en factuurverwerking automatiseren bij K+M Adviserende Accountants — OrionX Zoetermeer",
+    "status": "sent"
+  },
+  "zoetermeer@goedoporde.nl": {
+    "company": "GoedOpOrde.nl Zoetermeer",
+    "dispatched_at": "2026-10-15T20:53:06.847842+00:00",
+    "subject": "Document- en factuurverwerking automatiseren bij GoedOpOrde.nl Zoetermeer — OrionX Zoetermeer",
+    "status": "sent"
+  },
+  "contact@triangeladministratie.nl": {
+    "company": "Triangel Administratie & Advies",
+    "dispatched_at": "2026-10-15T20:53:10.757032+00:00",
+    "subject": "Document- en factuurverwerking automatiseren bij Triangel Administratie & Advies — OrionX Rijswijk",
+    "status": "sent"
+  },
+  "zoetermeer@oamkb.nl": {
+    "company": "oamkb Zoetermeer",
+    "dispatched_at": "2026-10-15T20:53:14.589951+00:00",
+    "subject": "Document- en factuurverwerking automatiseren bij oamkb Zoetermeer — OrionX Zoetermeer",
+    "status": "sent"
+  },
+  "zoetermeer@flynth.nl": {
+    "company": "Flynth Accountants & Adviseurs",
+    "dispatched_at": "2026-10-15T20:53:18.407290+00:00",
+    "subject": "Document- en factuurverwerking automatiseren bij Flynth Accountants & Adviseurs — OrionX Zoetermeer",
+    "status": "sent"
+  },
+  "denhaag@216.nl": {
+    "company": "216 Accountants Den Haag",
+    "dispatched_at": "2026-10-15T20:53:22.234638+00:00",
+    "subject": "Document- en factuurverwerking automatiseren bij 216 Accountants Den Haag — OrionX Den Haag",
+    "status": "sent"
+  },
+  "info@westvest-notarissen.nl": {
+    "company": "Westvest Notarissen",
+    "dispatched_at": "2026-10-15T20:53:26.205499+00:00",
+    "subject": "Document- en factuurverwerking automatiseren bij Westvest Notarissen — OrionX Delft",
+    "status": "sent"
+  }
+}
