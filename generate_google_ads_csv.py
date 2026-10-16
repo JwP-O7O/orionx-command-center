@@ -1,124 +1,126 @@
 #!/usr/bin/env python3
 """
-ORIONX GOOGLE ADS CAMPAIGN GENERATOR
-====================================
+ORIONX GOOGLE ADS B2B HIGH-CONVERSION CAMPAIGN GENERATOR
+========================================================
 Generates 100% valid Google Ads Editor import CSV files for:
-1. NL-SEARCH-B2B-Zorgklinieken (High-ticket Healthcare Process Automation)
-2. NL-SEARCH-B2B-MKB-Factuur-AI (Mid-ticket SME Invoice & ERP Automation)
-3. GLOBAL-SEARCH-Crypto-Solana-TradingBot (Scalable Digital Product - OpenClaw €47)
+1. NL-B2B-Accountancy-MKB-Delft-DenHaag (Factuurverwerking, Exact Online, Twinfield, AFAS, Notariaat)
+2. NL-B2B-Zorgpraktijken-Delft-DenHaag (Tandarts, Fysio & ZBC Praktijkautomatisering)
+3. NL-B2B-MKB-Kantoor-Automatisering (Werkbonnen, E-mail Triage, Dossieropbouw & 14-Dagen Pilot)
 
-Strict Google Ads Character Limits:
+Strict Google Ads Character Limits (Enforced Programmatically):
 - Headline: <= 30 chars
 - Description: <= 90 chars
 - Path 1 & Path 2: <= 15 chars
 """
 
 import csv
-import sys
 from pathlib import Path
 
 OUTPUT_FILE = Path("/root/hae_command_center/google_ads_import_campaigns.csv")
 
-def validate_length(text: str, max_len: int, name: str):
+
+def validate_length(text: str, max_len: int, name: str) -> str:
     if len(text) > max_len:
         raise ValueError(f"Length violation for {name} ({len(text)} > {max_len}): '{text}'")
     return text
 
-# --- DEFINITIONS ---
 
 CAMPAIGNS = [
     {
-        "name": "NL-SEARCH-B2B-Zorgklinieken",
+        "name": "NL-B2B-Accountancy-MKB-Delft-DenHaag",
         "budget": 25.0,
         "type": "Search",
         "networks": "Google search",
         "languages": "nl",
         "ad_groups": [
             {
-                "name": "AG-EPD-Automatisering",
-                "cpc": 2.20,
+                "name": "AG-Factuur-Automatisering-Exact-AFAS",
+                "cpc": 2.10,
                 "keywords": [
-                    ("epd automatisering", "Exact"),
-                    ("epd automatisering", "Phrase"),
-                    ("zorgadministratie automatiseren", "Exact"),
-                    ("zorgadministratie software ai", "Phrase"),
-                    ("dossier automatisering kliniek", "Exact"),
-                    ("intake automatisering zorg", "Phrase"),
-                    ("verwijsbrieven verwerken ai", "Exact"),
-                    ("declaratieverwerking kliniek", "Phrase")
+                    ("factuurverwerking automatiseren", "Exact"),
+                    ("factuurverwerking automatiseren", "Phrase"),
+                    ("inkoopfacturen automatisch boeken", "Exact"),
+                    ("exact online facturen automatiseren", "Phrase"),
+                    ("afas factuurverwerking ai", "Phrase"),
+                    ("twinfield ubl facturen verwerken", "Phrase"),
+                    ("administratiekantoor automatisering", "Exact"),
+                    ("boekhouding automatiseren mkb", "Phrase"),
+                    ("ai administratie delft", "Phrase"),
+                    ("ai administratie den haag", "Phrase"),
                 ],
                 "rsa": {
                     "headlines": [
-                        "AI EPD Automatisering Zorg",       # 27 chars
-                        "Bespaar 20 Uur Per Week",          # 23 chars
-                        "NEN 7510 & AVG Compliant",         # 24 chars
-                        "Voor Klinieken & Praktijken",      # 28 chars
-                        "Koppelt Met Nedap & Cliniseer",    # 29 chars
-                        "Van 18 Min Naar 30 Seconden",      # 27 chars
-                        "Bereken Uw Besparing Gratis",      # 27 chars
-                        "96% Minder Administratie",         # 24 chars
-                        "Terugverdientijd < 2,5 Maand",     # 28 chars
-                        "OrionX AI Zorgtechnologie",        # 26 chars
-                        "Directe EPD Integratie",           # 22 chars
-                        "Geen Handmatig Typewerk Meer",     # 28 chars
-                        "Gegarandeerde Databeveiliging",    # 29 chars
-                        "Gratis 60-Sec Besparingsscan",     # 29 chars
-                        "Kies Voor Autonome Zorg AI"        # 26 chars
+                        "AI Factuurverwerking MKB",        # 24
+                        "14-Dagen Pilot (€495)",           # 21
+                        "100% No-Cure-No-Pay Garantie",    # 28
+                        "Achteraf Betalen Op Factuur",     # 27
+                        "Koppelt Met Exact & AFAS",        # 24
+                        "Twinfield & UBL Integratie",      # 26
+                        "Geen Handmatig Overtypen",        # 24
+                        "Regio Delft & Den Haag",          # 22
+                        "Binnen 14 Dagen Operationeel",    # 28
+                        "AVG-Conform & EU Hosting",        # 24
+                        "Menselijke Eindcontrole",         # 23
+                        "Doorlopend Beheer €495/mnd",      # 26
+                        "Maandelijks Opzegbaar",           # 21
+                        "Test Live Op De Website",         # 23
+                        "OrionX AI Automatisering",        # 24
                     ],
                     "descriptions": [
-                        "Bespaar tot 25 uur per behandelaar per week. Automatiseer EPD intakes & verwijzingen.", # 86 chars
-                        "100% NEN 7510 & AVG-proof zorg AI. Direct koppelbaar aan Cliniseer, Nedap & Exquise.", # 86 chars
-                        "Bereken exact hoeveel duizenden euro's uw kliniek bespaart in onze gratis 60s scan.",   # 85 chars
-                        "Implementatie zonder downtime binnen 14 dagen. Vraag uw strategisch voorstel aan."      # 83 chars
+                        "Automatiseer inkoopfacturen en UBL-boekingsvoorstellen direct in Exact, Twinfield & AFAS.", # 89
+                        "Start met de 14-Dagen AI Administratie Pilot (€495 eenmalig) op basis van no-cure-no-pay.", # 89
+                        "Betaal pas achteraf op factuur na 14 dagen tevredenheid. Inclusief AVG-verwerkersakkoord.", # 89
+                        "Voor accountants en MKB in Delft, Den Haag en Zuid-Holland. Test de workflow simulator.",   # 87
                     ],
-                    "path1": "zorg",
-                    "path2": "epd-ai",
-                    "final_url": "https://orionx.nl/scan"
-                }
+                    "path1": "mkb-pilot",
+                    "path2": "factuur-ai",
+                    "final_url": "https://orionx.nl/#simulator",
+                },
             },
             {
-                "name": "AG-Kliniek-Tandarts-Software",
-                "cpc": 1.85,
+                "name": "AG-Notariaat-Makelaardij-Dossier-AI",
+                "cpc": 2.25,
                 "keywords": [
-                    ("tandartspraktijk automatisering", "Exact"),
-                    ("software tandartspraktijk ai", "Phrase"),
-                    ("zbc kliniek administratie", "Exact"),
-                    ("zbc administratie software", "Phrase"),
-                    ("mondzorg software koppeling", "Exact"),
-                    ("vektis declaratie automatisering", "Phrase")
+                    ("notariaat dossier automatisering", "Phrase"),
+                    ("makelaardij administratie automatiseren", "Phrase"),
+                    ("klant onboarding automatiseren kantoor", "Phrase"),
+                    ("document verwerking automatiseren", "Exact"),
+                    ("kantoorautomatisering ai den haag", "Phrase"),
+                    ("kantoorautomatisering ai delft", "Phrase"),
                 ],
                 "rsa": {
                     "headlines": [
-                        "AI Software voor Klinieken",       # 26 chars
-                        "Tandarts & ZBC Automatisering",    # 29 chars
-                        "Vektis Declaraties Foutloos",      # 27 chars
-                        "Bespaar Uren Aan Typewerk",        # 25 chars
-                        "NEN 7510 Veilig & AVG Proof",      # 27 chars
-                        "Exquise & Nedap Koppeling",        # 24 chars
-                        "Gratis Besparingsscan 60s",        # 25 chars
-                        "Kliniek Rendement Verhogen",       # 26 chars
-                        "Patiëntintake Automatiseren",      # 27 chars
-                        "OrionX Slimme Zorg AI",            # 22 chars
-                        "Minder Werkdruk Praktijk",         # 24 chars
-                        "Directe Lokale Integratie",        # 25 chars
-                        "Veilige Zorg Cloud NL",            # 22 chars
-                        "Erkend AI Zorgpartner",            # 22 chars
-                        "Start Met Besparen Vandaag"        # 26 chars
+                        "AI Dossieropbouw Kantoren",       # 25
+                        "Voor Notariaat & Makelaardij",    # 28
+                        "14-Dagen Pilot (€495)",           # 21
+                        "100% No-Cure-No-Pay",             # 19
+                        "Start Op Factuur (€0 Vooraf)",    # 28
+                        "Automatische Stukkencontrole",    # 28
+                        "Regio Delft & Den Haag",          # 22
+                        "AVG Verwerkersovereenkomst",      # 26
+                        "Koppelt Met Microsoft 365",       # 25
+                        "Geen Handmatig Knip-Plakwerk",    # 28
+                        "Uw Team Houdt Eindcontrole",      # 26
+                        "Binnen 14 Dagen Ingeleerd",       # 25
+                        "Maandelijks Opzegbaar Beheer",    # 28
+                        "Bekijk Live Workflow Demo",       # 25
+                        "OrionX Zakelijke AI",             # 19
                     ],
                     "descriptions": [
-                        "Verlaag de administratieve werkdruk in uw tandarts- of ZBC-kliniek direct met OrionX AI.", # 89 chars
-                        "Koppel uw agenda, informed consent formulieren en EPD direct met slimme AI agents.",      # 83 chars
-                        "96% snellere intake en foutloze declaratiecontrole conform NEN 7510 richtlijnen.",        # 81 chars
-                        "Doe de gratis scan en ontdek binnen 60 seconden uw jaarlijkse personeelsbesparing."       # 84 chars
+                        "Automatiseer controle van klantstukken, koopovereenkomsten en dossieraanmaak op kantoor.", # 88
+                        "Beproef de tijdwinst 14 dagen in uw eigen omgeving (€495 eenmalig, 100% no-cure-no-pay).",   # 88
+                        "Uitsluitend dataverwerking binnen de EU inclusief standaard AVG-verwerkersovereenkomst.",    # 87
+                        "Speciaal voor notarissen, makelaars en advieskantoren in regio Delft en Den Haag.",          # 81
                     ],
-                    "path1": "klinieken",
-                    "path2": "besparing",
-                    "final_url": "https://orionx.nl/scan"
-                }
-            }
+                    "path1": "kantoor",
+                    "path2": "dossier-ai",
+                    "final_url": "https://orionx.nl/#simulator",
+                },
+            },
         ],
         "negatives": [
             "gratis downloaden",
+            "gratis software",
             "vacature",
             "vacatures",
             "stage",
@@ -127,135 +129,140 @@ CAMPAIGNS = [
             "salaris",
             "werkstudent",
             "thuiswerk",
-            "open sollicitatie"
-        ]
+            "open sollicitatie",
+            "excel template gratis",
+            "zzp boekhouden gratis",
+        ],
     },
     {
-        "name": "NL-SEARCH-B2B-MKB-Factuur-AI",
+        "name": "NL-B2B-Zorgpraktijken-Delft-DenHaag",
         "budget": 20.0,
         "type": "Search",
         "networks": "Google search",
         "languages": "nl",
         "ad_groups": [
             {
-                "name": "AG-Factuur-OCR-ExactOnline",
-                "cpc": 1.75,
+                "name": "AG-Tandarts-Fysio-Zorgpraktijk-AI",
+                "cpc": 2.15,
                 "keywords": [
-                    ("facturen automatisch boeken", "Exact"),
-                    ("factuur ocr ai exact online", "Phrase"),
-                    ("factuurverwerking automatiseren", "Exact"),
-                    ("afas facturen automatisch boeken", "Phrase"),
-                    ("twinfield ai factuur koppeling", "Exact"),
-                    ("ubl facturen automatisch verwerken", "Phrase")
+                    ("zorgadministratie automatiseren", "Exact"),
+                    ("zorgadministratie automatiseren", "Phrase"),
+                    ("tandartspraktijk administratie automatiseren", "Phrase"),
+                    ("fysiotherapie praktijk automatisering", "Phrase"),
+                    ("intake automatisering zorgpraktijk", "Phrase"),
+                    ("verwijsbrieven automatisch verwerken", "Phrase"),
+                    ("praktijkautomatisering den haag", "Phrase"),
+                    ("praktijkautomatisering delft", "Phrase"),
                 ],
                 "rsa": {
                     "headlines": [
-                        "AI Factuurverwerking Exact",       # 26 chars
-                        "Boek Facturen 100% Autonoom",      # 27 chars
-                        "AFAS & Exact Online AI",           # 22 chars
-                        "Geen Handmatig Overtypen",         # 24 chars
-                        "99,4% OCR Herkenningsgraad",       # 26 chars
-                        "Bespaar 80% Boekhoudtijd",         # 24 chars
-                        "Binnen 24 Uur Live In MKB",        # 25 chars
-                        "Twinfield & Exact Koppeling",      # 27 chars
-                        "Automatische UBL Conversie",       # 26 chars
-                        "OrionX MKB Automatisering",        # 25 chars
-                        "Directe Factuurscan AI",           # 23 chars
-                        "Minder Boekhoudkosten",            # 22 chars
-                        "Gratis Besparingsscan",            # 22 chars
-                        "Stop Handmatige Invoer",           # 22 chars
-                        "Vraag Uw Demo Aan",                # 18 chars
+                        "AI Voor Zorg- & Tandpraktijk",    # 28
+                        "14-Dagen Praktijk Pilot €495",    # 28
+                        "100% No-Cure-No-Pay Garantie",    # 28
+                        "Start Op Factuur Achteraf",       # 25
+                        "Intakes & Verwijsbrieven AI",     # 27
+                        "Minder Administratieve Druk",     # 27
+                        "Voor Tandarts, Fysio & ZBC",      # 26
+                        "Regio Delft & Den Haag",          # 22
+                        "AVG-Conform & EU Servers",        # 24
+                        "Behandelaar Houdt Controle",      # 26
+                        "Geen Langdurig Jaarcontract",     # 27
+                        "Doorlopend Beheer €495/mnd",      # 26
+                        "Gratis 60s Besparingsscan",       # 25
+                        "Binnen 14 Dagen Werkend",         # 23
+                        "OrionX Praktijk AI",              # 18
                     ],
                     "descriptions": [
-                        "Geen handmatig overtypen meer. Onze AI matcht en boekt direct in Exact & AFAS.",             # 79 chars
-                        "Bespaar maandelijks tientallen uren op uw debiteuren- en crediteurenadministratie.",         # 83 chars
-                        "99,4% herkenningsgraad van factuurregels en directe controle op KvK- en IBAN-nummers.",       # 86 chars
-                        "Koppel naadloos met uw bestaande boekhoudsoftware. Bereken uw ROI in 60 seconden."            # 82 chars
+                        "Bespaar uren aan het overtypen van verwijsbrieven, intakeformulieren en patiëntvragen.",      # 86
+                        "Start met de 14-Dagen AI Administratie Pilot (€495 eenmalig) op basis van no-cure-no-pay.",  # 89
+                        "Geen vooruitbetaling nodig: betaal pas op factuur na 14 dagen tevredenheid in uw praktijk.", # 90
+                        "Veilige dataverwerking binnen de EU inclusief standaard AVG-verwerkersovereenkomst (DPA).",  # 89
                     ],
-                    "path1": "mkb",
-                    "path2": "factuur-ai",
-                    "final_url": "https://orionx.nl/scan"
-                }
-            }
+                    "path1": "zorgpraktijk",
+                    "path2": "14d-pilot",
+                    "final_url": "https://orionx.nl/scan",
+                },
+            },
         ],
         "negatives": [
-            "gratis template",
-            "excel voorbeeld",
-            "stageplaats",
-            "afstudeerstage",
-            "cursus boekhouden",
-            "vacature administrateur"
-        ]
+            "vacature",
+            "vacatures",
+            "stage",
+            "opleiding",
+            "cursus",
+            "salaris",
+            "afspraak maken tandarts",
+            "spoedtandarts",
+            "fysiotherapeut gezocht",
+            "patiëntenportaal inloggen",
+        ],
     },
     {
-        "name": "GLOBAL-SEARCH-Crypto-Solana-TradingBot",
+        "name": "NL-B2B-MKB-Kantoor-Automatisering",
         "budget": 20.0,
         "type": "Search",
         "networks": "Google search",
-        "languages": "en",
+        "languages": "nl",
         "ad_groups": [
             {
-                "name": "AG-Pumpfun-Sniper-Bot",
-                "cpc": 0.85,
+                "name": "AG-MKB-Procesautomatisering-Pilot",
+                "cpc": 1.95,
                 "keywords": [
-                    ("pump fun sniper bot", "Exact"),
-                    ("pump fun sniper bot", "Phrase"),
-                    ("solana memecoin trading bot", "Exact"),
-                    ("solana trading bot python", "Phrase"),
-                    ("jito bundle sniper solana", "Exact"),
-                    ("automated pump fun trading", "Phrase"),
-                    ("openclaw solana bot", "Exact"),
-                    ("solana token launch sniper", "Phrase")
+                    ("administratieve processen automatiseren", "Exact"),
+                    ("administratieve processen automatiseren", "Phrase"),
+                    ("ai procesautomatisering mkb", "Phrase"),
+                    ("handmatig werk automatiseren kantoor", "Phrase"),
+                    ("werkbonnen automatisch verwerken", "Phrase"),
+                    ("offerte aanvragen automatiseren", "Phrase"),
+                    ("bedrijfsprocessen automatiseren delft", "Phrase"),
+                    ("bedrijfsprocessen automatiseren den haag", "Phrase"),
                 ],
                 "rsa": {
                     "headlines": [
-                        "Solana Pump.fun Sniper Bot",       # 26 chars
-                        "Sub-100ms MEV Jito Bundles",       # 26 chars
-                        "OpenClaw Solana Trading Kit",      # 27 chars
-                        "Full Python Source Code €47",      # 27 chars
-                        "Zero Monthly Subscription",        # 25 chars
-                        "Automated Dev-Wallet Tracking",    # 29 chars
-                        "Anti-Rug & Liquidity Checks",      # 27 chars
-                        "Instant PDF & Code Delivery",      # 27 chars
-                        "Stop Losing To Sandwiches",        # 25 chars
-                        "Run On Your Own VPS 24/7",         # 24 chars
-                        "Direct RPC & Websocket Flow",      # 27 chars
-                        "Official OrionX OpenClaw",         # 24 chars
-                        "Download Trading Kit Now",         # 24 chars
-                        "Only €47 Lifetime Access",         # 24 chars
-                        "Frontrun New Token Launches"       # 27 chars
+                        "AI Administratie Voor MKB",       # 25
+                        "14-Dagen Pilot Voor €495",        # 24
+                        "100% No-Cure-No-Pay",             # 19
+                        "Betaal Achteraf Op Factuur",      # 26
+                        "Stop Handmatig Overtypen",        # 24
+                        "Werkbonnen, Mail & Facturen",     # 27
+                        "Regio Delft & Den Haag",          # 22
+                        "Koppelt Met Uw Huidige ERP",      # 26
+                        "Binnen 14 Dagen Live",            # 20
+                        "Vast Tarief Zonder Verrassing",   # 29
+                        "Beheer €495/mnd Opzegbaar",       # 25
+                        "AVG & EU-Server Beveiliging",     # 27
+                        "Bereken Uw ROI In 60 Sec",        # 24
+                        "1-Klik Menselijk Akkoord",        # 24
+                        "OrionX AI Technologies",          # 22
                     ],
                     "descriptions": [
-                        "Dominate pump.fun with sub-100ms execution. Jito bundles, anti-rug logic & full code.",   # 86 chars
-                        "One-time payment of €47. No recurring fees or profit cuts. Host completely on your VPS.", # 89 chars
-                        "Comprehensive step-by-step master guide & ready-to-deploy Python scripts included.",      # 83 chars
-                        "Instant digital delivery with secure Stripe checkout. Start sniping within minutes."      # 84 chars
+                        "Automatiseer repetitief administratief werk in uw bestaande boekhoud- en kantoorsoftware.", # 89
+                        "Test 14 dagen risicovrij in uw eigen bedrijf (€495 eenmalig, 100% niet-goed-geld-terug).",  # 88
+                        "Start vandaag voor €0,- op factuur achteraf. Geen langdurige contracten of IT-trajecten.", # 88
+                        "Bereken direct uw terugwinbare uren en jaarlijkse kostenbesparing op onze website.",       # 82
                     ],
-                    "path1": "solana",
-                    "path2": "sniper-bot",
-                    "final_url": "https://trade.orionx.nl/openclaw"
-                }
+                    "path1": "mkb-ai",
+                    "path2": "14d-pilot",
+                    "final_url": "https://orionx.nl/#pricing",
+                },
             }
         ],
         "negatives": [
-            "free download",
-            "github leak",
-            "cracked",
-            "nulled",
-            "scam report",
-            "telegram group free"
-        ]
-    }
+            "gratis",
+            "vacature",
+            "stageplaats",
+            "afstudeerstage",
+            "cursus",
+            "opleiding",
+            "thuiswerk",
+        ],
+    },
 ]
 
-# Quick fix description 1 of MKB campaign to strictly <= 90 chars:
-CAMPAIGNS[1]["ad_groups"][0]["rsa"]["descriptions"][0] = "Geen handmatig overtypen meer. Onze AI matcht en boekt direct in Exact & AFAS." # 79 chars
 
 def build_csv_rows():
     rows = []
-    
-    # We will format for Google Ads Editor standard import
-    # Headers
+
     headers = [
         "Campaign", "Campaign Daily Budget", "Campaign Type", "Networks", "Languages",
         "Ad Group", "Max CPC", "Keyword", "Criterion Type",
@@ -263,7 +270,7 @@ def build_csv_rows():
         "Headline 6", "Headline 7", "Headline 8", "Headline 9", "Headline 10",
         "Headline 11", "Headline 12", "Headline 13", "Headline 14", "Headline 15",
         "Description 1", "Description 2", "Description 3", "Description 4",
-        "Path 1", "Path 2", "Final URL"
+        "Path 1", "Path 2", "Final URL",
     ]
 
     for camp in CAMPAIGNS:
@@ -273,45 +280,41 @@ def build_csv_rows():
         c_net = camp["networks"]
         c_lang = camp["languages"]
 
-        # Campaign Settings Row
         rows.append({
             "Campaign": c_name,
             "Campaign Daily Budget": str(c_budget),
             "Campaign Type": c_type,
             "Networks": c_net,
-            "Languages": c_lang
+            "Languages": c_lang,
         })
 
-        # Campaign Negative Keywords
         for neg in camp.get("negatives", []):
             rows.append({
                 "Campaign": c_name,
                 "Keyword": neg,
-                "Criterion Type": "Campaign Negative"
+                "Criterion Type": "Campaign Negative",
             })
 
         for ag in camp["ad_groups"]:
             ag_name = ag["name"]
             cpc = str(ag["cpc"])
 
-            # Ad Group Keywords
             for kw, match_type in ag["keywords"]:
                 rows.append({
                     "Campaign": c_name,
                     "Ad Group": ag_name,
                     "Max CPC": cpc,
                     "Keyword": kw,
-                    "Criterion Type": match_type
+                    "Criterion Type": match_type,
                 })
 
-            # Responsive Search Ad (RSA)
             rsa = ag["rsa"]
             rsa_row = {
                 "Campaign": c_name,
                 "Ad Group": ag_name,
                 "Final URL": rsa["final_url"],
                 "Path 1": validate_length(rsa["path1"], 15, "Path 1"),
-                "Path 2": validate_length(rsa["path2"], 15, "Path 2")
+                "Path 2": validate_length(rsa["path2"], 15, "Path 2"),
             }
 
             for idx, h in enumerate(rsa["headlines"], start=1):
@@ -324,6 +327,7 @@ def build_csv_rows():
 
     return headers, rows
 
+
 def main():
     headers, rows = build_csv_rows()
     OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -334,6 +338,7 @@ def main():
             writer.writerow(r)
 
     print(f"✅ Generated {OUTPUT_FILE} with {len(rows)} entries successfully!")
+
 
 if __name__ == "__main__":
     main()

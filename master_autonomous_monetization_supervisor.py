@@ -260,7 +260,7 @@ OrionX Autonoom Lead Intelligence Systeem
         logger.warning(f"Kon lead notificatie e-mail niet versturen: {e}")
 
 def send_lead_confirmation_email_to_client(lead_data: dict):
-    """Sends instant personalized NEN 7510 audit summary & pilot invitation to the prospective client."""
+    """Sends instant personalized ROI analysis & 14-day pilot invitation to the prospective client."""
     smtp_pass = os.getenv("SMTP_PASS", "")
     smtp_user = os.getenv("SMTP_USER", "jwp@orionx.nl")
     client_email = lead_data.get("email", "").strip()
@@ -275,33 +275,35 @@ def send_lead_confirmation_email_to_client(lead_data: dict):
         msg["From"] = f'"J.W. Pabst | OrionX AI Technologies" <{smtp_user}>'
         msg["To"] = client_email
         msg["Reply-To"] = smtp_user
-        msg["Subject"] = f"Uw NEN 7510 AI Besparingsrapport & Implementatieplan voor {company}"
+        msg["Subject"] = f"Uw AI Besparingsanalyse & 14-Dagen Pilot Voorstel voor {company}"
         
         body_text = f"""Geachte {client_name},
 
-Hartelijk dank voor uw interesse en aanvraag via de OrionX AI Besparingsscan.
+Hartelijk dank voor uw aanvraag via de OrionX AI Besparingsscan.
 
-Op basis van uw profiel hebben wij uw potentiële tijdwinst en compliance-architectuur in kaart gebracht:
-• Praktijk / Organisatie: {company}
-• Data Residency: 100% binnen de Europese Unie (ISO 27001 gecertificeerd, NEN 7510:2017 conform)
-• Verwachte tijdsbesparing: 15 tot 25 uur per behandelaar per week
+Op basis van uw opgave hebben wij de mogelijkheden voor administratieve procesautomatisering voor {company} in kaart gebracht:
+• Organisatie / Praktijk: {company}
+• Focus: Automatische documentextractie, UBL/dossierklaarmaking en e-mailtriage
+• Dataverwerking: Uitsluitend op Europese servers binnen de EU (inclusief standaard AVG-verwerkersovereenkomst / DPA)
 
-Om de concrete voordelen van een autonome AI-assistent zonder langdurige verplichtingen in uw praktijk te testen, kunt u direct starten met onze 14-Dagen Zorg Pilot (€195,- eenmalig met 30 dagen 100% niet-goed-geld-terug garantie) of onze 7-Dagen Gratis Proefperiode van de Dedicated AI-FTE Retainer:
+Om de tijdsbesparing risicovrij in uw eigen softwareomgeving (zoals Exact Online, Twinfield, AFAS, Microsoft 365 of uw praktijkpakket) te beoordelen, werken wij met de 14-Dagen AI Administratie Pilot (€ 495,- eenmalig ex. btw op basis van 100% no-cure-no-pay).
 
-👉 Activeer de 14-Dagen Pilot (€195,- eenmalig):
+U kunt kiezen tussen achteraf betalen op factuur (pas na 14 dagen aantoonbare tevredenheid) of directe activatie via iDEAL:
+
+👉 Start 14-Dagen Pilot op Factuur Achteraf (€ 0,- vooruit):
+https://orionx.nl/#pricing
+
+👉 Direct Activeren via iDEAL (€ 495,- eenmalig, 100% geld-terug-garantie):
 https://orionx.nl/checkout/pilot
 
-👉 Start 7 Dagen Vrijblijvende Proef (€0,- Vandaag):
-https://orionx.nl/checkout/trial
-
-Heeft u specifieke vragen omtrent uw EPD/ECD koppeling of wenst u een korte online kennismaking van 15 minuten? U kunt direct reageren op dit bericht.
+Heeft u specifieke vragen over de koppeling met uw huidige software of wenst u een telefonische toelichting van 15 minuten? U kunt direct reageren op dit bericht.
 
 Met vriendelijke groet,
 
 J.W. Pabst
-Technisch Directeur | OrionX AI Technologies
+Directie | OrionX AI Technologies
 E-mail: jwp@orionx.nl | Web: https://orionx.nl
-Gevestigd te Den Haag
+Regio Delft & Den Haag
 """
         msg.attach(MIMEText(body_text, "plain", "utf-8"))
         server = smtplib.SMTP("smtp.transip.email", 587, timeout=12)
@@ -314,17 +316,17 @@ Gevestigd te Den Haag
         logger.warning(f"Kon bevestigingsmail niet versturen naar {client_email}: {e}")
 
 def send_pilot_confirmation_email(pilot_data: dict):
-    """Sends immediate confirmation to the practice for their 14-day Pilot on invoice."""
+    """Sends immediate confirmation to the organization for their 14-day Pilot on invoice."""
     smtp_pass = os.getenv("SMTP_PASS", "")
     smtp_user = os.getenv("SMTP_USER", "jwp@orionx.nl")
     client_email = pilot_data.get("email", "").strip()
     client_name = pilot_data.get("contact", "").strip() or "heer/mevrouw"
-    company = pilot_data.get("company", "").strip() or "uw praktijk"
+    company = pilot_data.get("company", "").strip() or "uw praktijk of kantoor"
     software = pilot_data.get("software", "").strip() or "uw huidige software"
     workflow = pilot_data.get("workflow", "").strip() or "de administratieve workflow"
     phone = pilot_data.get("phone", "").strip()
     pilot_id = pilot_data.get("pilot_id", "OX-PILOT")
-    amount = pilot_data.get("invoice_amount_eur", 195)
+    amount = pilot_data.get("invoice_amount_eur", 495)
     
     if not smtp_pass or not client_email or "@" not in client_email:
         return
@@ -334,36 +336,36 @@ def send_pilot_confirmation_email(pilot_data: dict):
         msg["From"] = f'"J.W. Pabst | OrionX AI Technologies" <{smtp_user}>'
         msg["To"] = client_email
         msg["Reply-To"] = smtp_user
-        msg["Subject"] = f"Bevestiging 14-Dagen AI Pilot voor {company} [{pilot_id}]"
+        msg["Subject"] = f"Bevestiging 14-Dagen AI Administratie Pilot voor {company} [{pilot_id}]"
         
         body_text = f"""Geachte {client_name},
 
-Hartelijk dank voor uw aanvraag voor de 14-Dagen OrionX AI Praktijk Pilot voor {company}.
+Hartelijk dank voor uw aanvraag voor de 14-Dagen OrionX AI Administratie Pilot voor {company}.
 
-Uw pilot-aanvraag is met succes geregistreerd onder referentie: {pilot_id}.
+Uw pilot-aanvraag is geregistreerd onder referentie: {pilot_id}.
 
 Pilot Specificaties:
 • Organisatie / Praktijk: {company}
 • Contactpersoon: {client_name} (Tel: {phone})
-• Gekoppeld Systeem: {software}
+• Softwareomgeving: {software}
 • Focus Workflow: {workflow}
 • Looptijd: 14 dagen volledige proefopstelling
-• Kosten vandaag: € 0,00 (Volledig kosteloze installatie & inrichting)
-• Facturatievoorwaarden: Factuur (€ {amount},- ex. btw) volgt pas ná 14 dagen tevredenheid conform onze 100% no-cure-no-pay garantie.
+• Kosten vandaag: € 0,00 (Geen vooruitbetaling)
+• Facturatievoorwaarden: De eenmalige pilotfactuur (€ {amount},- ex. btw) volgt pas ná 14 dagen tevredenheid conform onze 100% no-cure-no-pay garantie.
 
 Volgende stappen:
-1. Onze senior implementatie-adviseur neemt binnen 4 werkuren telefonisch contact met u op via {phone} om de specifieke routering van uw software ({software}) af te stemmen.
-2. U ontvangt onze standaard NEN 7510 / AVG Verwerkersovereenkomst (DPA) ter ondertekening.
-3. Binnen 48 uur draait uw eerste geautomatiseerde workflow proef.
+1. Wij nemen binnen 4 werkuren telefonisch contact met u op via {phone} om de technische afstemming voor uw software ({software}) door te nemen.
+2. U ontvangt onze standaard AVG-verwerkersovereenkomst (DPA) ter inzage.
+3. Binnen 48 uur na de intake draait uw geselecteerde workflow in proefopstelling.
 
-Heeft u voor die tijd al vragen of aanvullende documentatie? Reageer gerust direct op dit e-mailbericht.
+Heeft u voor die tijd vragen of voorbeeldformulieren? Reageer gerust direct op dit e-mailbericht.
 
 Met vriendelijke groet,
 
 J.W. Pabst
-Technisch Directeur | OrionX AI Technologies
+Directie | OrionX AI Technologies
 E-mail: jwp@orionx.nl | Web: https://orionx.nl
-Gevestigd te Den Haag / Delft
+Regio Delft & Den Haag
 """
         msg.attach(MIMEText(body_text, "plain", "utf-8"))
         server = smtplib.SMTP("smtp.transip.email", 587, timeout=12)
@@ -438,10 +440,16 @@ async def serve_scan_page():
     return HTMLResponse("<h2>Scan Pagina Laden...</h2>")
 
 DUTCH_CITIES = {
-    "amsterdam": "Amsterdam & Regio Amstelland",
-    "rotterdam": "Rotterdam & Rijnmond",
-    "utrecht": "Utrecht & Midden-Nederland",
+    "delft": "Delft & Westland",
     "den-haag": "Den Haag & Haaglanden",
+    "rijswijk": "Rijswijk & Haaglanden",
+    "zoetermeer": "Zoetermeer & Oostland",
+    "voorburg": "Voorburg & Leidschendam",
+    "westland": "Westland & Naaldwijk",
+    "rotterdam": "Rotterdam & Rijnmond",
+    "leiden": "Leiden & Duin- en Bollenstreek",
+    "amsterdam": "Amsterdam & Regio Amstelland",
+    "utrecht": "Utrecht & Midden-Nederland",
     "eindhoven": "Eindhoven & Brainport Regio",
     "groningen": "Groningen & Noord-Nederland",
     "tilburg": "Tilburg & Midden-Brabant",
@@ -455,14 +463,11 @@ DUTCH_CITIES = {
     "amersfoort": "Amersfoort & Eemland",
     "zaanstad": "Zaanstad & Zaanstreek",
     "s-hertogenbosch": "'s-Hertogenbosch & Meierij",
-    "zoetermeer": "Zoetermeer & Oostland",
-    "leiden": "Leiden & Duin- en Bollenstreek",
     "maastricht": "Maastricht & Zuid-Limburg",
     "dordrecht": "Dordrecht & Drechtsteden",
     "ede": "Ede & FoodValley",
     "alphen-aan-den-rijn": "Alphen aan den Rijn & Groene Hart",
     "alkmaar": "Alkmaar & Noord-Holland Noord",
-    "delft": "Delft & Westland",
     "venlo": "Venlo & Noord-Limburg",
     "deventer": "Deventer & IJsselstreek",
     "helmond": "Helmond & Peelland",
@@ -479,83 +484,176 @@ async def serve_local_seo_page(city: str):
     capitalized_city = city_key.replace('-', ' ').title()
     
     html = f"""<!DOCTYPE html>
-<html lang="nl" class="bg-[#0a0c14] text-slate-100">
+<html lang="nl" class="bg-[#070910] text-slate-100">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Zorgautomatisering {capitalized_city} // NEN 7510 Dossier AI • OrionX</title>
-  <meta name="description" content="Autonome AI procesautomatisering voor zelfstandige behandelcentra, tandartsklinieken en zorgpraktijken in {region_name}. 96% minder administratie, 100% NEN 7510 compliant.">
+  <title>AI Praktijkautomatisering {capitalized_city} // Tandarts, Fysio & Zorg • OrionX</title>
+  <meta name="description" content="Administratieve procesautomatisering voor tandartspraktijken, fysiotherapie en behandelcentra in {region_name}. Start met de 14-Dagen AI Administratie Pilot (€ 495,- no-cure-no-pay).">
   <link rel="canonical" href="https://orionx.nl/zorg-automatisering-{city_key}">
   <link rel="icon" type="image/jpeg" href="/logos/orionx_official_logo.jpg">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
     body {{ font-family: 'Plus Jakarta Sans', sans-serif; }}
-    .glass {{ background: rgba(18, 22, 36, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }}
-    .glow-cyan {{ box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.25); }}
+    .glass {{ background: rgba(15, 20, 34, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }}
+    .glow-cyan {{ box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.22); }}
   </style>
 </head>
 <body class="p-4 sm:p-8 flex flex-col justify-between min-h-screen">
-  <header class="max-w-5xl mx-auto w-full flex justify-between items-center py-4 mb-8">
+  <header class="max-w-5xl mx-auto w-full flex justify-between items-center py-4 mb-8 border-b border-slate-800">
     <a href="/" class="flex items-center gap-3">
-      <img src="/logos/orionx_official_logo.jpg" alt="OrionX Logo Den Haag" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-cyan-500/30 border border-cyan-500/40">
+      <img src="/logos/orionx_official_logo.jpg" alt="OrionX Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-cyan-500/30 border border-cyan-500/40">
       <div>
-        <div class="font-black text-lg tracking-tight bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">ORIONX AI</div>
+        <div class="font-black text-lg tracking-tight bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">ORIONX AI</div>
         <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">{region_name}</div>
       </div>
     </a>
     <div class="flex items-center gap-3">
+      <a href="/" class="text-xs font-semibold text-slate-400 hover:text-white hidden sm:inline">Overzicht</a>
       <a href="/scan" class="px-4 py-2 bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold rounded-xl text-xs sm:text-sm shadow-lg shadow-cyan-500/25">
-        ⚡ Gratis Besparingsscan
+        ⚡ 60s Besparingsscan
       </a>
     </div>
   </header>
 
   <main class="max-w-4xl mx-auto w-full my-auto text-center">
     <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 mb-4">
-      📍 Lokale Implementatiepartner: {region_name}
+      📍 Regionale Implementatiepartner: {region_name}
     </div>
     <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
-      AI Zorgautomatisering voor Klinieken & Praktijken in <span class="bg-gradient-to-r from-cyan-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent">{capitalized_city}</span>
+      Administratieve AI-Automatisering voor Zorgpraktijken in <span class="bg-gradient-to-r from-cyan-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent">{capitalized_city}</span>
     </h1>
     <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-      Bespaar wekelijks 15 tot 25 uur per behandelaar aan handmatige EPD-intakes, verwijsbriefextractie en declaratieverwerking. Volledig veilig gehost conform NEN 7510 en AVG wetgeving.
+      Elimineer het handmatig overtypen van verwijsbrieven, intakeformulieren en e-mailvragen in uw praktijksoftware. Beproef de tijdwinst met onze <strong>14-Dagen AI Administratie Pilot (€ 495,- eenmalig, 100% no-cure-no-pay)</strong>.
     </p>
 
     <div class="glass rounded-3xl p-6 sm:p-8 max-w-2xl mx-auto mb-10 text-left space-y-4 glow-cyan">
-      <h3 class="font-bold text-sm text-cyan-300 uppercase tracking-wider">Waarom zorgondernemers in {capitalized_city} voor OrionX kiezen:</h3>
+      <h3 class="font-bold text-sm text-cyan-300 uppercase tracking-wider">Concrete toepassingen voor praktijken in {capitalized_city}:</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
         <div class="flex items-start gap-2 bg-[#0c0e18] p-3 rounded-xl border border-slate-800">
           <span class="text-emerald-400 font-bold">✓</span>
-          <span><strong>EPD/ECD Integratie:</strong> Directe koppeling met Cliniseer, Nedap Ons en Exquise.</span>
+          <span><strong>Intake &amp; Verwijsbrieven:</strong> Gestructureerde samenvatting en veldvoorbereiding voor uw praktijkpakket.</span>
         </div>
         <div class="flex items-start gap-2 bg-[#0c0e18] p-3 rounded-xl border border-slate-800">
           <span class="text-emerald-400 font-bold">✓</span>
-          <span><strong>NEN 7510 & AVG:</strong> 100% dataverwerking binnen beveiligde Europese datacenters.</span>
+          <span><strong>AVG &amp; EU-Dataverwerking:</strong> Uitsluitend verwerking binnen de EU inclusief standaard verwerkersovereenkomst (DPA).</span>
         </div>
         <div class="flex items-start gap-2 bg-[#0c0e18] p-3 rounded-xl border border-slate-800">
           <span class="text-emerald-400 font-bold">✓</span>
-          <span><strong>96% Sneller:</strong> Van 18 minuten per patiëntendossier naar &lt; 30 seconden.</span>
+          <span><strong>Human-in-the-Loop:</strong> Uw assistent of behandelaar behoudt altijd de eindcontrole vóór definitieve opslag.</span>
         </div>
         <div class="flex items-start gap-2 bg-[#0c0e18] p-3 rounded-xl border border-slate-800">
           <span class="text-emerald-400 font-bold">✓</span>
-          <span><strong>Hoge ROI:</strong> Terugverdientijd van minder dan 2,5 maand.</span>
+          <span><strong>100% No-Cure-No-Pay:</strong> € 495,- eenmalige pilot (achteraf op factuur mogelijk) en optioneel € 495,-/mnd beheer.</span>
         </div>
       </div>
     </div>
 
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="/scan" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 via-emerald-400 to-teal-400 text-black font-extrabold rounded-xl text-base shadow-xl shadow-cyan-500/25 hover:opacity-90 transition-all flex items-center justify-center gap-2">
-        <span>⚡</span> Bereken Uw Praktijkbesparing in 60s
+      <a href="/#pricing" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 via-emerald-400 to-teal-400 text-black font-extrabold rounded-xl text-base shadow-xl shadow-cyan-500/25 hover:opacity-90 transition-all flex items-center justify-center gap-2">
+        <span>📋</span> Start 14-Dagen Pilot op Factuur (€ 0,- Vandaag)
       </a>
-      <a href="mailto:jwp@orionx.nl" class="w-full sm:w-auto px-8 py-4 bg-slate-900 border border-slate-700 text-slate-200 font-bold rounded-xl text-base hover:bg-slate-800 transition-all">
-        Direct Adviesgesprek Aanvragen (jwp@orionx.nl)
+      <a href="/scan" class="w-full sm:w-auto px-8 py-4 bg-slate-900 border border-slate-700 text-slate-200 font-bold rounded-xl text-base hover:bg-slate-800 transition-all">
+        Bereken Uw Praktijkbesparing
       </a>
     </div>
   </main>
 
-  <footer class="max-w-5xl mx-auto w-full text-center py-6 text-xs text-slate-500">
-    © 2026 OrionX AI Technologies • Lokale Zorg AI Implementaties ({region_name}) • Directie: <a href="mailto:jwp@orionx.nl" class="text-slate-400 hover:text-white">jwp@orionx.nl</a>
+  <footer class="max-w-5xl mx-auto w-full text-center py-6 text-xs text-slate-500 border-t border-slate-900 mt-10">
+    © 2026 OrionX AI Technologies • Praktijkautomatisering ({region_name}) • Contact: <a href="mailto:jwp@orionx.nl" class="text-slate-400 hover:text-white">jwp@orionx.nl</a>
+  </footer>
+</body>
+</html>"""
+    return HTMLResponse(content=inject_tracking(html))
+
+@app.api_route("/mkb-automatisering-{city}", methods=["GET", "HEAD"], response_class=HTMLResponse)
+async def serve_local_mkb_seo_page(city: str):
+    city_key = city.lower().strip()
+    if city_key not in DUTCH_CITIES:
+        raise HTTPException(status_code=404, detail="Regio niet gevonden")
+    region_name = DUTCH_CITIES[city_key]
+    capitalized_city = city_key.replace('-', ' ').title()
+    
+    html = f"""<!DOCTYPE html>
+<html lang="nl" class="bg-[#070910] text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Administratie & Factuurverwerking {capitalized_city} // Accountancy, Notariaat & MKB • OrionX</title>
+  <meta name="description" content="AI-gedreven administratieve procesautomatisering voor accountants, administratiekantoren, notarissen, makelaars en MKB in {region_name}. Start met de 14-Dagen Pilot (€ 495,- no-cure-no-pay).">
+  <link rel="canonical" href="https://orionx.nl/mkb-automatisering-{city_key}">
+  <link rel="icon" type="image/jpeg" href="/logos/orionx_official_logo.jpg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    body {{ font-family: 'Plus Jakarta Sans', sans-serif; }}
+    .glass {{ background: rgba(15, 20, 34, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }}
+    .glow-cyan {{ box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.22); }}
+  </style>
+</head>
+<body class="p-4 sm:p-8 flex flex-col justify-between min-h-screen">
+  <header class="max-w-5xl mx-auto w-full flex justify-between items-center py-4 mb-8 border-b border-slate-800">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/logos/orionx_official_logo.jpg" alt="OrionX Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-cyan-500/30 border border-cyan-500/40">
+      <div>
+        <div class="font-black text-lg tracking-tight bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">ORIONX AI</div>
+        <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">{region_name}</div>
+      </div>
+    </a>
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-xs font-semibold text-slate-400 hover:text-white hidden sm:inline">Overzicht</a>
+      <a href="/scan" class="px-4 py-2 bg-gradient-to-r from-cyan-400 to-emerald-400 text-black font-extrabold rounded-xl text-xs sm:text-sm shadow-lg shadow-cyan-500/25">
+        ⚡ 60s Besparingsscan
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto w-full my-auto text-center">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 mb-4">
+      📍 Zakelijke Implementatiepartner: {region_name}
+    </div>
+    <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
+      AI Administratie- &amp; Procesautomatisering voor Kantoren &amp; MKB in <span class="bg-gradient-to-r from-cyan-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent">{capitalized_city}</span>
+    </h1>
+    <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+      Automatiseer het uitlezen van inkoopfacturen, UBL-boekingsvoorstellen, klantdossiers en werkbonnen in Exact Online, Twinfield, AFAS en Microsoft 365. Test het 14 dagen in uw eigen omgeving op basis van <strong>100% no-cure-no-pay (€ 495,- eenmalig)</strong>.
+    </p>
+
+    <div class="glass rounded-3xl p-6 sm:p-8 max-w-2xl mx-auto mb-10 text-left space-y-4 glow-cyan">
+      <h3 class="font-bold text-sm text-cyan-300 uppercase tracking-wider">Voor accountants, notarissen, makelaars &amp; MKB in {capitalized_city}:</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+        <div class="flex items-start gap-2 bg-[#0c0e18] p-3 rounded-xl border border-slate-800">
+          <span class="text-emerald-400 font-bold">✓</span>
+          <span><strong>Boekhouding &amp; ERP:</strong> Automatische extractie van factuurregels, KvK/BTW-nummers en grootboekvoorstellen.</span>
+        </div>
+        <div class="flex items-start gap-2 bg-[#0c0e18] p-3 rounded-xl border border-slate-800">
+          <span class="text-emerald-400 font-bold">✓</span>
+          <span><strong>Dossiervorming &amp; Onboarding:</strong> Controle van aangeleverde klantstukken en automatische mappenstructuur.</span>
+        </div>
+        <div class="flex items-start gap-2 bg-[#0c0e18] p-3 rounded-xl border border-slate-800">
+          <span class="text-emerald-400 font-bold">✓</span>
+          <span><strong>AVG-Conform &amp; EU-Hosting:</strong> Inclusief verwerkersovereenkomst (DPA) en 0% training op uw bedrijfsdata.</span>
+        </div>
+        <div class="flex items-start gap-2 bg-[#0c0e18] p-3 rounded-xl border border-slate-800">
+          <span class="text-emerald-400 font-bold">✓</span>
+          <span><strong>Transparant Tarief:</strong> 14-Dagen Pilot (€ 495,- eenmalig, achteraf op factuur) &amp; optioneel beheer (€ 495,-/mnd).</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="/#pricing" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 via-emerald-400 to-teal-400 text-black font-extrabold rounded-xl text-base shadow-xl shadow-cyan-500/25 hover:opacity-90 transition-all flex items-center justify-center gap-2">
+        <span>📋</span> Start 14-Dagen Pilot op Factuur (€ 0,- Vandaag)
+      </a>
+      <a href="/#simulator" class="w-full sm:w-auto px-8 py-4 bg-slate-900 border border-slate-700 text-slate-200 font-bold rounded-xl text-base hover:bg-slate-800 transition-all">
+        Bekijk Interactieve Workflow Demo
+      </a>
+    </div>
+  </main>
+
+  <footer class="max-w-5xl mx-auto w-full text-center py-6 text-xs text-slate-500 border-t border-slate-900 mt-10">
+    © 2026 OrionX AI Technologies • MKB &amp; Kantoorautomatisering ({region_name}) • Contact: <a href="mailto:jwp@orionx.nl" class="text-slate-400 hover:text-white">jwp@orionx.nl</a>
   </footer>
 </body>
 </html>"""
@@ -563,17 +661,23 @@ async def serve_local_seo_page(city: str):
 
 @app.api_route("/robots.txt", methods=["GET", "HEAD"])
 async def serve_robots():
-    content = "User-agent: *\nAllow: /\nAllow: /scan\nAllow: /zorg-automatisering-*\nAllow: /openclaw\nAllow: /cover\nDisallow: /download/\nDisallow: /api/\n\nSitemap: https://orionx.nl/sitemap.xml\n"
+    content = "User-agent: *\nAllow: /\nAllow: /scan\nAllow: /zorg-automatisering-*\nAllow: /mkb-automatisering-*\nDisallow: /download/\nDisallow: /api/\n\nSitemap: https://orionx.nl/sitemap.xml\n"
     return Response(content=content, media_type="text/plain")
 
 @app.api_route("/sitemap.xml", methods=["GET", "HEAD"])
 async def serve_sitemap():
     today_str = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-    city_entries = "\n".join([f"""  <url>
+    zorg_entries = "\n".join([f"""  <url>
     <loc>https://orionx.nl/zorg-automatisering-{c}</loc>
     <lastmod>{today_str}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
+  </url>""" for c in DUTCH_CITIES.keys()])
+    mkb_entries = "\n".join([f"""  <url>
+    <loc>https://orionx.nl/mkb-automatisering-{c}</loc>
+    <lastmod>{today_str}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
   </url>""" for c in DUTCH_CITIES.keys()])
 
     content = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -590,13 +694,8 @@ async def serve_sitemap():
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
-  <url>
-    <loc>https://orionx.nl/openclaw</loc>
-    <lastmod>{today_str}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-{city_entries}
+{mkb_entries}
+{zorg_entries}
 </urlset>"""
     return Response(content=content, media_type="application/xml")
 
@@ -627,60 +726,42 @@ async def create_live_checkout(request: Request, tier: str = "", plan: str = "")
     default_tier = "openclaw" if any(t in host for t in ["trade", "solana", "claw"]) else "pilot"
     selected_plan = (plan or tier or default_tier).lower().strip()
     trial_days = 0
-    
-    # Check for exclusive abandonment discount (10% to 50%)
-    discount_param = request.query_params.get("discount") or request.query_params.get("korting") or ""
-    discount_pct = 0
-    if discount_param:
-        try:
-            val = int(float(discount_param))
-            if 10 <= val <= 50:
-                discount_pct = val
-        except Exception:
-            pass
 
     if selected_plan in ["vip", "signals", "alpha"]:
         amount_eur = 97.0
-        description = "OrionX VIP Solana Alpha Signals & Swarm Terminal (7 Dagen Gratis Proef - daarna €97/mnd)"
+        description = "OrionX VIP Solana Alpha Signals & Swarm Terminal (€97/mnd)"
         is_sub = True
         trial_days = 7
         client_name = "VIP Quant Member"
         cancel_url = f"{proto}://{host}/trade?abandoned=true&plan=vip"
-    elif selected_plan in ["trial", "proefperiode", "7days", "free-trial"]:
-        amount_eur = 1450.0
-        description = "OrionX Dedicated AI-FTE Retainer (7 Dagen Gratis Proefperiode - €0 Vandaag, daarna €1.450/mnd)"
+    elif selected_plan in ["beheer", "management", "retainer", "b2b", "enterprise", "trial", "proefperiode"]:
+        amount_eur = 495.0
+        description = "OrionX Doorlopend AI-Beheer & Monitoring (€495/mnd ex. btw - Maandelijks Opzegbaar)"
         is_sub = True
-        trial_days = 7
-        client_name = "Enterprise B2B Trial"
-        cancel_url = f"{proto}://{host}/?abandoned=true&plan=trial"
-    elif selected_plan in ["retainer", "b2b", "enterprise"]:
-        amount_eur = 1450.0
-        description = "OrionX AI-FTE Enterprise Retainer (7 Dagen Vrijblijvende Proef - daarna €1.450/mnd)"
-        is_sub = True
-        trial_days = 7
-        client_name = "Enterprise B2B Client"
-        cancel_url = f"{proto}://{host}/?abandoned=true&plan=retainer"
-    elif selected_plan in ["pilot", "proef", "quickscan", "195"]:
-        amount_eur = 195.0
-        description = "OrionX 14-Dagen NEN 7510 AI Zorg Pilot (100% Niet-Goed-Geld-Terug Garantie)"
+        trial_days = 0
+        client_name = "Zakelijke Beheer Klant"
+        cancel_url = f"{proto}://{host}/#pricing"
+    elif selected_plan in ["pilot", "proef", "quickscan", "495", "195"]:
+        amount_eur = 495.0
+        description = "OrionX 14-Dagen AI Administratie Pilot (€495 eenmalig - 100% No-Cure-No-Pay Garantie)"
         is_sub = False
         trial_days = 0
-        client_name = "Zorg Pilot Deelnemer"
-        cancel_url = f"{proto}://{host}/?abandoned=true&plan=pilot"
-    else:
-        # Default OpenClaw Kit
+        client_name = "Zakelijke Pilot Deelnemer"
+        cancel_url = f"{proto}://{host}/#pricing"
+    elif selected_plan in ["openclaw", "kit", "47"]:
         amount_eur = 47.0
         description = "OpenClaw Solana AI Memecoin Trading Kit (Levenslange Toegang)"
         is_sub = False
         trial_days = 0
         client_name = "OpenClaw Koper"
         cancel_url = f"{proto}://{host}/openclaw?abandoned=true&plan=openclaw"
-
-    # Apply 10% to 50% discount if present
-    if discount_pct > 0:
-        discount_amount = round(amount_eur * (discount_pct / 100.0), 2)
-        amount_eur = round(amount_eur - discount_amount, 2)
-        description = f"{description} (Inclusief {discount_pct}% Exclusieve Welkomstkorting: -€{discount_amount:,.2f})"
+    else:
+        amount_eur = 495.0
+        description = "OrionX 14-Dagen AI Administratie Pilot (€495 eenmalig - 100% No-Cure-No-Pay Garantie)"
+        is_sub = False
+        trial_days = 0
+        client_name = "Zakelijke Pilot Deelnemer"
+        cancel_url = f"{proto}://{host}/#pricing"
 
     success_url = f"{proto}://{host}/success?session_id={{CHECKOUT_SESSION_ID}}&plan={selected_plan}"
     
@@ -698,17 +779,13 @@ async def create_live_checkout(request: Request, tier: str = "", plan: str = "")
     if checkout_url:
         logger.info(f"💳 [STRIPE] Redirecting customer to live Stripe checkout [{selected_plan.upper()}]: {session.get('session_id')}")
         tier_label = (
-            f"Dedicated AI-FTE Retainer 7-Dagen Gratis Proef (€0 Vandaag)" if (is_sub and amount_eur >= 700.0 and trial_days > 0)
-            else (f"VIP Swarm 7-Dagen Proef (€0 Vandaag, daarna €97/mnd)" if (is_sub and amount_eur >= 40.0 and trial_days > 0)
-            else (f"14-Dagen Zorg Pilot (€{amount_eur:,.2f} eenmalig)" if "pilot" in selected_plan else f"OpenClaw Trading Kit (€{amount_eur:,.2f})"))
+            f"Doorlopend Beheer & Monitoring (€{amount_eur:,.2f}/mnd)" if is_sub and amount_eur >= 400.0
+            else (f"14-Dagen AI Administratie Pilot (€{amount_eur:,.2f} eenmalig)" if amount_eur >= 400.0 else f"{selected_plan} (€{amount_eur:,.2f})")
         )
-        if discount_pct > 0:
-            tier_label += f" [MET {discount_pct}% EXCLUSIEVE KORTING]"
         send_telegram_notification(
             f"🛒 <b>[STRIPE CHECKOUT GESTART]</b>\n\n"
-            f"Een bezoeker is gestart met de Stripe checkout voor <b>{tier_label}</b>!\n"
-            f"• Plan: <code>{selected_plan}</code> (Proefperiode: {trial_days} dagen)\n"
-            f"• Korting: <b>{discount_pct}%</b>\n"
+            f"Een zakelijke bezoeker is gestart met de Stripe checkout voor <b>{tier_label}</b>!\n"
+            f"• Plan: <code>{selected_plan}</code>\n"
             f"• Sessie ID: <code>{session.get('session_id', 'n/a')}</code>\n"
             f"• Bedrag: <b>€{amount_eur:,.2f}</b>\n"
             f"• Tijdstip: {datetime.now(timezone.utc).strftime('%H:%M:%S UTC')}"
@@ -726,24 +803,24 @@ async def payment_success(session_id: str = "", plan: str = ""):
     is_valid_paid = False
     customer_email = ""
     order_id = ""
-    amount_paid = 47.0
+    amount_paid = 495.0
 
     if session_id:
         verification = stripe_gw.verify_session(session_id)
         if verification.get("valid") is True:
             is_valid_paid = True
             customer_email = verification.get("customer_email") or ""
-            amount_paid = float(verification.get("amount_total") or 47.0)
+            amount_paid = float(verification.get("amount_total") or 495.0)
             SYSTEM_METRICS["orders_processed"] += 1
             SYSTEM_METRICS["total_revenue_eur"] += amount_paid
             order_id = f"ORD-{int(time.time())}"
             
             # Determine plan tier
-            if amount_paid >= 700.0 or "retainer" in plan.lower() or "enterprise" in session_id:
-                product_name = "OrionX AI-FTE Enterprise Retainer (€1.450/mnd)"
-            elif amount_paid >= 70.0 or "pilot" in plan.lower() or "proef" in session_id:
-                product_name = "OrionX 14-Dagen NEN 7510 AI Zorg Pilot (€195 eenmalig)"
-            elif amount_paid >= 40.0 or "vip" in plan.lower() or "sub" in session_id:
+            if any(k in plan.lower() for k in ["beheer", "management", "retainer", "b2b", "enterprise"]):
+                product_name = "OrionX Doorlopend AI-Beheer & Monitoring (€495/mnd)"
+            elif amount_paid >= 150.0 or "pilot" in plan.lower() or "proef" in plan.lower():
+                product_name = "OrionX 14-Dagen AI Administratie Pilot (€495 eenmalig)"
+            elif amount_paid >= 80.0 or "vip" in plan.lower() or "sub" in session_id:
                 product_name = "OrionX VIP Solana Alpha & Swarm Terminal (€97/mnd)"
             else:
                 product_name = "OpenClaw Solana AI Memecoin Trading Kit (€47)"
@@ -767,7 +844,6 @@ async def payment_success(session_id: str = "", plan: str = ""):
             logger.warning(f"⚠️ [UNVERIFIED ACCESS] Onbevoegde toegangspoging tot /success met sessie: '{session_id}' -> {verification.get('reason')}")
 
     if not is_valid_paid:
-        # Show payment verification required page - BLOCKS FREE DOWNLOAD
         html_unpaid = f"""<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -779,30 +855,28 @@ async def payment_success(session_id: str = "", plan: str = ""):
         .card {{ max-width: 520px; margin: 0 auto; background: #141826; padding: 40px; border-radius: 16px; border: 1px solid #ef4444; box-shadow: 0 10px 40px rgba(239,68,68,0.2); }}
         h1 {{ color: #f87171; margin-bottom: 12px; font-size: 1.6rem; }}
         p {{ color: #9ba3b8; line-height: 1.6; margin-bottom: 24px; font-size: 0.95rem; }}
-        .btn {{ display: inline-block; background: linear-gradient(135deg, #9945FF 0%, #14F195 100%); color: #000; font-weight: bold; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 1.05rem; }}
+        .btn {{ display: inline-block; background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%); color: #000; font-weight: bold; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 1.05rem; }}
         .btn:hover {{ opacity: 0.9; }}
     </style>
 </head>
 <body>
     <div class="card">
         <h1>🔒 Betalingsverificatie Vereist</h1>
-        <p>Er is geen voltooide Stripe-betaling gevonden voor deze sessie. OrionX AI producten en signalen zijn strikt beveiligd en uitsluitend toegankelijk na bevestigde aankoop.</p>
-        <a href="/openclaw" class="btn">🛒 Naar het Aanbod</a>
-        <p style="margin-top: 24px; font-size: 0.85rem; color: #64748b;">Heb je zojuist wel betaald? Neem contact op met <a href="mailto:jwp@orionx.nl" style="color: #14F195; text-decoration: none; font-weight: 600;">jwp@orionx.nl</a> voor directe assistentie.</p>
+        <p>Er is geen voltooide Stripe-betaling gevonden voor deze sessie. Wilt u uw 14-Dagen AI Administratie Pilot liever op factuur achteraf starten (€ 0,- vooruit)? Ga dan terug naar het prijsoverzicht.</p>
+        <a href="/#pricing" class="btn">📋 Terug naar 14-Dagen Pilot Opties</a>
+        <p style="margin-top: 24px; font-size: 0.85rem; color: #64748b;">Heeft u zojuist wel betaald? Neem contact op met <a href="mailto:jwp@orionx.nl" style="color: #14F195; text-decoration: none; font-weight: 600;">jwp@orionx.nl</a> voor directe assistentie.</p>
     </div>
 </body>
 </html>"""
         return HTMLResponse(content=html_unpaid, status_code=402)
 
-    # Valid paid customer: Render appropriate success screen based on amount
-    if amount_paid >= 1000.0 or "retainer" in plan.lower():
-        # Enterprise B2B Retainer
+    if any(k in plan.lower() for k in ["beheer", "management", "retainer", "b2b", "enterprise"]):
         html_paid = f"""<!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Retainer Geactiveerd // OrionX AI Technologies</title>
+    <title>Doorlopend Beheer & Monitoring Geactiveerd // OrionX AI Technologies</title>
     <style>
         body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0c14; color: #fff; text-align: center; padding: 60px 20px; }}
         .card {{ max-width: 600px; margin: 0 auto; background: #141826; padding: 40px; border-radius: 20px; border: 1px solid #06b6d4; box-shadow: 0 10px 40px rgba(6,182,212,0.25); }}
@@ -813,26 +887,25 @@ async def payment_success(session_id: str = "", plan: str = ""):
 </head>
 <body>
     <div class="card">
-        <h1>🏛️ Enterprise AI-FTE Retainer Geactiveerd!</h1>
-        <p>Gefeliciteerd. Uw praktijk of onderneming heeft nu toegang tot het <strong>OrionX Dedicated AI Engineering Team</strong>.</p>
+        <h1>✓ Doorlopend AI-Beheer &amp; Monitoring Geactiveerd</h1>
+        <p>Hartelijk dank. Uw abonnement voor <strong>Doorlopend Beheer &amp; Monitoring (€ 495,-/mnd)</strong> is bevestigd.</p>
         <div style="background: rgba(0,0,0,0.4); border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: left; font-size: 0.9rem; color: #cbd5e1;">
-            <div>✓ <strong>Dedicated AI Partner:</strong> Directe aansluiting op uw EPD/ECD workflow.</div>
-            <div>✓ <strong>NEN 7510 & AVG:</strong> 100% compliant dataverwerking op Europese servers.</div>
-            <div>✓ <strong>Directe Executive Lijn:</strong> Prioriteitssupport via <a href="mailto:jwp@orionx.nl" style="color: #38bdf8;">jwp@orionx.nl</a>.</div>
+            <div>✓ <strong>Technische Monitoring:</strong> Proactief onderhoud van uw API- en softwarekoppelingen.</div>
+            <div>✓ <strong>AVG &amp; EU-Hosting:</strong> Veilige verwerking binnen de EU inclusief verwerkersovereenkomst (DPA).</div>
+            <div>✓ <strong>Direct Contact:</strong> Bereikbaar via <a href="mailto:jwp@orionx.nl" style="color: #38bdf8;">jwp@orionx.nl</a>.</div>
         </div>
-        <a href="https://calendly.com" class="btn">📅 Plan Direct Uw Kick-off & Intake In</a>
+        <a href="mailto:jwp@orionx.nl?subject=Beheer%20Onboarding%20{order_id}" class="btn">✉️ Bevestig Uw Contactgegevens</a>
         <p style="margin-top: 24px; font-size: 0.8rem; color: #64748b;">Order: {order_id} | Klant: {customer_email}</p>
     </div>
 </body>
 </html>"""
-    elif (amount_paid >= 150.0 and amount_paid < 500.0) or "pilot" in plan.lower() or "proef" in plan.lower():
-        # 14-Dagen Zorg Pilot
+    elif amount_paid >= 150.0 or "pilot" in plan.lower() or "proef" in plan.lower():
         html_paid = f"""<!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>14-Dagen NEN 7510 AI Pilot Geactiveerd // OrionX AI Technologies</title>
+    <title>14-Dagen AI Administratie Pilot Geactiveerd // OrionX AI Technologies</title>
     <style>
         body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0c14; color: #fff; text-align: center; padding: 60px 20px; }}
         .card {{ max-width: 580px; margin: 0 auto; background: #141826; padding: 40px; border-radius: 20px; border: 1px solid #14F195; box-shadow: 0 10px 40px rgba(20,241,149,0.25); }}
@@ -843,14 +916,14 @@ async def payment_success(session_id: str = "", plan: str = ""):
 </head>
 <body>
     <div class="card">
-        <h1>✓ 14-Dagen NEN 7510 AI Pilot Geactiveerd!</h1>
-        <p>Gefeliciteerd. Uw zorginstelling of praktijk start direct met de 14-dagen proefimplementatie van de OrionX AI-FTE workflow.</p>
+        <h1>✓ 14-Dagen AI Administratie Pilot Geactiveerd!</h1>
+        <p>Hartelijk dank. Uw betaling (€ 495,-) onder onze 100% no-cure-no-pay garantie is bevestigd. Wij starten direct met de voorbereiding van uw 14-dagen proefopstelling.</p>
         <div style="background: rgba(0,0,0,0.4); border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: left; font-size: 0.9rem; color: #cbd5e1;">
-            <div>✓ <strong>Dedicated Kick-off:</strong> Ons engineering team neemt binnen 4 werkuren contact op voor de onboarding.</div>
-            <div>✓ <strong>NEN 7510 & AVG:</strong> Volledig beveiligde dataverwerking en geheimhoudingsovereenkomst (NDA).</div>
-            <div>✓ <strong>Directe Executive Lijn:</strong> Prioriteitssupport via <a href="mailto:jwp@orionx.nl" style="color: #38bdf8;">jwp@orionx.nl</a>.</div>
+            <div>✓ <strong>Persoonlijke Intake:</strong> Wij nemen binnen 4 werkuren contact met u op om de workflow af te stemmen.</div>
+            <div>✓ <strong>AVG &amp; Verwerkersovereenkomst:</strong> U ontvangt standaard onze AVG-verwerkersovereenkomst (DPA) en geheimhoudingsverklaring (NDA).</div>
+            <div>✓ <strong>Direct Contact:</strong> Bereikbaar via <a href="mailto:jwp@orionx.nl" style="color: #38bdf8;">jwp@orionx.nl</a>.</div>
         </div>
-        <a href="mailto:jwp@orionx.nl?subject=Kick-off%20AI%20Pilot%20{order_id}" class="btn">✉️ Bevestig Uw Praktijkgegevens</a>
+        <a href="mailto:jwp@orionx.nl?subject=Kick-off%20AI%20Pilot%20{order_id}" class="btn">✉️ Stuur Uw Voorkeursmoment voor de Intake</a>
         <p style="margin-top: 24px; font-size: 0.8rem; color: #64748b;">Order: {order_id} | Klant: {customer_email}</p>
     </div>
 </body>
@@ -1187,25 +1260,18 @@ async def ingest_lead(payload: dict):
 async def request_pilot_invoice(payload: dict):
     """
     Handles B2B 14-day Pilot requests with post-payment on invoice (Net 14, €0 upfront).
-    Zero friction for Dutch healthcare clinics and SMEs.
+    Zero friction for Dutch SMEs, practices, and professional offices.
     """
     company = payload.get("company", "").strip() or "Onbekende Praktijk / Organisatie"
-    contact = payload.get("contact", "").strip() or "Praktijkhouder"
-    email = payload.get("email", "").strip() or "onbekend@praktijk.nl"
+    contact = payload.get("contact", "").strip() or "Directie / Praktijkhouder"
+    email = payload.get("email", "").strip() or "onbekend@organisatie.nl"
     phone = payload.get("phone", "").strip() or "Onbekend"
-    sector = payload.get("sector", "Zorgpraktijk / MKB")
-    software = payload.get("software", "Nog te bepalen (Medicom/Exact/Exquise)")
-    workflow = payload.get("workflow", "Volledige Administratieve Automatisering")
-    discount = str(payload.get("discount", "0"))
+    sector = payload.get("sector", "Accountancy / Praktijk / MKB")
+    software = payload.get("software", "Nog te bepalen (Exact/Twinfield/AFAS/EPD)")
+    workflow = payload.get("workflow", "Administratieve Workflow Automatisering")
     
     pilot_id = f"OX-PILOT-{int(time.time())}"
-    
-    try:
-        disc_int = int(discount) if discount.isdigit() else 0
-    except Exception:
-        disc_int = 0
-        
-    inv_amount = 195.0 if disc_int == 0 else round(195.0 * (1 - disc_int / 100), 2)
+    inv_amount = 495.0
     
     pilot_entry = {
         "pilot_id": pilot_id,
@@ -1216,12 +1282,11 @@ async def request_pilot_invoice(payload: dict):
         "sector": sector,
         "software": software,
         "workflow": workflow,
-        "discount_applied": disc_int,
-        "terms": "14-Dagen Pilot op Factuur Achteraf (€0 vooraf, no-cure-no-pay)",
+        "terms": "14-Dagen AI Administratie Pilot op Factuur Achteraf (€0 vooraf, 100% no-cure-no-pay)",
         "invoice_amount_eur": inv_amount,
         "status": "pilot_requested_pending_onboarding",
         "created_at": datetime.now(timezone.utc).isoformat(),
-        "nen7510_avg_dpa_status": "sent"
+        "avg_dpa_status": "sent"
     }
     
     # Store in active_pilots.json
@@ -1263,7 +1328,7 @@ async def request_pilot_invoice(payload: dict):
     # Update Master Ledger
     try:
         with open(LEDGER_FILE, 'a', encoding='utf-8') as f:
-            f.write(f"\n- **{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}**: 🚀 **NIEUWE PILOT OP FACTUUR ACHTERAF**: `{company}` ({contact}) | Tel: `{phone}` | E-mail: `{email}` | Software: `{software}` | Workflow: `{workflow}` | Status: Onboarding Gestart")
+            f.write(f"\n- **{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}**: 🚀 **NIEUWE PILOT OP FACTUUR ACHTERAF**: `{company}` ({contact}) | Tel: `{phone}` | E-mail: `{email}` | Software: `{software}` | Workflow: `{workflow}` | Bedrag na 14d: €{inv_amount} | Status: Onboarding Gestart")
     except Exception as e:
         logger.warning(f"Ledger write error: {e}")
 
@@ -1275,17 +1340,17 @@ async def request_pilot_invoice(payload: dict):
             f"• <b>Contactpersoon:</b> {contact}\n"
             f"• <b>Telefoon:</b> <code>{phone}</code>\n"
             f"• <b>E-mail:</b> <code>{email}</code>\n"
-            f"• <b>Software/EPD:</b> {software}\n"
+            f"• <b>Software/Pakket:</b> {software}\n"
             f"• <b>Workflow Focus:</b> {workflow}\n"
-            f"• <b>Voorwaarden:</b> 14 Dagen Proef (€0 vooraf, no-cure-no-pay)\n"
-            f"• <b>Factuurbedrag na 14d:</b> €{inv_amount}\n\n"
-            f"⚡ <b>Actie vereist:</b> Neem binnen 4 uur telefonisch contact op voor de intake!"
+            f"• <b>Voorwaarden:</b> 14 Dagen Proef (€0 vooraf, 100% no-cure-no-pay)\n"
+            f"• <b>Factuurbedrag na 14d:</b> €{inv_amount:,.2f} ex. btw\n\n"
+            f"⚡ <b>Actie vereist:</b> Neem binnen 4 werkuren telefonisch contact op voor de intake!"
         )
         send_telegram_notification(tg_text)
     except Exception as e:
         logger.warning(f"Telegram notification error: {e}")
 
-    # Send confirmation email to client & notification to admin
+    # Send confirmation email to client
     try:
         threading.Thread(target=send_pilot_confirmation_email, args=(pilot_entry,), daemon=True).start()
     except Exception as e:
@@ -1297,8 +1362,6 @@ async def request_pilot_invoice(payload: dict):
         "company": company,
         "message": "Uw 14-dagen pilot op factuur achteraf is succesvol geregistreerd. U ontvangt direct een bevestiging per e-mail."
     }
-
-
 
 # --- ORIONX 24/7 LIVE AI EXECUTIVE CONSULTANT API ---
 
@@ -1325,40 +1388,45 @@ async def chat_consultant(request: Request):
 
     user_msg = str(data.get("message") or data.get("question") or "").strip()
     if not user_msg:
-        return JSONResponse({"reply": "Stel gerust uw vraag over onze oplossingen of tarieven."}, status_code=400)
+        return JSONResponse({"reply": "Stel gerust uw vraag over onze 14-Dagen AI Administratie Pilot, softwarekoppelingen of tarieven."}, status_code=400)
 
     history = data.get("history", [])
     
-    # Professional context for Gemini 2.5 Flash
+    # Strictly factual B2B system prompt for Gemini 2.5 Flash
     system_prompt = (
-        "Je bent de OrionX Executive AI Consultant, de officiële realtime assistent van OrionX AI Technologies "
-        "(gevestigd in Den Haag, Nederland, geleid door J.W. Pabst).\n"
-        "Je spreekt zakelijk, gezaghebbend, behulpzaam en helder in het Nederlands "
-        "(schakel over naar Engels als de bezoeker Engels spreekt).\n\n"
-        "Kernfeiten OrionX:\n"
-        "• Missie: Het wegnemen van repetitieve administratieve overhead (85% tijdwinst) bij zorgklinieken "
-        "(ZBC's, plastische chirurgie, tandheelkunde, fysiotherapie, poliklinieken) en MKB.\n"
-        "• NEN 7510 & AVG: Volledig compliant dataverwerking op Europese servers. Patiëntgegevens worden strikt "
-        "vertrouwelijk en versleuteld verwerkt. Directe integraties met Cliniseer, Medicore, ONS Nedap en open standaarden.\n"
-        "• Enterprise AI-FTE Retainer: € 1.450,- per maand (dedicated AI-capaciteit voor intake, planning, verslaglegging en facturatie).\n"
-        "• Gratis Besparingsscan: Direct te berekenen op https://scan.orionx.nl\n"
-        "• OpenClaw Solana AI Trading Kit: € 47,- eenmalig op https://orionx.nl/openclaw (sub-second DEX & Pump.fun automatisering)\n"
-        "• VIP Solana Quant Abonnement: € 97,- / mnd op https://trade.orionx.nl\n"
-        "• Directie Contact: jwp@orionx.nl voor intakegesprekken, demo's en geheimhoudingsverklaringen (NDA).\n\n"
+        "Je bent de OrionX Zakelijke AI Adviseur, de officiële assistent van OrionX AI Technologies "
+        "(gevestigd in regio Delft & Den Haag, Nederland, geleid door J.W. Pabst).\n"
+        "Je spreekt zakelijk, feitelijk, transparant en behulpzaam in het Nederlands "
+        "(schakel over naar Engels als de bezoeker Engels spreekt).\n"
+        "BELANGRIJK: Doe NOOIT ongefundeerde claims of speculaties. Noem geen verzonnen certificeringen of verzonnen percentages.\n\n"
+        "Kernfeiten OrionX AI Technologies:\n"
+        "• Focus: AI-gedreven administratieve procesautomatisering voor het MKB en zakelijke/medische praktijken "
+        "(accountants, administratiekantoren, notarissen, tandartspraktijken, fysiotherapie, makelaars, bouw & techniek) in Delft, Den Haag en heel Nederland.\n"
+        "• Wat we automatiseren: Inkomende documenten (PDF-facturen, bonnen, verwijsbrieven, intakeformulieren, contracten) en e-mails automatisch uitlezen, controleren en als gestructureerd concept (zoals UBL, boekingsvoorstel of dossiernotitie) klaarzetten in de bestaande software.\n"
+        "• Human-in-the-Loop: De medewerker behoudt altijd de eindcontrole (1-klik akkoord) voordat data definitief wordt geboekt of opgeslagen.\n"
+        "• Softwarekoppelingen: Werkt samen met o.a. Exact Online, Twinfield, AFAS, SnelStart, Microsoft 365 (Outlook/SharePoint), Google Workspace en gangbare praktijksoftware.\n"
+        "• Privacy & AVG: Alle verwerking vindt plaats op beveiligde servers binnen de Europese Unie (EU). Standaard AVG-verwerkersovereenkomst (DPA) inbegrepen. Klantdata wordt nooit gebruikt voor publieke AI-training.\n"
+        "• Primair Aanbod — 14-Dagen AI Administratie Pilot: € 495,- eenmalig (ex. btw) met 100% niet-goed-geld-terug garantie (no-cure-no-pay). Keuze uit:\n"
+        "  1) Starten op factuur achteraf (€ 0,- vooruitbetaling vandaag; factuur volgt pas na 14 dagen bij tevredenheid) via het formulier op de website.\n"
+        "  2) Directe activatie via iDEAL op https://orionx.nl/checkout/pilot\n"
+        "• Vervolgaanbod — Doorlopend Beheer & Monitoring: € 495,- per maand (ex. btw), maandelijks opzegbaar (geen jaarcontract).\n"
+        "• Direct Contact: jwp@orionx.nl voor vragen of een telefonische kennismaking van 15 minuten.\n\n"
         "Richtlijnen voor je antwoord:\n"
-        "- Houd antwoorden bondig, professioneel en direct ter zake (2 tot 4 korte alinea's).\n"
-        "- Vermijd vakjargon zonder uitleg; benadruk tijd- en kostenbesparingen.\n"
-        "- Verwijs bezoekers proactief naar https://scan.orionx.nl, of nodig hen uit contact op te nemen via jwp@orionx.nl."
+        "- Houd antwoorden beknopt, zakelijk en feitelijk (maximaal 2 tot 3 korte alinea's).\n"
+        "- Wijs de bezoeker op de risicovrije 14-Dagen Pilot (€ 495,- eenmalig op basis van no-cure-no-pay, achteraf op factuur mogelijk)."
     )
 
     gemini_key = os.getenv("GEMINI_API_KEY", "AIzaSyAKYoKyzJV0AXOQHJJsMwHSyMfIQomEx2Y")
 
-    # Build conversation turns
+    # Build conversation turns (support both {sender, text} and {role, content})
     conv_turns = ""
     for h in history[-4:]:
-        role = "Bezoeker" if h.get("sender") == "user" else "Consultant"
-        conv_turns += f"{role}: {h.get('text', '')}\n"
-    conv_turns += f"Bezoeker: {user_msg}\nConsultant:"
+        is_user = (h.get("sender") == "user") or (h.get("role") == "user")
+        role_label = "Bezoeker" if is_user else "Adviseur"
+        msg_text = h.get("text") or h.get("content") or ""
+        if msg_text:
+            conv_turns += f"{role_label}: {msg_text}\n"
+    conv_turns += f"Bezoeker: {user_msg}\nAdviseur:"
 
     full_prompt = f"{system_prompt}\n\nGespreksgeschiedenis:\n{conv_turns}"
 
@@ -1368,7 +1436,7 @@ async def chat_consultant(request: Request):
             url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={gemini_key}"
             payload = {
                 "contents": [{"parts": [{"text": full_prompt}]}],
-                "generationConfig": {"temperature": 0.3, "maxOutputTokens": 600}
+                "generationConfig": {"temperature": 0.25, "maxOutputTokens": 500}
             }
             req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"})
             with urllib.request.urlopen(req, timeout=12) as resp:
@@ -1380,34 +1448,29 @@ async def chat_consultant(request: Request):
             logger.warning(f"Live chat Gemini API error: {e}")
 
     if not reply:
-        # Factual fallback response
         lower = user_msg.lower()
-        if any(k in lower for k in ["kosten", "prijs", "tarief", "wat kost"]):
+        if any(k in lower for k in ["kosten", "prijs", "tarief", "wat kost", "pilot", "factuur"]):
             reply = (
-                "Onze investeringsmodellen zijn helder en transparant:\n\n"
-                "• **Enterprise AI-FTE Retainer:** € 1.450,- per maand (volledige NEN 7510 backoffice automatisering voor uw kliniek of praktijk).\n"
-                "• **OpenClaw Solana Trading Kit:** € 47,- eenmalig (directe toegang).\n"
-                "• **VIP Solana Alpha Abonnement:** € 97,- per maand.\n\n"
-                "U kunt de specifieke besparing voor uw team direct calculeren via onze gratis [AI Besparingsscan](https://scan.orionx.nl)."
+                "Wij hanteren een helder en risicovrij tweestapsmodel:\n\n"
+                "• **14-Dagen AI Administratie Pilot:** **€ 495,- eenmalig** (ex. btw) op basis van **100% no-cure-no-pay**. Wij richten binnen 14 dagen één complete administratieve workflow in binnen uw eigen software. U kunt kiezen voor **betaling achteraf op factuur (€ 0,- vooruit)** of directe betaling via iDEAL.\n"
+                "• **Doorlopend Beheer & Monitoring (optioneel vervolg):** **€ 495,- per maand** (ex. btw), maandelijks opzegbaar.\n\n"
+                "U kunt de pilot direct aanvragen via het formulier op de pagina of contact opnemen via **jwp@orionx.nl**."
             )
-        elif any(k in lower for k in ["avg", "nen", "veilig", "privacy", "epd"]):
+        elif any(k in lower for k in ["avg", "veilig", "privacy", "data", "eu", "dpa"]):
             reply = (
-                "Dataveiligheid en privacy zijn geborgd conform de **NEN 7510** normering en Europese **AVG** richtlijnen. "
-                "Onze oplossingen draaien op beveiligde Europese servers en patiëntgegevens worden NOOIT gedeeld met derden "
-                "of gebruikt voor publieke AI-modeltrainingen."
+                "Alle dataverwerking vindt uitsluitend plaats op beveiligde servers binnen de **Europese Unie (EU)** conform de **AVG (GDPR)**. "
+                "Voorafgaand aan de 14-Dagen Pilot ontvangt u standaard onze **AVG-verwerkersovereenkomst (DPA)** en geheimhoudingsverklaring (NDA). "
+                "Uw bedrijfs- of cliëntgegevens worden nooit gebruikt voor het trainen van publieke AI-modellen."
             )
-        elif any(k in lower for k in ["openclaw", "solana", "crypto", "trading"]):
+        elif any(k in lower for k in ["software", "exact", "afas", "twinfield", "koppeling", "epd", "outlook"]):
             reply = (
-                "De **OpenClaw Solana AI Trading Kit** (€ 47,-) biedt onze geavanceerde kwantitatieve strategie voor "
-                "geautomatiseerde tokendetectie en sub-second executie op Solana DEX'en. "
-                "Direct beschikbaar via [orionx.nl/openclaw](https://orionx.nl/openclaw)."
+                "Onze workflows koppelen rechtstreeks met gangbare Nederlandse kantoor-, boekhoud- en praktijksoftware, waaronder **Exact Online, Twinfield, AFAS, SnelStart, Microsoft 365 (Outlook/SharePoint)** en praktijkpakketten.\n\n"
+                "De AI zet ingelezen documenten klaar als gestructureerd conceptvoorstel, zodat uw medewerker altijd de eindcontrole behoudt."
             )
         else:
             reply = (
-                "Welkom bij OrionX AI Technologies. Wij zijn gespecialiseerd in het elimineren van administratieve lasten "
-                "in de zorg en het MKB door middel van autonome AI-processen (85% tijdwinst).\n\n"
-                "Hoe kan ik u specifiek van dienst zijn? U kunt direct een gratis analyse starten via "
-                "[scan.orionx.nl](https://scan.orionx.nl) of contact opnemen met onze directie via **jwp@orionx.nl**."
+                "Welkom bij OrionX AI Technologies (Delft & Den Haag). Wij automatiseren repetitieve administratieve processen — zoals factuurverwerking, dossieropbouw en e-mailtriage — voor kantoren, zorgpraktijken en het MKB.\n\n"
+                "Met onze **14-Dagen AI Administratie Pilot (€ 495,- eenmalig, 100% no-cure-no-pay)** test u een werkende automatisering in uw eigen softwareomgeving zonder vooruitbetaling. Heeft u een specifieke workflow die u wilt bespreken?"
             )
 
     return JSONResponse({"reply": reply, "timestamp": int(time.time())})

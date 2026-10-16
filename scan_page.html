@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="nl" class="h-full bg-[#0a0c14] text-slate-100">
+<html lang="nl" class="h-full bg-[#070910] text-slate-100">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gratis AI Besparingsscan // OrionX AI Technologies</title>
+  <title>Gratis 60-Seconden AI Besparingsscan // OrionX AI Technologies (Delft & Den Haag)</title>
+  <meta name="description" content="Bereken binnen 60 seconden hoeveel administratieve uren en kosten uw kantoor of praktijk in Delft, Den Haag en Zuid-Holland bespaart met de 14-Dagen OrionX AI Administratie Pilot.">
   <link rel="icon" type="image/jpeg" href="/logos/orionx_official_logo.jpg">
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google tag (gtag.js) -->
@@ -18,71 +19,71 @@
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .glass { background: rgba(18, 22, 36, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
-    .glass-card { background: rgba(23, 28, 48, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.06); }
-    .glow-cyan { box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.25); }
-    .glow-emerald { box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.25); }
+    .glass { background: rgba(15, 20, 34, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-card { background: rgba(20, 26, 44, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.06); }
+    .glow-cyan { box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.22); }
+    .glow-emerald { box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.22); }
   </style>
 </head>
-<body class="min-h-full flex flex-col justify-between p-4 sm:p-8 bg-[#0a0c14] text-slate-100">
+<body class="min-h-full flex flex-col justify-between p-4 sm:p-8 bg-[#070910] text-slate-100">
 
   <!-- NAVIGATION BAR -->
-  <header class="max-w-5xl mx-auto w-full flex justify-between items-center py-4 mb-6">
+  <header class="max-w-5xl mx-auto w-full flex justify-between items-center py-4 mb-6 border-b border-slate-800/80">
     <a href="/" class="flex items-center gap-3">
-      <img src="/logos/orionx_official_logo.jpg" alt="OrionX Logo Den Haag" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-cyan-500/30 border border-cyan-500/40">
+      <img src="/logos/orionx_official_logo.jpg" alt="OrionX AI Technologies Delft Den Haag" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-cyan-500/25 border border-cyan-500/40">
       <div>
-        <div class="font-black text-lg tracking-tight bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">ORIONX AI</div>
-        <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Technologies • Den Haag</div>
+        <div class="font-black text-lg tracking-tight bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">ORIONX AI</div>
+        <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Administratieve Procesautomatisering • Delft &amp; Den Haag</div>
       </div>
     </a>
     <div class="flex items-center gap-3">
-      <a href="/" class="text-xs font-semibold text-slate-400 hover:text-white transition-colors">Terug naar Home</a>
-      <a href="mailto:jwp@orionx.nl" class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-lg hover:bg-emerald-500/20">
-        Direct Contact: jwp@orionx.nl
-      </a>
+      <a href="/" class="text-xs font-semibold text-slate-400 hover:text-white transition-colors hidden sm:inline">← Terug naar Overzicht</a>
+      <button onclick="openInvoicePilotModal()" class="text-xs font-bold text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 px-3.5 py-2 rounded-xl hover:bg-emerald-500/20 transition-all">
+        📋 Start 14-Dagen Pilot op Factuur (€0 Vandaag)
+      </button>
     </div>
   </header>
 
   <!-- MAIN CALCULATOR WRAPPER -->
-  <main class="max-w-4xl mx-auto w-full flex-1 flex flex-col justify-center">
+  <main class="max-w-5xl mx-auto w-full flex-1 flex flex-col justify-center">
 
     <!-- HERO HEADLINE -->
     <div class="text-center mb-8">
       <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 mb-3">
         <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-        60-Seconden AI Besparingsscan voor Zorg & MKB
+        Zakelijke Capaciteits- &amp; Kostenanalyse voor Praktijken en MKB
       </div>
       <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-3">
-        Bereken Hoeveel Uren Uw Praktijk <br class="hidden sm:inline" />
-        <span class="bg-gradient-to-r from-cyan-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent">Verliest aan Administratie</span>
+        Bereken Hoeveel Uren Uw Kantoor of Praktijk <br class="hidden sm:inline" />
+        <span class="bg-gradient-to-r from-cyan-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent">Kwijtraakt aan Handmatig Invoerwerk</span>
       </h1>
       <p class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
-        Klinieken en MKB-bedrijven besteden gemiddeld 20 uur per behandelaar aan handmatige documenten, declaraties en EPD-intakes. Bereken uw potentiële besparing:
+        Selecteer uw branche en het aantal medewerkers om een feitelijke inschatting te maken van de terugwinbare administratieve uren en uw netto jaarlijkse kostenbesparing.
       </p>
     </div>
 
     <!-- INTERACTIVE CALCULATOR CARD -->
     <div class="glass rounded-3xl p-6 sm:p-10 border border-slate-800 glow-cyan">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
         <!-- LEFT INPUTS (7 cols) -->
         <div class="lg:col-span-7 space-y-6">
 
           <!-- 1. Sector Selector -->
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Type Organisatie / Praktijk</label>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">1. Selecteer Uw Sector / Praktijktype</label>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="sector-group">
-              <button type="button" onclick="selectSector('zbc', this)" class="sector-btn active p-3 bg-cyan-500/15 border-2 border-cyan-400 text-cyan-300 rounded-xl text-xs font-bold transition-all text-center">
-                🏥 ZBC / Kliniek
+              <button type="button" onclick="selectSector('accountancy', this)" class="sector-btn active p-3 bg-cyan-500/15 border-2 border-cyan-400 text-cyan-300 rounded-xl text-xs font-bold transition-all text-center">
+                📊 Accountancy &amp; Admin
               </button>
-              <button type="button" onclick="selectSector('tandarts', this)" class="sector-btn p-3 bg-slate-900 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs font-bold transition-all text-center">
-                🦷 Tandarts
+              <button type="button" onclick="selectSector('zorg', this)" class="sector-btn p-3 bg-slate-900 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs font-bold transition-all text-center">
+                🏥 Tandarts, Fysio &amp; Zorg
               </button>
-              <button type="button" onclick="selectSector('fysio', this)" class="sector-btn p-3 bg-slate-900 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs font-bold transition-all text-center">
-                🏃 Fysio
+              <button type="button" onclick="selectSector('notariaat', this)" class="sector-btn p-3 bg-slate-900 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs font-bold transition-all text-center">
+                ⚖️ Notariaat &amp; Vastgoed
               </button>
               <button type="button" onclick="selectSector('mkb', this)" class="sector-btn p-3 bg-slate-900 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs font-bold transition-all text-center">
-                💼 MKB / Advies
+                🏗️ MKB, Bouw &amp; Techniek
               </button>
             </div>
           </div>
@@ -90,151 +91,165 @@
           <!-- 2. Staff Slider -->
           <div>
             <div class="flex justify-between items-center mb-2">
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Aantal Behandelaren / Medewerkers</label>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-400">2. Aantal Administratieve / Uitvoerende Medewerkers</label>
               <span class="text-sm font-black text-cyan-400 mono bg-cyan-500/10 px-2.5 py-0.5 rounded-lg border border-cyan-500/20" id="staff-val">5 medewerkers</span>
             </div>
-            <input type="range" min="1" max="50" value="5" id="staff-slider" oninput="calculateSavings()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+            <input type="range" min="1" max="40" value="5" id="staff-slider" oninput="calculateSavings()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400">
             <div class="flex justify-between text-[10px] text-slate-500 mt-1">
-              <span>1 (Solo)</span>
+              <span>1 (Zelfstandig)</span>
               <span>10</span>
-              <span>25</span>
-              <span>50+ (Groep)</span>
+              <span>20</span>
+              <span>40+ (Middelgroot)</span>
             </div>
           </div>
 
-          <!-- 3. Form Details for Instant Report -->
-          <form id="scan-form" onsubmit="submitScan(event)" class="space-y-3 pt-2 border-t border-slate-800">
+          <!-- 3. Hourly Cost Slider -->
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-400">3. Interne Uurkostprijs (incl. werkgeverslasten)</label>
+              <span class="text-sm font-black text-emerald-400 mono bg-emerald-500/10 px-2.5 py-0.5 rounded-lg border border-emerald-500/20" id="rate-val">€ 45 / uur</span>
+            </div>
+            <input type="range" min="30" max="95" step="5" value="45" id="rate-slider" oninput="calculateSavings()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400">
+            <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+              <span>€ 30/u (Backoffice)</span>
+              <span>€ 55/u (Specialist)</span>
+              <span>€ 95/u (Behandelaar / Jurist)</span>
+            </div>
+          </div>
+
+          <!-- 4. Form Details for Instant Report -->
+          <form id="scan-form" onsubmit="submitScan(event)" class="space-y-3 pt-4 border-t border-slate-800">
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
+              4. Ontvang Uw Concrete Implementatievoorstel &amp; ROI-Calculatie
+            </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label class="block text-[11px] font-semibold text-slate-400 mb-1">Naam Praktijk / Bedrijf *</label>
-                <input type="text" id="inp-company" required placeholder="Bijv. Kliniek Amstel" class="w-full bg-[#0b0e18] border border-slate-800 focus:border-cyan-400 rounded-xl px-3.5 py-2 text-xs text-white outline-none">
+                <label class="block text-[11px] font-semibold text-slate-400 mb-1">Naam Kantoor / Praktijk / Bedrijf *</label>
+                <input type="text" id="inp-company" required placeholder="Bijv. Administratiekantoor Van Dijk" class="w-full bg-[#0b0e18] border border-slate-800 focus:border-cyan-400 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
               </div>
               <div>
                 <label class="block text-[11px] font-semibold text-slate-400 mb-1">Contactpersoon *</label>
-                <input type="text" id="inp-contact" required placeholder="Dhr. / Mevr. Jansen" class="w-full bg-[#0b0e18] border border-slate-800 focus:border-cyan-400 rounded-xl px-3.5 py-2 text-xs text-white outline-none">
+                <input type="text" id="inp-contact" required placeholder="Dhr. / Mevr. Jansen" class="w-full bg-[#0b0e18] border border-slate-800 focus:border-cyan-400 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
               </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label class="block text-[11px] font-semibold text-slate-400 mb-1">Zakelijk E-mailadres *</label>
-                <input type="email" id="inp-email" required placeholder="directie@praktijk.nl" class="w-full bg-[#0b0e18] border border-slate-800 focus:border-cyan-400 rounded-xl px-3.5 py-2 text-xs text-white outline-none">
+                <input type="email" id="inp-email" required placeholder="directie@kantoor.nl" class="w-full bg-[#0b0e18] border border-slate-800 focus:border-cyan-400 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
               </div>
               <div>
                 <label class="block text-[11px] font-semibold text-slate-400 mb-1">Telefoonnummer (Optioneel)</label>
-                <input type="tel" id="inp-phone" placeholder="06 - 12345678" class="w-full bg-[#0b0e18] border border-slate-800 focus:border-cyan-400 rounded-xl px-3.5 py-2 text-xs text-white outline-none">
+                <input type="tel" id="inp-phone" placeholder="070 / 015 / 06 - 12345678" class="w-full bg-[#0b0e18] border border-slate-800 focus:border-cyan-400 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">
               </div>
             </div>
 
-            <button type="submit" id="btn-submit" class="w-full mt-3 py-3.5 bg-gradient-to-r from-cyan-500 via-emerald-400 to-teal-400 hover:from-cyan-400 hover:to-emerald-300 text-black font-extrabold rounded-xl text-sm transition-all shadow-lg shadow-cyan-500/20 active:scale-98 flex items-center justify-center gap-2">
-              <span>📄</span> Ontvang Gratis Mijn NEN 7510 Besparingsrapport
+            <button type="submit" id="btn-submit" class="w-full mt-3 py-3.5 bg-gradient-to-r from-cyan-500 via-emerald-400 to-teal-400 hover:from-cyan-400 hover:to-emerald-300 text-black font-extrabold rounded-xl text-sm transition-all shadow-lg shadow-cyan-500/20 active:scale-98 flex items-center justify-center gap-2 cursor-pointer">
+              <span>📄</span> Genereer Mijn Besparingsrapport &amp; Workflow Plan
             </button>
             <p class="text-[10px] text-center text-slate-500">
-              ✓ 100% Vrijblijvend • Beveiligd conform AVG • Geen verplichtingen
+              ✓ 100% Vrijblijvend • Verwerking binnen de EU (AVG-conform) • Geen verplichtingen
             </p>
           </form>
 
           <!-- ON-PAGE INSTANT AUDIT SCORECARD (Displayed immediately on submission) -->
           <div id="scan-success-panel" style="display: none;" class="p-6 rounded-2xl bg-slate-900/90 border-2 border-emerald-400 glow-emerald space-y-4 text-left">
             <div class="flex items-center gap-2 text-emerald-400 font-extrabold text-sm uppercase tracking-wider">
-              <span>✅</span> NEN 7510 Audit Rapport Gegenereerd
+              <span>✅</span> Zakelijke Besparingsanalyse Gegenereerd
             </div>
-            <h4 class="text-lg font-black text-white" id="success-company-title">Praktijkrapport Klaargezet</h4>
+            <h4 class="text-lg font-black text-white" id="success-company-title">Rapport Klaargezet</h4>
             <p class="text-xs text-slate-300 leading-relaxed">
-              Uw gepersonaliseerde calculatie is zojuist verstuurd naar <strong class="text-cyan-400" id="success-email-text">uw e-mail</strong>. U kunt direct starten met het automatiseren van uw praktijk:
+              Uw gepersonaliseerde berekening is verstuurd naar <strong class="text-cyan-400" id="success-email-text">uw e-mail</strong>. U kunt nu direct kiezen hoe u de 14-dagen proefopstelling wilt starten:
             </p>
 
             <div class="grid grid-cols-2 gap-3 p-3 bg-black/40 rounded-xl border border-slate-800 text-xs">
               <div>
-                <div class="text-[10px] uppercase text-slate-400 font-semibold">Tijdwinst</div>
-                <div class="text-base font-black text-cyan-400 mono" id="success-hours-text">80 uur / mnd</div>
+                <div class="text-[10px] uppercase text-slate-400 font-semibold">Terugwinbare Tijd</div>
+                <div class="text-base font-black text-cyan-400 mono" id="success-hours-text">40 uur / mnd</div>
               </div>
               <div>
-                <div class="text-[10px] uppercase text-slate-400 font-semibold">Netto Besparing</div>
-                <div class="text-base font-black text-emerald-400 mono" id="success-savings-text">€ 18.500,- / jr</div>
+                <div class="text-[10px] uppercase text-slate-400 font-semibold">Netto Jaarbesparing</div>
+                <div class="text-base font-black text-emerald-400 mono" id="success-savings-text">€ 15.660,- / jr</div>
               </div>
             </div>
 
-            <div class="space-y-2 pt-2">
-              <button onclick="openInvoicePilotModal()" class="block text-center w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/20 hover:opacity-90 transition-all cursor-pointer">
-                📋 Start 14-Dagen Pilot op Factuur Achteraf (€ 0,- Vandaag) &rarr;
+            <div class="space-y-2.5 pt-2">
+              <button onclick="openInvoicePilotModal()" class="block text-center w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/20 hover:opacity-90 transition-all cursor-pointer">
+                📋 Optie 1: Start 14-Dagen Pilot op Factuur Achteraf (€ 0,- Vandaag, No-Cure-No-Pay) &rarr;
               </button>
-              <div class="grid grid-cols-2 gap-2">
-                <a href="/checkout/pilot" class="block text-center py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 font-bold text-[11px] transition-all">
-                  💳 Direct iDEAL (€ 195)
-                </a>
-                <a href="/checkout/trial" class="block text-center py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 font-bold text-[11px] transition-all">
-                  ⚡ AI-FTE Retainer Proef
-                </a>
-              </div>
+              <a href="/checkout/pilot" class="block text-center w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 font-bold text-xs transition-all">
+                💳 Optie 2: Direct Starten via iDEAL / Zakelijke Kaart (€ 495,- eenmalig)
+              </a>
             </div>
           </div>
 
         </div>
 
         <!-- RIGHT REAL-TIME METRICS (5 cols) -->
-        <div class="lg:col-span-5 bg-[#0b0e18] p-6 rounded-2xl border border-slate-800/80 flex flex-col justify-between space-y-6 glow-emerald">
+        <div class="lg:col-span-5 bg-[#0b0e18] p-6 rounded-2xl border border-slate-800/80 flex flex-col justify-between space-y-5 glow-emerald">
           <div>
             <div class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 mb-1 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Live AI Berekening
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Feitelijke ROI-Berekening
             </div>
-            <h3 class="text-base font-bold text-slate-200">Geschat Administratief Verlies</h3>
+            <h3 class="text-base font-bold text-slate-200" id="sector-label-title">Accountancy &amp; Administratie</h3>
           </div>
 
           <!-- Big Stat 1: Uren per maand -->
           <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <div class="text-xs text-slate-400 mb-0.5">Verspilde uren per maand</div>
+            <div class="text-xs text-slate-400 mb-0.5">Terugwinbare administratieve uren</div>
             <div class="text-3xl font-black text-cyan-400 mono flex items-baseline gap-1" id="res-hours">
-              <span>80</span> <span class="text-xs text-slate-400 font-normal">uur / maand</span>
+              <span>40</span> <span class="text-xs text-slate-400 font-normal">uur / maand</span>
             </div>
-            <div class="text-[11px] text-slate-500 mt-1">Gelijk aan circa <strong class="text-slate-300" id="res-fte">0.5 fte</strong> aan zuivere overhead.</div>
+            <div class="text-[11px] text-slate-500 mt-1">Gelijk aan circa <strong class="text-slate-300" id="res-fte">0.3 fte</strong> aan repetitief invoerwerk.</div>
           </div>
 
           <!-- Big Stat 2: Jaarlijkse besparing -->
           <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-            <div class="text-xs text-emerald-400 font-semibold mb-0.5">Geraamde Jaarlijkse Besparing</div>
+            <div class="text-xs text-emerald-400 font-semibold mb-0.5">Netto Jaarlijkse Kostenbesparing</div>
             <div class="text-3xl font-black text-emerald-400 mono flex items-baseline gap-1" id="res-savings">
-              € 18.500,-
+              € 15.660,-
             </div>
-            <div class="text-[11px] text-emerald-300/80 mt-1">Netto rendement na implementatie van OrionX AI.</div>
+            <div class="text-[11px] text-emerald-300/80 mt-1">Na aftrek van de eenmalige pilot (€495) en doorlopend beheer (€495/mnd).</div>
           </div>
 
-          <!-- Recommended Model: AI-FTE Retainer -->
+          <!-- Primary Model: 14-Dagen AI Administratie Pilot -->
           <div class="p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/30">
             <div class="flex justify-between items-center mb-1">
-              <span class="text-xs text-cyan-300 font-bold uppercase tracking-wider">Aanbevolen Model</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-black bg-cyan-400 text-black uppercase">Populair</span>
+              <span class="text-xs text-cyan-300 font-bold uppercase tracking-wider">Stap 1: Bewijs in Eigen Praktijk</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-400 text-black uppercase">100% No-Cure-No-Pay</span>
             </div>
-            <div class="text-base font-black text-white">OrionX Dedicated AI-FTE</div>
-            <div class="text-2xl font-black text-cyan-400 mono my-1">€ 1.450,- <span class="text-xs text-slate-400 font-normal">/ maand</span></div>
-            <div class="text-[11px] text-slate-300">Vervangt 0.5 tot 1.5 FTE administratieve overhead. 100% NEN 7510 & AVG compliant.</div>
-            <a href="/checkout/retainer" class="mt-3 block text-center py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-400 to-indigo-500 text-black font-extrabold text-xs shadow-md shadow-cyan-500/20 hover:opacity-90">
-              ⚡ Direct Fast-Track Onboarding Starten (€1.450/mnd)
+            <div class="text-base font-black text-white">14-Dagen AI Administratie Pilot</div>
+            <div class="text-2xl font-black text-cyan-400 mono my-1">€ 495,- <span class="text-xs text-slate-400 font-normal">eenmalig (ex. btw)</span></div>
+            <div class="text-[11px] text-slate-300 leading-relaxed mb-3">
+              Wij automatiseren 1 repetitieve kernworkflow in uw eigen software. Niet tevreden na 14 dagen? Dan betaalt u niets (of 100% geld terug).
+            </div>
+            <button onclick="openInvoicePilotModal()" class="w-full py-2.5 px-3 rounded-lg bg-gradient-to-r from-emerald-400 to-cyan-400 text-black font-extrabold text-xs shadow-md shadow-emerald-500/20 hover:opacity-90 cursor-pointer mb-2">
+              📋 Start Pilot op Factuur Achteraf (€ 0,- Vandaag)
+            </button>
+            <a href="/checkout/pilot" class="block text-center py-2 px-3 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold text-[11px] transition-all">
+              💳 Direct Afrekenen via iDEAL (€ 495,-)
             </a>
           </div>
 
-          <!-- Pilot Option: 14-Dagen NEN 7510 AI Pilot -->
-          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 transition-all">
+          <!-- Secondary Option: Doorlopend Beheer & Monitoring -->
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
             <div class="flex justify-between items-center mb-1">
-              <span class="text-xs text-slate-300 font-bold uppercase tracking-wider">Laagdrempelige Instap</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">0% Risico</span>
+              <span class="text-xs text-slate-300 font-bold uppercase tracking-wider">Stap 2: Optioneel Vervolg</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300">Maandelijks Opzegbaar</span>
             </div>
-            <div class="text-sm font-black text-white">14-Dagen NEN 7510 Quickscan &amp; Pilot</div>
-            <div class="text-xl font-black text-emerald-400 mono my-1">€ 195,- <span class="text-xs text-slate-400 font-normal">eenmalig</span></div>
-            <div class="text-[11px] text-slate-400">Test OrionX 14 dagen in uw praktijk. Bevalt het niet? Geen enkele vervolgverplichting.</div>
-            <a href="/checkout/pilot" class="mt-2.5 block text-center py-2 px-3 rounded-lg bg-gradient-to-r from-emerald-400 to-teal-400 hover:opacity-90 text-black font-extrabold text-xs shadow-md shadow-emerald-500/20 transition-all">
-              🛡️ Start 14-Dagen Pilot met iDEAL (€195)
-            </a>
+            <div class="text-sm font-black text-white">Doorlopend Beheer &amp; Monitoring</div>
+            <div class="text-xl font-black text-white mono my-1">€ 495,- <span class="text-xs text-slate-400 font-normal">/ maand (ex. btw)</span></div>
+            <div class="text-[11px] text-slate-400">24/7 technische bewaking, API-onderhoud bij software-updates en doorlopende ondersteuning. Geen jaarcontract.</div>
           </div>
 
           <div class="space-y-1.5 text-xs text-slate-400 pt-2 border-t border-slate-800">
             <div class="flex items-center gap-2">
-              <span class="text-emerald-400 font-bold">✓</span> NEN 7510 & AVG-proof beveiliging
+              <span class="text-emerald-400 font-bold">✓</span> Inclusief standaard AVG-verwerkersovereenkomst (DPA)
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-emerald-400 font-bold">✓</span> Directe koppeling met uw huidige EPD
+              <span class="text-emerald-400 font-bold">✓</span> Koppelt met Exact, Twinfield, AFAS, M365 &amp; praktijksoftware
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-emerald-400 font-bold">✓</span> 96% doorlooptijdvermindering per dossier
+              <span class="text-emerald-400 font-bold">✓</span> Lokale begeleiding in regio Delft &amp; Den Haag
             </div>
           </div>
         </div>
@@ -245,18 +260,38 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="max-w-5xl mx-auto w-full text-center py-6 text-xs text-slate-500">
-    © 2026 OrionX AI Technologies • NEN 7510 & AVG AI-Process Automatisering • Contact: <a href="mailto:jwp@orionx.nl" class="text-slate-400 hover:text-white">jwp@orionx.nl</a>
+  <footer class="max-w-5xl mx-auto w-full text-center py-6 text-xs text-slate-500 border-t border-slate-900 mt-10">
+    © 2026 OrionX AI Technologies • Delft &amp; Den Haag • AVG-Conforme Procesautomatisering • Direct contact: <a href="mailto:jwp@orionx.nl" class="text-slate-300 hover:text-white underline">jwp@orionx.nl</a>
   </footer>
 
   <script>
-    let currentSector = 'zbc';
+    let currentSector = 'accountancy';
 
-    const sectorMultipliers = {
-      zbc: { hoursPerStaff: 18, hourlyRate: 45 },
-      tandarts: { hoursPerStaff: 14, hourlyRate: 40 },
-      fysio: { hoursPerStaff: 12, hourlyRate: 38 },
-      mkb: { hoursPerStaff: 15, hourlyRate: 42 }
+    const sectorConfigs = {
+      accountancy: {
+        title: 'Accountancy & Administratiekantoren',
+        hoursPerStaffMonth: 8,
+        defaultRate: 45,
+        defaultWorkflow: 'Inkoopfacturen (PDF/E-mail) & UBL-boekingsvoorstellen'
+      },
+      zorg: {
+        title: 'Tandarts-, Fysio- & Zorgpraktijken',
+        hoursPerStaffMonth: 9,
+        defaultRate: 50,
+        defaultWorkflow: 'Patiëntintakes, verwijsbrieven & dossierklaarmaking'
+      },
+      notariaat: {
+        title: 'Notariaat, Advocatuur & Makelaardij',
+        hoursPerStaffMonth: 8,
+        defaultRate: 60,
+        defaultWorkflow: 'Klant-onboarding, WWFT/KYC-check & dossieraanmaak'
+      },
+      mkb: {
+        title: 'MKB, Bouw, Installatie & Techniek',
+        hoursPerStaffMonth: 7,
+        defaultRate: 45,
+        defaultWorkflow: 'Werkbonnen, offerte-aanvragen & ERP-facturatie'
+      }
     };
 
     function selectSector(sector, btn) {
@@ -265,219 +300,88 @@
         b.className = 'sector-btn p-3 bg-slate-900 border border-slate-800 text-slate-400 hover:text-white rounded-xl text-xs font-bold transition-all text-center';
       });
       btn.className = 'sector-btn active p-3 bg-cyan-500/15 border-2 border-cyan-400 text-cyan-300 rounded-xl text-xs font-bold transition-all text-center';
+      
+      const config = sectorConfigs[currentSector];
+      document.getElementById('sector-label-title').textContent = config.title;
       calculateSavings();
     }
 
     function calculateSavings() {
-      const staff = parseInt(document.getElementById('staff-slider').value);
+      const staff = parseInt(document.getElementById('staff-slider').value, 10);
+      const rate = parseInt(document.getElementById('rate-slider').value, 10);
+      
       document.getElementById('staff-val').textContent = staff + (staff === 1 ? ' medewerker' : ' medewerkers');
+      document.getElementById('rate-val').textContent = '€ ' + rate + ' / uur';
 
-      const config = sectorMultipliers[currentSector];
-      const monthlyHours = Math.round(staff * config.hoursPerStaff);
+      const config = sectorConfigs[currentSector];
+      const monthlyHours = Math.round(staff * config.hoursPerStaffMonth);
       const fteEquivalent = (monthlyHours / 160).toFixed(1);
-      const annualSavings = Math.round(monthlyHours * config.hourlyRate * 12 * 0.85); // 85% recovered
+      
+      const grossAnnualSavings = monthlyHours * rate * 12;
+      const annualCost = 495 + (11 * 495); // Pilot month 1 (€495) + 11 months management (€495/mnd) = €5.940
+      const netAnnualSavings = Math.max(495, Math.round(grossAnnualSavings - annualCost));
 
-      document.getElementById('res-hours').innerHTML = `<span>${monthlyHours}</span> <span class="text-xs text-slate-400 font-normal">uur / mnd</span>`;
+      document.getElementById('res-hours').innerHTML = `<span>${monthlyHours}</span> <span class="text-xs text-slate-400 font-normal">uur / maand</span>`;
       document.getElementById('res-fte').textContent = `${fteEquivalent} fte`;
-      document.getElementById('res-savings').textContent = '€ ' + annualSavings.toLocaleString('nl-NL') + ',-';
+      document.getElementById('res-savings').textContent = '€ ' + netAnnualSavings.toLocaleString('nl-NL') + ',-';
     }
 
     async function submitScan(e) {
       e.preventDefault();
       const btn = document.getElementById('btn-submit');
       btn.disabled = true;
-      btn.innerHTML = '<span>⏳</span> Rapport Genereren & Verzenden...';
+      btn.innerHTML = '<span>⏳</span> Analyse Genereren & Verzenden...';
 
-      const staff = parseInt(document.getElementById('staff-slider').value);
-      const config = sectorMultipliers[currentSector];
-      const monthlyHours = Math.round(staff * config.hoursPerStaff);
-      const annualSavings = Math.round(monthlyHours * config.hourlyRate * 12 * 0.85);
+      const staff = parseInt(document.getElementById('staff-slider').value, 10);
+      const rate = parseInt(document.getElementById('rate-slider').value, 10);
+      const config = sectorConfigs[currentSector];
+      const monthlyHours = Math.round(staff * config.hoursPerStaffMonth);
+      const grossAnnualSavings = monthlyHours * rate * 12;
+      const netAnnualSavings = Math.max(495, Math.round(grossAnnualSavings - 5940));
 
       const payload = {
         company: document.getElementById('inp-company').value,
         contact: document.getElementById('inp-contact').value,
         email: document.getElementById('inp-email').value,
         phone: document.getElementById('inp-phone').value,
-        sector: currentSector.toUpperCase(),
+        sector: config.title,
         staff_count: staff,
         monthly_hours_wasted: monthlyHours,
-        annual_savings_eur: annualSavings,
-        pain_point: `Handmatige administratie (${monthlyHours} uur/mnd verlies conform scan)`
+        annual_savings_eur: netAnnualSavings,
+        pain_point: `${config.defaultWorkflow} (${monthlyHours} uur/mnd terugwinbaar conform scan)`
       };
 
       try {
-        const res = await fetch('/api/leads/submit', {
+        await fetch('/api/leads/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
 
-        // Google Ads Conversion Tracking (Generate Lead)
         if (typeof gtag === 'function') {
           gtag('event', 'generate_lead', {
             'send_to': 'AW-1628768552',
-            'value': 250.0,
+            'value': 495.0,
             'currency': 'EUR'
           });
         }
 
-        // Display Instant Scorecard on Screen
         document.getElementById('scan-form').style.display = 'none';
-        document.getElementById('success-company-title').textContent = 'Audit Rapport Gegenereerd voor ' + payload.company;
+        document.getElementById('success-company-title').textContent = 'Besparingsrapport voor ' + payload.company;
         document.getElementById('success-email-text').textContent = payload.email;
         document.getElementById('success-hours-text').textContent = monthlyHours + ' uur / mnd';
-        document.getElementById('success-savings-text').textContent = '€ ' + annualSavings.toLocaleString('nl-NL') + ',- / jr';
+        document.getElementById('success-savings-text').textContent = '€ ' + netAnnualSavings.toLocaleString('nl-NL') + ',- / jr';
         document.getElementById('scan-success-panel').style.display = 'block';
+        sessionStorage.setItem('orionx_scan_done', 'true');
 
       } catch (err) {
         alert('Er ging iets mis bij het verzenden: ' + err);
         btn.disabled = false;
-        btn.innerHTML = '<span>📄</span> Ontvang Gratis Mijn NEN 7510 Besparingsrapport';
+        btn.innerHTML = '<span>📄</span> Genereer Mijn Besparingsrapport & Workflow Plan';
       }
     }
 
-    // Initial calculation
     calculateSavings();
-  </script>
-
-  <!-- CHECKOUT ABANDONMENT & EXCLUSIVE RANDOM DISCOUNT MODAL -->
-  <div id="abandon-discount-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); backdrop-filter: blur(10px); z-index: 100001; align-items: center; justify-content: center; padding: 16px;">
-    <div style="background: linear-gradient(145deg, #0e1220 0%, #070912 100%); border: 2px solid #f59e0b; border-radius: 28px; max-width: 520px; width: 100%; padding: 32px 24px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 45px rgba(245, 158, 11, 0.3); position: relative; text-align: center;">
-      <button onclick="closeAbandonModal()" style="position: absolute; top: 16px; right: 16px; background: transparent; border: none; color: #94a3b8; font-size: 26px; cursor: pointer; line-height: 1;">&times;</button>
-      
-      <div style="width: 56px; height: 56px; border-radius: 20px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(234, 88, 12, 0.25)); border: 1px solid rgba(245, 158, 11, 0.5); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 28px; box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);">
-        🎁
-      </div>
-
-      <div style="display: inline-block; padding: 4px 12px; border-radius: 9999px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); font-size: 11px; font-weight: 800; color: #fbbf24; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">
-        Exclusieve Eenmalige Welkomstkorting
-      </div>
-      
-      <h3 style="font-size: 1.55rem; font-weight: 900; color: #fff; margin-bottom: 8px; line-height: 1.25;">
-        Wacht! U Heeft Zojuist <br><span id="abandon-pct-text" style="background: linear-gradient(135deg, #fbbf24, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">25% Korting</span> Ontgrendeld!
-      </h3>
-      
-      <p style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 20px; line-height: 1.5;">
-        Start direct met uw NEN 7510 AI Zorg Pilot met <strong>tot 50% extra welkomstkorting</strong>:
-      </p>
-
-      <!-- Discount Calculation Card -->
-      <div style="background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 16px; margin-bottom: 20px; text-align: left;">
-        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-          <div>
-            <div style="font-weight: 800; font-size: 0.9rem; color: #fff;">14-Dagen NEN 7510 Zorg Pilot</div>
-            <div style="font-size: 0.75rem; color: #94a3b8;">100% Niet-Goed-Geld-Terug Garantie</div>
-          </div>
-          <div style="text-align: right;">
-            <div style="font-size: 0.75rem; color: #94a3b8; text-decoration: line-through;">€ 195,-</div>
-            <div id="abandon-pilot-calc" style="font-weight: 900; font-size: 1.15rem; color: #14F195; font-family: monospace;">€ 146,25</div>
-          </div>
-        </div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px;">
-          <div>
-            <div style="font-weight: 800; font-size: 0.9rem; color: #fff;">Dedicated AI-FTE Retainer</div>
-            <div style="font-size: 0.75rem; color: #94a3b8;">7 Dagen Gratis Proef (€0 Vandaag)</div>
-          </div>
-          <div style="text-align: right;">
-            <div id="abandon-retainer-calc" style="font-weight: 900; font-size: 1rem; color: #38bdf8; font-family: monospace;">-25% op mnd 1</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Live Urgency Countdown -->
-      <div style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.8rem; color: #fbbf24; font-weight: 700; margin-bottom: 18px;">
-        <span>⏱️</span> Geldig voor de komende: <span id="abandon-timer" style="font-family: monospace; font-size: 1rem; color: #fff; background: rgba(245, 158, 11, 0.2); padding: 2px 8px; border-radius: 6px; border: 1px solid rgba(245, 158, 11, 0.4);">14:59</span>
-      </div>
-
-      <!-- Action Buttons -->
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <a id="abandon-pilot-link" href="/checkout/pilot" style="display: block; width: 100%; padding: 14px; background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); color: #000; font-weight: 900; font-size: 0.95rem; border-radius: 12px; text-decoration: none; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35); transition: opacity 0.2s;">
-          ⚡ Claim Korting &amp; Start 14-Dagen Pilot
-        </a>
-        <button onclick="closeAbandonModal(); openInvoicePilotModal();" style="display: block; width: 100%; padding: 12px; background: rgba(6, 182, 212, 0.15); border: 1.5px solid #06b6d4; color: #22d3ee; font-weight: 800; font-size: 0.85rem; border-radius: 12px; cursor: pointer; text-align: center;">
-          📋 Liever Achteraf op Factuur? Start Vandaag voor €0,- &rarr;
-        </button>
-        <a id="abandon-trial-link" href="/checkout/trial" style="display: block; width: 100%; padding: 11px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5e1; font-weight: 700; font-size: 0.82rem; border-radius: 12px; text-decoration: none;">
-          Claim Korting op Dedicated AI-FTE Retainer (&euro;0,- Vandaag) &rarr;
-        </a>
-      </div>
-
-      <button onclick="closeAbandonModal()" style="background: transparent; border: none; color: #64748b; font-size: 0.75rem; margin-top: 14px; cursor: pointer; text-decoration: underline;">
-        Nee bedankt, ik betaal liever het standaardtarief
-      </button>
-    </div>
-  </div>
-
-  <script>
-    function getRandomDiscount() {
-      let saved = sessionStorage.getItem('orionx_abandon_discount');
-      if (!saved) {
-        const discountSteps = [10, 15, 20, 25, 30, 35, 40, 50];
-        saved = discountSteps[Math.floor(Math.random() * discountSteps.length)];
-        sessionStorage.setItem('orionx_abandon_discount', saved);
-      }
-      return parseInt(saved, 10);
-    }
-
-    let abandonCountdownTimer;
-    function startAbandonCountdown(durationSeconds) {
-      let remaining = durationSeconds;
-      const display = document.getElementById('abandon-timer');
-      if (abandonCountdownTimer) clearInterval(abandonCountdownTimer);
-
-      abandonCountdownTimer = setInterval(function() {
-        const m = Math.floor(remaining / 60);
-        const s = remaining % 60;
-        if (display) {
-          display.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
-        }
-        if (--remaining < 0) {
-          clearInterval(abandonCountdownTimer);
-          if (display) display.textContent = "00:00 (Verlopen)";
-        }
-      }, 1000);
-    }
-
-    function initAbandonDiscountModal() {
-      const discount = getRandomDiscount();
-      const pilotBase = 195.0;
-      const discountedPilot = (pilotBase * (1 - (discount / 100))).toFixed(2).replace('.', ',');
-
-      const pctEl = document.getElementById('abandon-pct-text');
-      const pilotCalcEl = document.getElementById('abandon-pilot-calc');
-      const retCalcEl = document.getElementById('abandon-retainer-calc');
-      const pilotLinkEl = document.getElementById('abandon-pilot-link');
-      const trialLinkEl = document.getElementById('abandon-trial-link');
-
-      if (pctEl) pctEl.textContent = discount + '% Korting';
-      if (pilotCalcEl) pilotCalcEl.textContent = '€ ' + discountedPilot;
-      if (retCalcEl) retCalcEl.textContent = '-' + discount + '% op mnd 1';
-
-      if (pilotLinkEl) pilotLinkEl.href = '/checkout/pilot?discount=' + discount;
-      if (trialLinkEl) trialLinkEl.href = '/checkout/trial?discount=' + discount;
-
-      startAbandonCountdown(15 * 60);
-    }
-
-    function openAbandonModal() {
-      initAbandonDiscountModal();
-      document.getElementById('abandon-discount-modal').style.display = 'flex';
-      sessionStorage.setItem('orionx_abandon_shown', 'true');
-    }
-
-    function closeAbandonModal() {
-      document.getElementById('abandon-discount-modal').style.display = 'none';
-      sessionStorage.setItem('orionx_abandon_closed', 'true');
-    }
-
-    let exitTriggered = false;
-    document.addEventListener('mouseleave', function(e) {
-      if (e.clientY <= 0 && !exitTriggered && !sessionStorage.getItem('orionx_abandon_shown')) {
-        exitTriggered = true;
-        openAbandonModal();
-      }
-    });
   </script>
 
   <!-- OrionX Floating AI Consultant Widget -->
@@ -492,8 +396,8 @@
         <span style="position: absolute; display: inline-flex; height: 100%; width: 100%; border-radius: 9999px; background: #14F195; opacity: 0.75; animation: orionx-pulse-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;"></span>
         <span style="position: relative; display: inline-flex; border-radius: 9999px; height: 10px; width: 10px; background: #14F195;"></span>
       </span>
-      <span style="font-weight: 700; font-size: 0.9rem; letter-spacing: 0.02em;">💬 OrionX AI Consultant</span>
-      <span style="font-size: 0.75rem; background: rgba(6,182,212,0.2); color: #38bdf8; padding: 2px 8px; border-radius: 12px; font-weight: 600;">Live</span>
+      <span style="font-weight: 700; font-size: 0.9rem; letter-spacing: 0.02em;">💬 OrionX Adviseur</span>
+      <span style="font-size: 0.75rem; background: rgba(6,182,212,0.2); color: #38bdf8; padding: 2px 8px; border-radius: 12px; font-weight: 600;">Online</span>
     </button>
 
     <div id="orionx-chat-modal" style="display: none; position: absolute; bottom: 65px; right: 0; width: 360px; max-width: calc(100vw - 40px); height: 500px; max-height: calc(100vh - 100px); background: #0b0f19; border: 1px solid rgba(6, 182, 212, 0.35); border-radius: 20px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(6, 182, 212, 0.2); flex-direction: column; overflow: hidden; backdrop-filter: blur(20px);">
@@ -501,9 +405,9 @@
         <div style="display: flex; align-items: center; gap: 10px;">
           <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #06b6d4, #14F195); display: flex; align-items: center; justify-content: center; font-size: 16px;">⚡</div>
           <div>
-            <div style="font-weight: 800; font-size: 0.95rem; color: #fff;">OrionX AI Consultant</div>
+            <div style="font-weight: 800; font-size: 0.95rem; color: #fff;">OrionX AI Adviseur</div>
             <div style="font-size: 0.72rem; color: #14F195; display: flex; align-items: center; gap: 4px;">
-              <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #14F195;"></span> 24/7 NEN 7510 &amp; ROI Expert
+              <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #14F195;"></span> 14-Dagen Pilot &amp; Software-integratie
             </div>
           </div>
         </div>
@@ -512,18 +416,114 @@
 
       <div id="orionx-chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.88rem; scroll-behavior: smooth;">
         <div style="align-self: flex-start; max-width: 90%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px 14px 14px 2px; padding: 12px 14px; color: #e2e8f0; line-height: 1.5;">
-          👋 Welkom! Ik ben de realtime AI-consultant van OrionX. Stel mij gerust een vraag over onze automatiseringen, privacy conform NEN 7510, of de verwachte besparing voor uw organisatie.
+          Welkom bij OrionX AI Technologies. Heeft u een vraag over de 14-Dagen AI Administratie Pilot (€ 495,- no-cure-no-pay), softwarekoppelingen (Exact, Twinfield, AFAS, EPD) of achteraf betalen op factuur?
         </div>
         <div id="orionx-quick-prompts" style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;">
-          <button onclick="sendQuickPrompt('Wat kost de AI-FTE Retainer per maand?')" style="background: rgba(6, 182, 212, 0.12); border: 1px solid rgba(6, 182, 212, 0.3); color: #38bdf8; font-size: 0.75rem; padding: 6px 10px; border-radius: 12px; cursor: pointer; text-align: left;">💰 Wat kost de AI Retainer?</button>
-          <button onclick="sendQuickPrompt('Hoe zit het met privacy en NEN 7510?')" style="background: rgba(20, 241, 149, 0.12); border: 1px solid rgba(20, 241, 149, 0.3); color: #14F195; font-size: 0.75rem; padding: 6px 10px; border-radius: 12px; cursor: pointer; text-align: left;">🛡️ Privacy &amp; NEN 7510</button>
-          <button onclick="sendQuickPrompt('Wat is de OpenClaw Solana Trading Kit?')" style="background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.3); color: #c084fc; font-size: 0.75rem; padding: 6px 10px; border-radius: 12px; cursor: pointer; text-align: left;">⚡ OpenClaw Kit (€47)</button>
+          <button onclick="sendQuickPrompt('Hoe werkt de 14-Dagen Pilot op factuur achteraf?')" style="background: rgba(6, 182, 212, 0.12); border: 1px solid rgba(6, 182, 212, 0.3); color: #38bdf8; font-size: 0.75rem; padding: 6px 10px; border-radius: 12px; cursor: pointer; text-align: left;">📋 Hoe werkt de 14-Dagen Pilot?</button>
+          <button onclick="sendQuickPrompt('Hoe zijn AVG-privacy en databeveiliging geregeld?')" style="background: rgba(20, 241, 149, 0.12); border: 1px solid rgba(20, 241, 149, 0.3); color: #14F195; font-size: 0.75rem; padding: 6px 10px; border-radius: 12px; cursor: pointer; text-align: left;">🛡️ AVG &amp; Databeveiliging</button>
+          <button onclick="sendQuickPrompt('Met welke boekhoud- en praktijksoftware koppelen jullie?')" style="background: rgba(148, 163, 184, 0.12); border: 1px solid rgba(148, 163, 184, 0.3); color: #cbd5e1; font-size: 0.75rem; padding: 6px 10px; border-radius: 12px; cursor: pointer; text-align: left;">🔌 Softwarekoppelingen</button>
         </div>
       </div>
 
       <div style="padding: 12px 14px; border-top: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.4); display: flex; gap: 8px;">
-        <input type="text" id="orionx-chat-input" placeholder="Typ uw vraag hier..." onkeydown="if(event.key==='Enter') sendOrionXChatMessage()" style="flex: 1; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 0.85rem; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#06b6d4'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+        <input type="text" id="orionx-chat-input" placeholder="Stel uw zakelijke vraag..." onkeydown="if(event.key==='Enter') sendOrionXChatMessage()" style="flex: 1; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 0.85rem; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#06b6d4'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
         <button id="orionx-chat-send-btn" onclick="sendOrionXChatMessage()" style="background: linear-gradient(135deg, #06b6d4, #14F195); border: none; border-radius: 10px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; cursor: pointer; transition: transform 0.15s ease;">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14-DAGEN PILOT OP FACTUUR ACHTERAF MODAL (€0,- VOORAF) -->
+  <div id="invoice-pilot-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); backdrop-filter: blur(12px); z-index: 100005; align-items: center; justify-content: center; padding: 16px;">
+    <div style="background: linear-gradient(145deg, #0e1222 0%, #060913 100%); border: 1.5px solid rgba(6, 182, 212, 0.4); border-radius: 28px; max-width: 540px; width: 100%; padding: 32px 28px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(6, 182, 212, 0.25); position: relative; text-align: left; max-height: 90vh; overflow-y: auto;">
+      <button onclick="closeInvoicePilotModal()" style="position: absolute; top: 18px; right: 18px; background: transparent; border: none; color: #94a3b8; font-size: 26px; cursor: pointer; line-height: 1;">&times;</button>
+      
+      <!-- Modal Header -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+        <div style="width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(16,185,129,0.2)); border: 1px solid rgba(6,182,212,0.4); display: flex; align-items: center; justify-content: center; font-size: 22px;">
+          📋
+        </div>
+        <div>
+          <div style="font-size: 11px; font-weight: 800; color: #10b981; text-transform: uppercase; letter-spacing: 0.08em;">
+            100% No-Cure-No-Pay • € 0,- Vooruitbetaling
+          </div>
+          <h3 style="font-size: 1.35rem; font-weight: 900; color: #fff; margin: 0; line-height: 1.2;">
+            Start 14-Dagen AI Administratie Pilot
+          </h3>
+        </div>
+      </div>
+
+      <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.45; margin-bottom: 20px;">
+        Wij richten binnen 14 dagen één complete administratieve workflow in binnen uw eigen softwareomgeving. U betaalt vandaag <strong>€ 0,-</strong>. De eenmalige pilotfactuur (€ 495,- ex. btw) volgt pas na afloop bij aantoonbare tevredenheid.
+      </p>
+
+      <!-- The Form -->
+      <form id="invoice-pilot-form" onsubmit="submitInvoicePilot(event)" style="display: flex; flex-direction: column; gap: 12px;">
+        <div>
+          <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Praktijk- of Bedrijfsnaam *</label>
+          <input type="text" id="ipm-company" required placeholder="Bijv. Administratiekantoor Delft of Tandartspraktijk Haaglanden" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Contactpersoon &amp; Functie *</label>
+            <input type="text" id="ipm-contact" required placeholder="Dhr./Mevr. Jansen, Directeur" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Telefoonnummer *</label>
+            <input type="tel" id="ipm-phone" required placeholder="06 / 015 / 070 - 12345678" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Zakelijk E-mailadres *</label>
+            <input type="email" id="ipm-email" required placeholder="naam@uwkantoor.nl" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Huidig Softwarepakket *</label>
+            <input type="text" id="ipm-software" required placeholder="Bijv. Exact, Twinfield, AFAS, Exquise" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Welke workflow wilt u als eerste automatiseren? *</label>
+          <select id="ipm-workflow" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
+            <option value="Inkoopfacturen, UBL & Boekingsvoorstellen (Accountancy / MKB)">Inkoopfacturen, UBL &amp; Boekingsvoorstellen (Accountancy / MKB)</option>
+            <option value="Patiëntintakes, Verwijsbrieven & EPD-extractie (Zorgpraktijk)">Patiëntintakes, Verwijsbrieven &amp; EPD-extractie (Zorgpraktijk)</option>
+            <option value="Klant-onboarding, Dossiercontrole & Documentextractie (Notariaat / Vastgoed)">Klant-onboarding, Dossiercontrole &amp; Documentextractie (Notariaat / Vastgoed)</option>
+            <option value="E-mail Triage, Offertevoorbereiding & Werkbonverwerking">E-mail Triage, Offertevoorbereiding &amp; Werkbonverwerking</option>
+          </select>
+        </div>
+
+        <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 12px; padding: 10px 12px; font-size: 0.73rem; color: #cbd5e1; line-height: 1.4;">
+          ✓ <strong>100% No-Cure-No-Pay Garantie:</strong> U betaalt vandaag € 0,-. Pas na 14 dagen succesvolle proefopstelling ontvangt u de eenmalige factuur van € 495,- ex. btw (betaaltermijn 14 dagen).
+        </div>
+
+        <button type="submit" id="ipm-submit-btn" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%); color: #000; font-weight: 900; font-size: 0.92rem; border-radius: 12px; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); margin-top: 4px;">
+          🚀 Vraag 14-Dagen Pilot Aan (€ 0,- Vandaag)
+        </button>
+      </form>
+
+      <!-- Success State -->
+      <div id="invoice-pilot-success" style="display: none; text-align: center; padding: 16px 8px;">
+        <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 14px auto;">
+          ✓
+        </div>
+        <h4 style="font-size: 1.25rem; font-weight: 900; color: #fff; margin-bottom: 8px;">
+          Uw 14-Dagen Pilot is Geregistreerd!
+        </h4>
+        <p style="font-size: 0.82rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 16px;">
+          Beste <strong id="ipm-success-name" style="color: #fff;"></strong>, uw aanvraag (<span id="ipm-success-id" style="color: #38bdf8; font-family: monospace;"></span>) is bevestigd en per e-mail verstuurd naar <strong id="ipm-success-email" style="color: #10b981;"></strong>.
+        </p>
+        <div style="background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 14px; text-align: left; font-size: 0.78rem; color: #94a3b8; space-y-2; margin-bottom: 18px;">
+          <div style="margin-bottom: 6px; color: #fff; font-weight: 700;">Volgende stappen:</div>
+          <div>1. Wij nemen binnen <strong>4 werkuren</strong> telefonisch contact op via <span id="ipm-success-phone" style="color: #fff;"></span> voor de technische afstemming.</div>
+          <div style="margin-top: 4px;">2. U ontvangt de standaard AVG-verwerkersovereenkomst (DPA).</div>
+          <div style="margin-top: 4px;">3. Binnen 48 uur draait uw eerste workflow in proefopstelling.</div>
+        </div>
+        <button onclick="closeInvoicePilotModal()" style="padding: 10px 24px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 10px; font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+          Venster Sluiten
+        </button>
       </div>
     </div>
   </div>
@@ -590,7 +590,7 @@
       loadingDiv.style.borderRadius = '12px';
       loadingDiv.style.color = '#94a3b8';
       loadingDiv.style.fontSize = '0.8rem';
-      loadingDiv.innerHTML = '⚡ <em>Consultant denkt na...</em>';
+      loadingDiv.innerHTML = '⚡ <em>Adviseur formuleert antwoord...</em>';
       container.appendChild(loadingDiv);
       container.scrollTop = container.scrollHeight;
 
@@ -619,7 +619,6 @@
       }
     }
 
-    // --- 14-DAGEN PILOT OP FACTUUR ACHTERAF MODAL & SUBMIT ---
     function openInvoicePilotModal(initialWorkflow = '') {
       const modal = document.getElementById('invoice-pilot-modal');
       if (modal) modal.style.display = 'flex';
@@ -628,13 +627,12 @@
       const success = document.getElementById('invoice-pilot-success');
       if (success) success.style.display = 'none';
 
-      // Pre-fill from scan form if available
       const scanComp = document.getElementById('inp-company');
-      const scanName = document.getElementById('inp-name');
+      const scanContact = document.getElementById('inp-contact');
       const scanEmail = document.getElementById('inp-email');
       const scanPhone = document.getElementById('inp-phone');
       if (scanComp && scanComp.value) document.getElementById('ipm-company').value = scanComp.value;
-      if (scanName && scanName.value) document.getElementById('ipm-contact').value = scanName.value;
+      if (scanContact && scanContact.value) document.getElementById('ipm-contact').value = scanContact.value;
       if (scanEmail && scanEmail.value) document.getElementById('ipm-email').value = scanEmail.value;
       if (scanPhone && scanPhone.value) document.getElementById('ipm-phone').value = scanPhone.value;
 
@@ -653,7 +651,7 @@
       e.preventDefault();
       const btn = document.getElementById('ipm-submit-btn');
       btn.disabled = true;
-      btn.innerHTML = '<span>⏳</span> Pilot Registreren &amp; DPA Genereren...';
+      btn.innerHTML = '<span>⏳</span> Pilot Registreren &amp; Bevestigen...';
 
       const payload = {
         company: document.getElementById('ipm-company').value,
@@ -661,8 +659,7 @@
         phone: document.getElementById('ipm-phone').value,
         email: document.getElementById('ipm-email').value,
         software: document.getElementById('ipm-software').value,
-        workflow: document.getElementById('ipm-workflow').value,
-        discount: (window.orionxDiscountPercent || 0)
+        workflow: document.getElementById('ipm-workflow').value
       };
 
       try {
@@ -673,122 +670,36 @@
         });
         const data = await res.json();
         
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            'send_to': 'AW-1628768552',
+            'value': 495.0,
+            'currency': 'EUR'
+          });
+        }
+
         document.getElementById('invoice-pilot-form').style.display = 'none';
         document.getElementById('ipm-success-name').textContent = payload.contact;
         document.getElementById('ipm-success-email').textContent = payload.email;
         document.getElementById('ipm-success-id').textContent = data.pilot_id || 'OX-PILOT-BEVESTIGD';
         document.getElementById('ipm-success-phone').textContent = payload.phone;
         document.getElementById('invoice-pilot-success').style.display = 'block';
+        sessionStorage.setItem('orionx_scan_done', 'true');
       } catch (err) {
         alert('Er trad een fout op bij het aanvragen: ' + err);
         btn.disabled = false;
-        btn.innerHTML = '🚀 Activeer Mijn 14-Dagen Pilot (€0,- Vandaag)';
+        btn.innerHTML = '🚀 Vraag 14-Dagen Pilot Aan (€ 0,- Vandaag)';
       }
     }
+
+    // Subtle B2B Exit-Intent: Offer zero-upfront Invoice Pilot if visitor hasn't submitted yet
+    let exitIntentShown = false;
+    document.addEventListener('mouseleave', function(e) {
+      if (e.clientY <= 0 && !exitIntentShown && !sessionStorage.getItem('orionx_scan_done')) {
+        exitIntentShown = true;
+        openInvoicePilotModal();
+      }
+    });
   </script>
-
-  <!-- 14-DAGEN PILOT OP FACTUUR ACHTERAF MODAL (€0,- VOORAF) -->
-  <div id="invoice-pilot-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); backdrop-filter: blur(12px); z-index: 100005; align-items: center; justify-content: center; padding: 16px;">
-    <div style="background: linear-gradient(145deg, #0e1222 0%, #060913 100%); border: 1.5px solid rgba(6, 182, 212, 0.4); border-radius: 28px; max-width: 540px; width: 100%; padding: 32px 28px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(6, 182, 212, 0.25); position: relative; text-align: left; max-height: 90vh; overflow-y: auto;">
-      <button onclick="closeInvoicePilotModal()" style="position: absolute; top: 18px; right: 18px; background: transparent; border: none; color: #94a3b8; font-size: 26px; cursor: pointer; line-height: 1;">&times;</button>
-      
-      <!-- Modal Header -->
-      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
-        <div style="width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(16,185,129,0.2)); border: 1px solid rgba(6,182,212,0.4); display: flex; align-items: center; justify-content: center; font-size: 22px;">
-          📋
-        </div>
-        <div>
-          <div style="font-size: 11px; font-weight: 800; color: #10b981; text-transform: uppercase; letter-spacing: 0.08em;">
-            14-Dagen Risicovrije Proefopstelling
-          </div>
-          <h3 style="font-size: 1.35rem; font-weight: 900; color: #fff; margin: 0; line-height: 1.2;">
-            Start Pilot op Factuur Achteraf
-          </h3>
-        </div>
-      </div>
-
-      <p style="font-size: 0.8rem; color: #94a3b8; line-height: 1.45; margin-bottom: 20px;">
-        Ervaar de concrete tijdwinst binnen uw praktijk of organisatie. <strong>€0,- vandaag</strong>. U betaalt pas na 14 dagen tevredenheid conform onze 100% no-cure-no-pay garantie.
-      </p>
-
-      <!-- The Form -->
-      <form id="invoice-pilot-form" onsubmit="submitInvoicePilot(event)" style="display: flex; flex-direction: column; gap: 12px;">
-        <div>
-          <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Praktijk- of Bedrijfsnaam *</label>
-          <input type="text" id="ipm-company" required placeholder="Bijv. Medisch Centrum Delft of Slof &amp; Van der Meer" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-          <div>
-            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Contactpersoon &amp; Functie *</label>
-            <input type="text" id="ipm-contact" required placeholder="Dhr./Mevr. Jansen, Praktijkhouder" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
-          </div>
-          <div>
-            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Telefoonnummer *</label>
-            <input type="tel" id="ipm-phone" required placeholder="06 - 12345678" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
-          </div>
-        </div>
-
-        <div>
-          <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Zakelijk E-mailadres (voor DPA &amp; Bevestiging) *</label>
-          <input type="email" id="ipm-email" required placeholder="directie@uwbedrijf.nl" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: #fff; outline: none;">
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-          <div>
-            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Huidig Systeem / EPD *</label>
-            <select id="ipm-software" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 12px; font-size: 0.8rem; color: #fff; outline: none;">
-              <option value="Medicom / PharmaCom">Medicom / PharmaCom</option>
-              <option value="Exquise / Simplex">Exquise / Simplex (Tandarts)</option>
-              <option value="Intramed / SpotOnMedics">Intramed / SpotOnMedics (Fysio)</option>
-              <option value="Exact Online / Twinfield">Exact Online / Twinfield (MKB)</option>
-              <option value="Afas / Visma">Afas / Visma</option>
-              <option value="Anders / Eigen Systeem">Anders / Eigen Systeem</option>
-            </select>
-          </div>
-          <div>
-            <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Focus Workflow *</label>
-            <select id="ipm-workflow" style="width: 100%; background: #080b15; border: 1px solid #1e293b; border-radius: 10px; padding: 10px 12px; font-size: 0.8rem; color: #fff; outline: none;">
-              <option value="Telefoonaanname &amp; Triage">Telefoonaanname &amp; Triage</option>
-              <option value="Dossier- &amp; E-mailverwerking">Dossier- &amp; E-mailverwerking</option>
-              <option value="Facturatie &amp; No-Show Reductie">Facturatie &amp; No-Show Reductie</option>
-              <option value="Volledige Praktijkautomatisering">Volledige Praktijkautomatisering</option>
-            </select>
-          </div>
-        </div>
-
-        <button type="submit" id="ipm-submit-btn" style="width: 100%; margin-top: 10px; padding: 14px; border: none; border-radius: 12px; background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%); color: #000; font-weight: 900; font-size: 0.92rem; cursor: pointer; box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3); transition: opacity 0.2s;">
-          🚀 Activeer Mijn 14-Dagen Pilot (€0,- Vandaag)
-        </button>
-
-        <!-- Trust Features -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 0.72rem; color: #94a3b8; margin-top: 8px;">
-          <div style="display: flex; align-items: center; gap: 4px;"><span style="color: #10b981;">✓</span> Geen automatische verlenging</div>
-          <div style="display: flex; align-items: center; gap: 4px;"><span style="color: #10b981;">✓</span> 100% No-Cure-No-Pay</div>
-          <div style="display: flex; align-items: center; gap: 4px;"><span style="color: #06b6d4;">✓</span> NEN 7510 &amp; AVG DPA inbegrepen</div>
-          <div style="display: flex; align-items: center; gap: 4px;"><span style="color: #06b6d4;">✓</span> Binnen 4 uur intake contact</div>
-        </div>
-      </form>
-
-      <!-- Success Screen -->
-      <div id="invoice-pilot-success" style="display: none; text-align: center; padding: 16px 0;">
-        <div style="width: 56px; height: 56px; border-radius: 20px; background: rgba(16, 185, 129, 0.2); border: 1.5px solid #10b981; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 28px;">
-          🎉
-        </div>
-        <h4 style="font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 8px;">Pilot Succesvol Aangevraagd!</h4>
-        <p style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 18px;">
-          Hartelijk dank, <strong id="ipm-success-name" style="color: #06b6d4;"></strong>! We hebben de bevestiging en NEN 7510/AVG Verwerkersovereenkomst klaargezet en verzonden naar <strong id="ipm-success-email" style="color: #10b981;"></strong>.
-        </p>
-        <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 14px; font-size: 0.78rem; color: #94a3b8; text-align: left; margin-bottom: 18px;">
-          <div>• <strong>Referentie:</strong> <span id="ipm-success-id" style="font-family: monospace; color: #fff;"></span></div>
-          <div style="margin-top: 4px;">• <strong>Intake:</strong> Onze senior adviseur belt u binnen 4 werkuren op <span id="ipm-success-phone" style="color: #fff;"></span> voor de software-afstemming.</div>
-        </div>
-        <button onclick="closeInvoicePilotModal()" style="padding: 10px 24px; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: transparent; color: #fff; font-size: 0.8rem; font-weight: 700; cursor: pointer;">
-          Venster Sluiten
-        </button>
-      </div>
-
-    </div>
-  </div>
 </body>
 </html>
